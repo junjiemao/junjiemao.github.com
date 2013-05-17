@@ -1,0 +1,4 @@
+---
+---
+{% assign theme_asset_path = "/assets/themes/jade" %}
+{% include themes/jade/default.html %}

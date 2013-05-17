@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+        <title>Mao's An Optimism</title>
+        <description>Mao's An Optimism - HatMarix</description>
+        <link>http://junjiemao.github.com</link>
+        <link>http://junjiemao.github.com</link>
+        <lastBuildDate>2013-05-17T20:19:49+08:00</lastBuildDate>
+        <pubDate>2013-05-17T20:19:49+08:00</pubDate>
+        <ttl>1800</ttl>
+
+
+        <item>
+                <title>测试</title>
+                <description>&lt;p&gt;这是第一篇文章 测试测试测试&lt;/p&gt;
+
+&lt;h1 id=&#39;id1&#39;&gt;一级标题&lt;/h1&gt;
+
+&lt;h2 id=&#39;id2&#39;&gt;二级标题&lt;/h2&gt;
+
+&lt;h3 id=&#39;id3&#39;&gt;三级标题&lt;/h3&gt;
+
+&lt;p&gt;我要写写什么了&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;ruby&#39;&gt;&lt;span class=&#39;lineno&#39;&gt;1&lt;/span&gt; &lt;span class=&#39;k&#39;&gt;def&lt;/span&gt; &lt;span class=&#39;nf&#39;&gt;foo&lt;/span&gt;
+&lt;span class=&#39;lineno&#39;&gt;2&lt;/span&gt;   &lt;span class=&#39;nb&#39;&gt;puts&lt;/span&gt; &lt;span class=&#39;s1&#39;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;
+&lt;span class=&#39;lineno&#39;&gt;3&lt;/span&gt; &lt;span class=&#39;k&#39;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;&lt;span class=&#39;lineno&#39;&gt;1&lt;/span&gt; foo &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;kr&#39;&gt;function&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;()&lt;/span&gt;
+&lt;span class=&#39;lineno&#39;&gt;2&lt;/span&gt; &lt;span class=&#39;p&#39;&gt;{&lt;/span&gt;
+&lt;span class=&#39;lineno&#39;&gt;3&lt;/span&gt;    cat&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;span class=&#39;lineno&#39;&gt;4&lt;/span&gt; &lt;span class=&#39;p&#39;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;$$x^2+y^2=x^2$$&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;全心全意为人民服务&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img alt=&#39;图片展示&#39; src=&#39;http://farm8.staticflickr.com/7283/8745158830_5d90371b3c.jpg&#39; /&gt;&lt;/p&gt;</description>
+                <link>http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/test</link>
+                <guid>http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/test</guid>
+                <pubDate>2013-05-17T00:00:00+08:00</pubDate>
+        </item>
+
+
+</channel>
+</rss>
