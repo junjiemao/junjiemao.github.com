@@ -385,6 +385,30 @@ border: 0.5em solid rgb(255, 255, 255);
 text-align:centre; //居中
 }
 
+/*blockquote*/
+blockquote p {
+font: 12px;
+width: 400px;
+padding-left: 18px;
+text-indent: -18px;
+}
+blockquote p:first-letter {
+background: url(/assets/images/icons/open-quote.gif) no-repeat left top;
+padding-left: 18px;
+padding-top: 12px;
+font: italic 26px;
+}
+blockquote p ~ p:first-letter {
+font: normal 12px;
+background: none;
+}
+blockquote {
+color: #777;
+padding-top: 6px;
+padding-bottom: 10px;
+background: url(/assets/images/icons/close-quote.gif) no-repeat right bottom;
+}
+
 
 
 

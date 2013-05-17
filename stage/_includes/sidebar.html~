@@ -1,17 +1,12 @@
 <div id="custom_sidebar">
   
-  <img src="http://www.gravatar.com/avatar/cae59ed433ef26f560841e07900a684a.png" alt="self" id="me">
+  <img src="http://www.gravatar.com/avatar/cae59ed433ef26f560841e07900a684a?s=160" alt="self" id="me">
   
   <h5>HatMatrix</h5>
   <p>
-    巴拉巴拉。自我介绍
-	</p>
-
-	<h5>目的</h5>
-	<p>
-		巴拉巴拉，建立博客的目的
-	</p>
-	<h5>Contact</h5>
+    R、Python、Linux脑残粉，Google重度依赖者，轻度代码洁癖。现在为某待知名软件公司首席保洁员，急需脑补各种知识，随时准备升级为扫地僧。
+  </p>
+	<h5>联系我</h5>
 	
   <ul id="contact_list">
     <li>
