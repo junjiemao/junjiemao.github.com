@@ -4,13 +4,325 @@
  <title>Mao's An Optimism</title>
  <link href="http://junjiemao.github.com/" rel="self"/>
  <link href="http://junjiemao.github.com"/>
- <updated>2013-05-18T22:33:58+08:00</updated>
+ <updated>2013-05-20T22:41:50+08:00</updated>
  <id>http://junjiemao.github.com</id>
  <author>
    <name>HatMarix</name>
    <email>maojunj1989@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Rstudio快捷建速查</title>
+   <link href="http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio"/>
+   <updated>2013-05-20T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio</id>
+   <content type="html">&lt;p&gt;手不离键盘是我们的追求，这也是我学习使用Emacs的主要原因之一，虽然很享受Emacs那种学会一招大小通吃的感觉，即使学习曲线陡了一点也还是值得的。但是Rstudio的吸引力实在太大了，使得我不得不放弃Emacs的ESS而投奔她。为了达到手不离键盘的程度，决定学习下快捷键，当我打开帮助文档的那一刹那惊呆了——怎么能有这么多快捷键，怎么能这么没规律！现在想想Emcas还是很人性的。以下是在尝试使用的时候记录下来的对键位的描述，其实就是对英文文档的简单翻译，自己记录下来留用。需要注意的是，无论在Windows下还是在Linux下，都会有少数几个快捷键会和系统快捷键冲突。我是没找到在Rstudio中设置快捷键的地方，如果需要只能把系统快捷键换了。&lt;/p&gt;
+
+&lt;h1 id=&#39;id5&#39;&gt;控制台&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;描述&lt;/td&gt;
+&lt;td&gt;键位(Windows和Linux)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标移动到控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;清除控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;移动光标到行首&lt;/td&gt;
+&lt;td&gt;Home&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;移动光标到行尾&lt;/td&gt;
+&lt;td&gt;End&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;调出以前使用过的命令&lt;/td&gt;
+&lt;td&gt;上箭头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;弹出历史命令的菜单&lt;/td&gt;
+&lt;td&gt;Ctrl+上箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;中断当前正在执行的命令&lt;/td&gt;
+&lt;td&gt;Esc&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;改变工作目录&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+K&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#39;id6&#39;&gt;源代码编辑区&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;描述&lt;/td&gt;
+&lt;td&gt;键位(Windows和Linux)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳到上方的前往文件和函数的搜索框&lt;/td&gt;
+&lt;td&gt;Ctrl+.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使光标移向源文件编辑区&lt;/td&gt;
+&lt;td&gt;Ctrl+1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;新建文件(在Windows和Chrome中不起作用)&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+N&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;打开文件&lt;/td&gt;
+&lt;td&gt;Ctrl+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;保存文件&lt;/td&gt;
+&lt;td&gt;Ctrl+S&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭当前文件（Chrome中不起作用）&lt;/td&gt;
+&lt;td&gt;Ctrl+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭当前文件（仅在Chrome中其作用）&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭所有打开的文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;预览HTML&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Y&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使用Knitr转换成HTML&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+H&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;编译PDF&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;插入chunk（Sweave和Knitr）&lt;/td&gt;
+&lt;td&gt;Ctrl+Atl+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;插入代码段&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前行或者选择的行&lt;/td&gt;
+&lt;td&gt;Ctrl+Enter&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;再次运行上次选择的块&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;从文件开头运行到该行&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+B&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;从该行运行到文件结束&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+E&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前函数的定义部分&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前的Sweave快&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+C&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;运行下一个Sweave块&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+N&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载一个文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载当前文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+S&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载当前文件，不输出结果&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Enter&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;折叠选择的代码&lt;/td&gt;
+&lt;td&gt;ALt+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展开折叠的代码&lt;/td&gt;
+&lt;td&gt;Alt+Shift+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;折叠左右代码&lt;/td&gt;
+&lt;td&gt;Alt+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展开所有代码&lt;/td&gt;
+&lt;td&gt;Alt+Shift+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;想要达到的行&lt;/td&gt;
+&lt;td&gt;Shift+Alt+G&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳转到&lt;/td&gt;
+&lt;td&gt;Shift+Alt+J&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;切换到选项卡&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+Down(Linux会和默认的系统快捷键冲突)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;上一个选项卡&lt;/td&gt;
+&lt;td&gt;Ctrl+PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;下一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+PageDown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;第一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+Alt+Left&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;最后一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+Alt+Right&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选项卡向后导航&lt;/td&gt;
+&lt;td&gt; Ctrl+F9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt; 选项卡想钱导航&lt;/td&gt;
+&lt;td&gt; Ctrl+F10&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;把选择的代码提取为一个函数&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+U&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;行缩进进行整理代码 &lt;/td&gt;
+&lt;td&gt;Ctrl+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt; 注释/消除注释当前行或者所选代码&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+C&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;回流注释（不知道什么意思）&lt;/td&gt;
+&lt;td&gt;Shift+Ctrl+/ &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;上下移动整行 &lt;/td&gt;
+&lt;td&gt;Alt+上肩头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;复制行&lt;/td&gt;
+&lt;td&gt; Shift+Alt+上箭头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳转到匹配的括号&lt;/td&gt;
+&lt;td&gt; Ctrl+P&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找替换&lt;/td&gt;
+&lt;td&gt; Ctrl+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找上一个&lt;/td&gt;
+&lt;td&gt;Shift+F3(Windows);Ctrl+Shift+G(Linux) &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找下一个&lt;/td&gt;
+&lt;td&gt; F3（Windows）；Ctrl+G&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;在文件中寻找&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;检查拼写（需要字典的支持）&lt;/td&gt;
+&lt;td&gt; F7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;未完，头晕了，比学Emacs的时候还有郁闷，明天继续。&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>我又回来了</title>
