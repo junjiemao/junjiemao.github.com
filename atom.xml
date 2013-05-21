@@ -4,7 +4,7 @@
  <title>Mao's An Optimism</title>
  <link href="http://junjiemao.github.com/" rel="self"/>
  <link href="http://junjiemao.github.com"/>
- <updated>2013-05-20T22:41:50+08:00</updated>
+ <updated>2013-05-21T23:19:54+08:00</updated>
  <id>http://junjiemao.github.com</id>
  <author>
    <name>HatMarix</name>
@@ -13,7 +13,7 @@
 
  
  <entry>
-   <title>Rstudio快捷建速查</title>
+   <title>Rstudio快捷键速查</title>
    <link href="http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio"/>
    <updated>2013-05-20T00:00:00+08:00</updated>
    <id>http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio</id>
@@ -321,7 +321,243 @@
 &lt;tr&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
-&lt;p&gt;未完，头晕了，比学Emacs的时候还有郁闷，明天继续。&lt;/p&gt;</content>
+&lt;h1 id=&#39;id7&#39;&gt;在控制台和源码编辑器中编辑&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;撤消&lt;/td&gt;
+&lt;td&gt;Ctrl+Z&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;回到撤消前&lt;/td&gt;
+&lt;td&gt;Crtrl+Shift+Z&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;剪切&lt;/td&gt;
+&lt;td&gt;Ctrl+X（这个吐槽下，由于用Emacs的习惯，总是Ctrl-X-Ctrl-S保存）&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;拷贝&lt;/td&gt;
+&lt;td&gt;Ctrl+C&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;粘贴&lt;/td&gt;
+&lt;td&gt;Ctrl+V&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;全选&lt;/td&gt;
+&lt;td&gt;Ctrl+A&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;按词为单位跳动&lt;/td&gt;
+&lt;td&gt;Ctrl+左/右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳到开头/结尾&lt;/td&gt;
+&lt;td&gt;Ctrl+Home/End&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;删除行&lt;/td&gt;
+&lt;td&gt;Ctrl+D&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择&lt;/td&gt;
+&lt;td&gt;Shift+箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择单词&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+左/右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;选择到行首&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+左箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择到行尾&lt;/td&gt;
+&lt;td&gt;Ctrl+ALt+右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;向下/上选择页&lt;/td&gt;
+&lt;td&gt;Shift+PageDown/PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择到文章开始/结束&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Home/End&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;删除左边的单词&lt;/td&gt;
+&lt;td /&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;缩进&lt;/td&gt;
+&lt;td&gt;Tab&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;凸出&lt;/td&gt;
+&lt;td&gt;Shift+Tab&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使得光标处的文字移到行开头&lt;/td&gt;
+&lt;td&gt;Ctrl+U&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;使得光标处的文字移到行结尾&lt;/td&gt;
+&lt;td&gt;Ctrl+K&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;召回当前Yank(怎么翻译)的文字（有点Emacs的味道哦）&lt;/td&gt;
+&lt;td&gt;Ctrl+Y&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;插入赋值符号&lt;/td&gt;
+&lt;td&gt;Ctrl+-(这个对=控没什么用)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示函数的帮助&lt;/td&gt;
+&lt;td&gt;F1(很有用，除非你是骨灰级高手，要不然帮组还是要看的)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;展示函数的源代码&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;F2(不解释，谁用谁知道)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#39;id8&#39;&gt;补全&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;尝试补全&lt;/td&gt;
+&lt;td&gt;Tab或者Ctrl+Space&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;候选项导航&lt;/td&gt;
+&lt;td&gt;上/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择待选项&lt;/td&gt;
+&lt;td&gt;Enter或者Tab或者右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;取消候选菜单&lt;/td&gt;
+&lt;td&gt;Esc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#39;id9&#39;&gt;浏览&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;把光标焦点移动到源代码编辑框&lt;/td&gt;
+&lt;td&gt;Ctrl+1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标焦点移动到控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标移动到帮组文档中&lt;/td&gt;
+&lt;td&gt; Ctrl+3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展现历史命令&lt;/td&gt;
+&lt;td&gt; Ctrl+4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示文件 &lt;/td&gt;
+&lt;td&gt; Ctrl+5&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;展示图像 &lt;/td&gt;
+&lt;td&gt;Ctrl+6 &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示包&lt;/td&gt;
+&lt;td&gt; Ctrl+7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示工作空间 &lt;/td&gt;
+&lt;td&gt; Ctrl+8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;战士Git或者SVN &lt;/td&gt;
+&lt;td&gt;Ctrl+9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;同步编辑或者PDF预览&lt;/td&gt;
+&lt;td&gt;Ctrl+F8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#39;id10&#39;&gt;构建&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;构建和重新加载&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+B&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载全部&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;检查包&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+E&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+&lt;h1 id=&#39;id11&#39;&gt;画图&lt;/h1&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;预览图像&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;下一副图像&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+PageDown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+&lt;p&gt;未完，头晕了，比学Emacs的时候还有郁闷，明天继续（2013/5/20）。&lt;/p&gt;
+
+&lt;p&gt;完，多练习（2013/5/21）。&lt;/p&gt;</content>
  </entry>
  
  <entry>
