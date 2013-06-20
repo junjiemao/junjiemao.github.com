@@ -9,7 +9,8 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Mao's An Optimism
+title : Mao's An Optimist
+
 tagline: Site Tagline
 author : 
   name : HatMarix
