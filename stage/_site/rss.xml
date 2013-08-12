@@ -5,13 +5,13 @@
         <description>Mao's An Optimist - HatMarix</description>
         <link>http://junjiemao.github.com</link>
         <link>http://junjiemao.github.com</link>
-        <lastBuildDate>2013-08-12T16:39:48+08:00</lastBuildDate>
-        <pubDate>2013-08-12T16:39:48+08:00</pubDate>
+        <lastBuildDate>2013-08-12T16:48:15+08:00</lastBuildDate>
+        <pubDate>2013-08-12T16:48:15+08:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
-                <title>R中使用正则表达式(1)</title>
+                <title>R中使用正则表达式（1）</title>
                 <description>&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
 
 &lt;p&gt;以下主要参考的是Ben Forta的《正则表达式必知必会》的中文版，其他的正则表达式的教材大多很厚，到现在为止我就发现这本比较靠谱，希望大家有更加好的可以给我推荐，谢谢。&lt;/p&gt;
