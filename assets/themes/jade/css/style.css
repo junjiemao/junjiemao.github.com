@@ -420,4 +420,8 @@ background: url(/assets/images/icons/close-quote.gif) no-repeat right bottom;
 /*overwrite img*/
 
 
+[alt=center] {
+  display: block;
+  margin: auto;
+}
 

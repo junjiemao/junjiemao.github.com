@@ -4,13 +4,327 @@
  <title>Mao's An Optimist</title>
  <link href="http://junjiemao.github.com/" rel="self"/>
  <link href="http://junjiemao.github.com"/>
- <updated>2013-06-20T19:12:11+08:00</updated>
+ <updated>2013-08-12T16:39:48+08:00</updated>
  <id>http://junjiemao.github.com</id>
  <author>
    <name>HatMarix</name>
    <email>maojunj1989@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>R中使用正则表达式(1)</title>
+   <link href="http://junjiemao.github.com/r/2013/08/12/regular-expression-in-r-1"/>
+   <updated>2013-08-12T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/r/2013/08/12/regular-expression-in-r-1</id>
+   <content type="html">&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
+
+&lt;p&gt;以下主要参考的是Ben Forta的《正则表达式必知必会》的中文版，其他的正则表达式的教材大多很厚，到现在为止我就发现这本比较靠谱，希望大家有更加好的可以给我推荐，谢谢。&lt;/p&gt;
+
+&lt;h1 id=&#39;r&#39;&gt;R中怎么使用正则表达式&lt;/h1&gt;
+
+&lt;p&gt;在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;regexec&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; ignore.case &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;FALSE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; fixed &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;FALSE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; useBytes &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;FALSE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;span class=&#39;c1&#39;&gt;# pattern就是我们要写的正则表达式 text是需要处理的文本&lt;/span&gt;
+&lt;span class=&#39;c1&#39;&gt;# ignore.case表示是不是忽略大小写&lt;/span&gt;
+&lt;span class=&#39;c1&#39;&gt;# fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&amp;#39;.&amp;#39;之类的字符当作实义字符&lt;/span&gt;
+&lt;span class=&#39;c1&#39;&gt;# useBytes 暂时没有使用过&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;接下来都是在grep上使用正则表达式，其他的都是差不多的。&lt;/p&gt;
+
+&lt;h1 id=&#39;r&#39;&gt;R中使用正则表达式实战&lt;/h1&gt;
+
+&lt;h2 id=&#39;id12&#39;&gt;匹配纯文本&lt;/h2&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;Hello ,my name is Ben.Please visit my website&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; regexec&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;Ben&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;Ben&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;&lt;span class=&#39;c1&#39;&gt;# 全局匹配&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; regexec&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;my&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#注意只是给出第一个匹配的，要全局匹配需要使用gregexpr&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;my&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot; &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;&lt;span class=&#39;c1&#39;&gt;# 不考虑字母大小写&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;My&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; ignore.case &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot; &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id13&#39;&gt;匹配任意字符&lt;/h2&gt;
+
+&lt;p&gt;正则表达式中使用点(.)来匹配一个 &lt;strong&gt;一个或者多个&lt;/strong&gt; 字符，可以匹配任意单个字符串，包括点(.)本身。&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;&lt;span class=&#39;c1&#39;&gt;# 点(.)可以连着使用也可以分开使用&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;.a.&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;.a..&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id14&#39;&gt;匹配特殊字符&lt;/h2&gt;
+
+&lt;p&gt;匹配特殊字符需要进行转义，转义一般使用\，但是在R中我们使用\来表示，这个是需要注意的。还有一个需要注意的就是如果比需要表示\也是需要转义的。&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;.a.\\.&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;na1.xls&amp;quot; &amp;quot;na2.xls&amp;quot; &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;a\\d&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;acd&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;dsa&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;a\\\\&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#需要注意在R中，\本身是要用\\表示的&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;a\\d&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id15&#39;&gt;匹配一组字符&lt;/h2&gt;
+
+&lt;p&gt;我们需要的几个字符中的任意一个&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;span class=&#39;c1&#39;&gt;# 我们需要sa开是和na开始的&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;[sn]a.\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;na1.xls&amp;quot; &amp;quot;na2.xls&amp;quot; &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;The phrase regullar expression is often abbreciated as RegEx or regex&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;[Rr]eg[Ee]x&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;RegEx&amp;quot; &amp;quot;regex&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id16&#39;&gt;利用字符区间&lt;/h2&gt;
+
+&lt;p&gt;使用集合的时候对于有规律的我们可以使用区间来表示&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..[0123456789]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..[0-9]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..[0-2]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales2.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  &amp;quot;na1.xls&amp;quot;    &amp;quot;na2.xls&amp;quot;    &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里只要是开始和结尾是合法的ASCII字符都是可以的，不过常用的还是字符区间和数字区间。&lt;/p&gt;
+
+&lt;h2 id=&#39;id17&#39;&gt;取非匹配&lt;/h2&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sam.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..[^0123456789]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales.xls&amp;quot; &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;[ns]a[^0-9]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id18&#39;&gt;匹配空白字符&lt;/h2&gt;
+
+&lt;p&gt;空白字符有换页符\f，换行符\n，回车符\r，制表符\t，垂直制表符\v。 在匹配的时候记得转义就好了&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;I am Justin\nHello   world\n&amp;quot;&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#在justin和world之间换行了&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\n.*&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;\nHello   world\n&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id19&#39;&gt;匹配特定的字符类型&lt;/h2&gt;
+
+&lt;h3 id=&#39;id20&#39;&gt;匹配数字&lt;/h3&gt;
+
+&lt;p&gt;可以使用&lt;span&gt;0-9&lt;/span&gt;来匹配数字，也可以使用\d来匹配数字使用\D来匹配非数字,但是在R中我们要使用\d和\D来替代&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;x &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;&lt;span class=&#39;s&#39;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    &lt;span class=&#39;s&#39;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;sam.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..\\d\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;grep&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;..\\D\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; x&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; value &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;sales.xls&amp;quot; &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#39;id21&#39;&gt;匹配字母和数字&lt;/h3&gt;
+
+&lt;p&gt;匹配所有的字母和数字，用\w表示，等价于&lt;span&gt;0-9a-zA-Z&lt;/span&gt;我们用\W表示非字母和数字。&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\n11213\nA1C2E3\n48075\nM184F2\n90046\nH1H2H2\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\w\\d\\w\\d\\w\\d&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;A1C2E3&amp;quot; &amp;quot;M184F2&amp;quot; &amp;quot;H1H2H2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#39;id22&#39;&gt;匹配空白字符&lt;/h3&gt;
+
+&lt;p&gt;\s，包含我们上面提到的所有的空白字符&lt;/p&gt;
+
+&lt;h3 id=&#39;id23&#39;&gt;匹配十六进制和八进制数值&lt;/h3&gt;
+
+&lt;p&gt;使用\x0后跟十六进制数，\0后面跟八进制数&lt;/p&gt;
+
+&lt;h2 id=&#39;posix&#39;&gt;使用POSIX字符类&lt;/h2&gt;
+
+&lt;p&gt;可以在R的帮助文档查看那些可以使用的&lt;/p&gt;
+
+&lt;h2 id=&#39;id24&#39;&gt;匹配一个或者多个字符&lt;/h2&gt;
+
+&lt;p&gt;使用加号(&amp;#8221;+&amp;#8221;)来匹配一个或者多个字符&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;Send personal emain to ben@forta.com or spam@gmail.com&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\w+@\\w+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;ben@forta.com&amp;quot;  &amp;quot;spam@gmail.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id25&#39;&gt;匹配零个或者多个字符&lt;/h2&gt;
+
+&lt;p&gt;使用星号(&lt;em&gt;)来匹配零个或者多个字符&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;Hello ben@forta.com is my email address&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\w+[\\w.]*@\\w+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;ben@forta.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id26&#39;&gt;匹配零个或者一个字符&lt;/h2&gt;
+
+&lt;p&gt;使用问号(?)来匹配零个或者一个字符&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;The URL is http://www.forta.com/,to connec securely use https://www.forta.com/ instead&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;https?://[\\w./]+&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#注意perl参数的设置的结果的差异&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;http://www.forta.com/&amp;quot;  &amp;quot;https://www.forta.com/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id27&#39;&gt;重复精确的次数&lt;/h2&gt;
+
+&lt;p&gt;用大括号({})中写上数字来表示重复的次数&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;BOdy BGCOLOR=\&amp;quot;#336633\&amp;quot;,TEXT=\&amp;quot;#FFFFFF\&amp;quot;,MARGINWIDTH=\&amp;quot;0\&amp;quot;&amp;gt;&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;[[:xdigit:]]{6}&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;336633&amp;quot; &amp;quot;FFFFFF&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id28&#39;&gt;为重复设置一个区间&lt;/h2&gt;
+
+&lt;p&gt;用大括号中写上范围({2,5})表示写重复的次数的范围&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;4/8/03\n10-6-2004\n2/2/2\n01-01-01\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\d{1,2}[-/]\\d{1,2}[-/]\\d{2,4}&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;4/8/03&amp;quot;    &amp;quot;10-6-2004&amp;quot; &amp;quot;01-01-01&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id29&#39;&gt;至少重复的次数&lt;/h2&gt;
+
+&lt;p&gt;使用{3,}表示至少重复3次&lt;/p&gt;
+
+&lt;h2 id=&#39;id30&#39;&gt;单词边界&lt;/h2&gt;
+
+&lt;p&gt;使用\b表示单词的边界,\B表示不匹配边界&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;The cat scattered his foof all over the room&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;cat&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;cat&amp;quot; &amp;quot;cat&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\bcat\\b&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;cat&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id31&#39;&gt;字符串边界&lt;/h2&gt;
+
+&lt;p&gt;使用乘方符号(^)和美元符号($)来表示首尾。&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;This is bad,real bad.  &amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt; &amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\s*&amp;lt;\\?xml.*\\?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;  &amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;^\\s*&amp;lt;\\?xml.*\\?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#这样可以检验出不合法的xml文档&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id32&#39;&gt;分行匹配模式&lt;/h2&gt;
+
+&lt;p&gt;在分行模式下，还将匹配换行符后面的内容，使用分行模式需要使用(?m)来完成。&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot; %InLiNe_IdEnTiFiEr% \&amp;quot;#include&amp;lt;stdio.h&amp;gt;\&amp;quot;\n//ptrint Hello world\nint main()\n{\n//begin\nprintf(%,\&amp;quot;Hello world\&amp;quot;);\nreturn 0;\n//end\n}\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;^\\s*//.*$&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;(?m)^\\s*//.*$&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;//ptrint Hello world&amp;quot; &amp;quot;//begin&amp;quot;              &amp;quot;//end&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id33&#39;&gt;子表达式&lt;/h2&gt;
+
+&lt;p&gt;据一个例子来说明子表达式什么，比如我们处理&amp;#8221;hellohellohello world hello world&amp;#8221;这句话的时候我们想把其中的hello连在一起达到两次或者两次以上的字符串找出来，于是我们使用&lt;code&gt;hello{2,}&lt;/code&gt;，但是发现出来的结果和我们想要的有很大的差距，因为表示次数的式子只对离着最近的一个字母起作用。我们想要达到预想的效果需要把hello当作是一个整体，这个时候我们就需要用到子表达式。&lt;/p&gt;
+
+&lt;p&gt;在正则表达式中，子表达式使用（）括起来就可以了，看下面的例子：&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;hellohellohello world hello world&amp;quot;&lt;/span&gt;
+
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;hello{2,}&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;(hello){2,}&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;hellohellohello&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#39;id34&#39;&gt;子表达式的嵌套&lt;/h3&gt;
+
+&lt;p&gt;通过一个找出有效IP地址的例子中了解子表达式的嵌套，合法的IP必须满足数字小于255，我们看下面的例子:&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;ping 167.42.223.4 and 56.256.2.3&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;(((\\d{1,2})|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))\\.){3}((\\d{1,2})|(1\\d{2})|(a[0-4]\\d)|(25[0-5]))&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;167.42.223.4&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id35&#39;&gt;回溯引用&lt;/h2&gt;
+
+&lt;p&gt;回溯应用是对于子表达式来说的，简单的就是我们用一个符号来表示前面出现过的子表达式。通过下面的应用场合来了解，我们需要找出所有的标题：&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;BODY&amp;gt;\n&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;\nBababallll~~~\n&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;\nmiaomimaomi~~~~~\n&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;\nwangwangwang~~~\n&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;\n&amp;lt;BODY&amp;gt;&amp;quot;&lt;/span&gt;
+
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;[hH][1-4]&amp;gt;.*?&amp;lt;/[hH][1-4]&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#懒惰型&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#貌似可以工作，但是不通用&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;&amp;quot; &amp;quot;&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;&amp;quot; &amp;quot;&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;&amp;quot; &amp;quot;&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;[hH][1-4]&amp;gt;.*&amp;lt;/[hH][1-4]&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;  &lt;span class=&#39;c1&#39;&gt;#贪婪型&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;\nBababallll~~~\n&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;\nmiaomimaomi~~~~~\n&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;\nwangwangwang~~~\n&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;[hH]([1-4])&amp;gt;.*&amp;lt;/[hH]\\1&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;&amp;quot; &amp;quot;&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;&amp;quot; &amp;quot;&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;&amp;quot; &amp;quot;&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#39;id36&#39;&gt;回溯引用在替代中的使用&lt;/h2&gt;
+
+&lt;p&gt;直接看下面的例子:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;balabala~~~  gmail@gmail.com miaomiaomaio~~&amp;quot;&lt;/span&gt;
+m &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; text &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; m &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; m&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [[1]]
+## [1] &amp;quot;gmail@gmail.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;sub&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;(\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+)&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; replacement &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;&amp;lt;A HREF=\\\&amp;quot;mailto:\\1\\\&amp;quot;&amp;gt;\\1&amp;lt;/A&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## [1] &amp;quot;balabala~~~  &amp;lt;A HREF=\&amp;quot;mailto:gmail@gmail.com\&amp;quot;&amp;gt;gmail@gmail.com&amp;lt;/A&amp;gt; miaomiaomaio~~&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意R中sub和gsub（sub的全局版本）函数的使用。下面再看一个对电话号码重新排序的问题：&lt;/p&gt;
+&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;r&#39;&gt;text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;324-245-2521\n324-255-6156&amp;quot;&lt;/span&gt;
+text &lt;span class=&#39;o&#39;&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;pattern &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;(\\d{3})(-)(\\d{3})(-)(\\d{4})&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; replacement &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;s&#39;&gt;&amp;quot;\\(\\1\\) \\3-\\5&amp;quot;&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; 
+    x &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; text&lt;span class=&#39;p&#39;&gt;,&lt;/span&gt; perl &lt;span class=&#39;o&#39;&gt;=&lt;/span&gt; &lt;span class=&#39;kc&#39;&gt;TRUE&lt;/span&gt;&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+cat&lt;span class=&#39;p&#39;&gt;(&lt;/span&gt;text&lt;span class=&#39;p&#39;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#39;highlight&#39;&gt;&lt;pre&gt;&lt;code class=&#39;text&#39;&gt;## (324) 245-2521
+## (324) 255-6156
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
  
  <entry>
    <title>Rstudio快捷键速查</title>
