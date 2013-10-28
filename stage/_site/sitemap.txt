@@ -8,6 +8,7 @@ http://junjiemao.github.com/categories.html
 http://junjiemao.github.com/index.html
 http://junjiemao.github.com/archive.html
 
+http://junjiemao.github.com/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028
 http://junjiemao.github.com/r/2013/08/12/regular-expression-in-r-1
 http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio
 http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/wo-you-hui-lai-le

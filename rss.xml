@@ -5,10 +5,28 @@
         <description>Mao's An Optimist - HatMarix</description>
         <link>http://junjiemao.github.com</link>
         <link>http://junjiemao.github.com</link>
-        <lastBuildDate>2013-08-12T16:48:15+08:00</lastBuildDate>
-        <pubDate>2013-08-12T16:48:15+08:00</pubDate>
+        <lastBuildDate>2013-10-29T00:55:08+08:00</lastBuildDate>
+        <pubDate>2013-10-29T00:55:08+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>每周记录 20131028</title>
+                <description>&lt;p&gt;2013年很快就要进入第300天了，略伤感。在浪费了小半年以后，算是暂时找到了一点点方向，虽然和设想的差距很大，但也算是走上了正常轨道。虽然其间也有波动，但是过后想想也就那么回事，谁没有情商跌倒负数的时候。&lt;/p&gt;
+
+&lt;p&gt;这300天来，大多数时间花在纠结上，也许人最怕的是纠结，纠结的生，纠结的死，纠结的生死，纠结到死。所以啊，这纠结的大半年就头发长了点，似乎什么都没有长的感觉。哦，好像拖延症更加严重了，什么事情不到最后期限是绝对不会做完的。就说打算有计划地写博客这件事也因为拖延症的发作而拖延了。&lt;/p&gt;
+
+&lt;p&gt;本周的槽点有&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;正则表达式绝对是一个又助于提高幸福指数的东西。某个小孩子由于失误在写MySQL的查询语句的时候少写了反引号，然后就悲剧了，接近100句的查询语句要一句一句地改。这时候就该祭出正则表达式的杀器了，当然还要感谢&lt;a href=&#39;http://www.sublimetext.com/2&#39;&gt;sublime text2&lt;/a&gt;。sublime使用的正则式引擎是&lt;a href=&#39;http://www.boost.org/doc/libs/1_34_0/libs/regex/doc/index.html&#39;&gt;boost&lt;/a&gt;，在向后引用的时候使用的是&lt;code&gt;$&lt;/code&gt;符号，别的有没有区别就没有细看了，有时间看下。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;+&lt;/p&gt;</description>
+                <link>http://junjiemao.github.com/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028</link>
+                <guid>http://junjiemao.github.com/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028</guid>
+                <pubDate>2013-10-29T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>R中使用正则表达式（1）</title>
