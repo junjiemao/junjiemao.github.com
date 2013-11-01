@@ -108,5 +108,5 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况
 
 * 自增加(```AUTO_INCREMENT```)必须是主键的一部分，并且一张表只能有一个```AUTO_INCREMENT```属性,其可以是任何整数类型的数据。
 
-就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候在补充。下次去了解下[Postgresql](http://www.postgresql.org/)这个号称 __"The world's most advanced open source database"__ 的数据库，这个数据库到目前为止也只是使用过她的查询语句。
+就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下[Postgresql](http://www.postgresql.org/)这个号称 __"The world's most advanced open source database"__ 的数据库，这个数据库到目前为止也只是使用过她的查询语句。
 
