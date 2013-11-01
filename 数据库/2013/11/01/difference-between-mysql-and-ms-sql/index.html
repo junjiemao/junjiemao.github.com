@@ -174,10 +174,10 @@
 
 <h1>存储过程</h1>
 
-<p>存储过程没有很大的区别，发现有几点。
-* 在MySQL中定义变量是不需要使用<code>@</code>符号的。</p>
+<p>存储过程没有很大的区别，发现有几点。</p>
 
 <ul>
+<li><p>在MySQL中定义变量是不需要使用<code>@</code>符号的。</p></li>
 <li><p>声明参数的格式为<code>输入（IN）变量还是输出（OUT）变量  变量名 变量类型</code>，比如 <code>IN par_name INT</code>这种就表示是INT型的名字韦par_name的输入型变量。</p></li>
 <li><p>在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以<code>selct  @a=a,@b=b from test</code>,其中<code>@a</code>、<code>@b</code>为声明的变量,而在MySQL中只能<code>selet a,b into aa,bb  form test</code>,其中<code>aa</code>和<code>bb</code>为声明的变量。</p></li>
 <li><p>ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：</p></li>

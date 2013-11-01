@@ -5,8 +5,8 @@
         <description>Mao's An Optimist - HatMarix</description>
         <link>http://junjiemao.github.com</link>
         <link>http://junjiemao.github.com</link>
-        <lastBuildDate>2013-11-01T21:32:19+08:00</lastBuildDate>
-        <pubDate>2013-11-01T21:32:19+08:00</pubDate>
+        <lastBuildDate>2013-11-01T21:42:10+08:00</lastBuildDate>
+        <pubDate>2013-11-01T21:42:10+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -68,10 +68,10 @@
 
 &lt;h1&gt;存储过程&lt;/h1&gt;
 
-&lt;p&gt;存储过程没有很大的区别，发现有几点。
-* 在MySQL中定义变量是不需要使用&lt;code&gt;@&lt;/code&gt;符号的。&lt;/p&gt;
+&lt;p&gt;存储过程没有很大的区别，发现有几点。&lt;/p&gt;
 
 &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在MySQL中定义变量是不需要使用&lt;code&gt;@&lt;/code&gt;符号的。&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;声明参数的格式为&lt;code&gt;输入（IN）变量还是输出（OUT）变量  变量名 变量类型&lt;/code&gt;，比如 &lt;code&gt;IN par_name INT&lt;/code&gt;这种就表示是INT型的名字韦par_name的输入型变量。&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以&lt;code&gt;selct  @a=a,@b=b from test&lt;/code&gt;,其中&lt;code&gt;@a&lt;/code&gt;、&lt;code&gt;@b&lt;/code&gt;为声明的变量,而在MySQL中只能&lt;code&gt;selet a,b into aa,bb  form test&lt;/code&gt;,其中&lt;code&gt;aa&lt;/code&gt;和&lt;code&gt;bb&lt;/code&gt;为声明的变量。&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：&lt;/p&gt;&lt;/li&gt;
