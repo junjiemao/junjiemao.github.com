@@ -17,7 +17,7 @@ DEFINER=`root`@`localhost`
 TRIGGER `test`.`t_afterinsert_on_tab1`
 AFTER INSERT ON `test`.`test`
 FOR EACH ROW
-BRGIN
+BEGIN
 sql语句；
 END$$
 {% endhighlight %}
