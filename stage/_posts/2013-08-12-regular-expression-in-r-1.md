@@ -15,7 +15,7 @@ tags: [R,速查表,正则表达式]
 # R中怎么使用正则表达式
 在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：
 
-{% highlight r %}
+{% highlight r linenos %}
 regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)
 # pattern就是我们要写的正则表达式 text是需要处理的文本
 # ignore.case表示是不是忽略大小写
@@ -28,7 +28,7 @@ regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)
 # R中使用正则表达式实战
 ## 匹配纯文本
 
-{% highlight r %}
+{% highlight r linenos %}
 x <- "Hello ,my name is Ben.Please visit my website"
 m <- regexec(pattern = "Ben", text = x)
 regmatches(x, m)

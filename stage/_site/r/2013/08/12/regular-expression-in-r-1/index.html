@@ -126,11 +126,11 @@
 
 <p>在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：</p>
 
-<div class="highlight"><pre><code class="r">regexec<span class="p">(</span>pattern<span class="p">,</span> text<span class="p">,</span> ignore.case <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> fixed <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> useBytes <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-<span class="c1"># pattern就是我们要写的正则表达式 text是需要处理的文本</span>
-<span class="c1"># ignore.case表示是不是忽略大小写</span>
-<span class="c1"># fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&#39;.&#39;之类的字符当作实义字符</span>
-<span class="c1"># useBytes 暂时没有使用过</span>
+<div class="highlight"><pre><code class="r"><span class="lineno">1</span> regexec<span class="p">(</span>pattern<span class="p">,</span> text<span class="p">,</span> ignore.case <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> fixed <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> useBytes <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="lineno">2</span> <span class="c1"># pattern就是我们要写的正则表达式 text是需要处理的文本</span>
+<span class="lineno">3</span> <span class="c1"># ignore.case表示是不是忽略大小写</span>
+<span class="lineno">4</span> <span class="c1"># fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&#39;.&#39;之类的字符当作实义字符</span>
+<span class="lineno">5</span> <span class="c1"># useBytes 暂时没有使用过</span>
 </code></pre></div>
 
 
@@ -140,9 +140,9 @@
 
 <h2>匹配纯文本</h2>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> <span class="s">&quot;Hello ,my name is Ben.Please visit my website&quot;</span>
-m <span class="o">&lt;-</span> regexec<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;Ben&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">)</span>
-regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
+<div class="highlight"><pre><code class="r"><span class="lineno">1</span> x <span class="o">&lt;-</span> <span class="s">&quot;Hello ,my name is Ben.Please visit my website&quot;</span>
+<span class="lineno">2</span> m <span class="o">&lt;-</span> regexec<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;Ben&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">)</span>
+<span class="lineno">3</span> regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
 </code></pre></div>
 
 
