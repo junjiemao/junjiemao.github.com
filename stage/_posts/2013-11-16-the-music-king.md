@@ -14,7 +14,7 @@ tags: [R,吐槽,生活]
 # 抓取歌词
 汪峰在虾米上的ID是887，使用```http://www.xiami.com/artist/album/id/887/d//p//page/1```的网址可以直接查看其专辑。
 
-我们首先获得其专辑的(*信息，这里主要是名字和专辑的链接。
+我们首先获得其专辑的信息，这里主要是名字和专辑的链接。
 
 {% highlight r linenos %}
 artistSearch <- c("http://www.xiami.com/artist/album/id/887/d//p//page/1",

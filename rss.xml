@@ -5,8 +5,8 @@
         <description>Mao's An Optimist - HatMarix</description>
         <link>http://junjiemao.github.com</link>
         <link>http://junjiemao.github.com</link>
-        <lastBuildDate>2013-11-16T02:42:12+08:00</lastBuildDate>
-        <pubDate>2013-11-16T02:42:12+08:00</pubDate>
+        <lastBuildDate>2013-11-16T02:43:38+08:00</lastBuildDate>
+        <pubDate>2013-11-16T02:43:38+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -20,7 +20,7 @@
 
 &lt;p&gt;汪峰在虾米上的ID是887，使用&lt;code&gt;http://www.xiami.com/artist/album/id/887/d//p//page/1&lt;/code&gt;的网址可以直接查看其专辑。&lt;/p&gt;
 
-&lt;p&gt;我们首先获得其专辑的(*信息，这里主要是名字和专辑的链接。&lt;/p&gt;
+&lt;p&gt;我们首先获得其专辑的信息，这里主要是名字和专辑的链接。&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; artistSearch &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com/artist/album/id/887/d//p//page/1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt;                   &lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com/artist/album/id/887/d//p//page/2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
