@@ -3,9 +3,11 @@ layout: post
 title: "The Music King"
 description: ""
 category: R
-tags: [R,吐槽,生活]
+tags: [R, 吐槽, 生活]
+comments: true
+share: true
 ---
-{% include JB/setup %}
+
 快收工的时候刷了下微博看到了有人很无聊地去统计了汪峰老师（没有黑他的意思，其实人家音乐还是很有力量的好吧）歌词的词频率。于是我想这得多有(wu)趣(liao)啊，于是就决定自己也统计下。于是的于是，我放弃了看TBBT的时间来给统计下汪峰老师的歌词。
 
 要想统计就得有歌词啊，一个个找也不是懒人的风格，于是想到了[虾米](http://www.xiami.com/)上是有歌词的，去抓下来就好了嘛，其实也很简单，把网页抓下来解析一下。以前这活都是给Pyhon干的，今天想想用R尝试下吧。R解析HTML应该可以用XML包，但是因为以前都是使用Python来解析HTML,所有XML包压根就没有用过，于是决定自己写正则表达式来完成吧。

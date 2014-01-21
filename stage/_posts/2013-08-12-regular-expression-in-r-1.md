@@ -3,10 +3,10 @@ layout: post
 title: "R中使用正则表达式（1）"
 description: ""
 category: R
-tags: [R,速查表,正则表达式]
+tags: [R, 速查表, 正则表达式]
+comments: true
+share: true
 ---
-{% include JB/setup %}
-
 
 正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。
 

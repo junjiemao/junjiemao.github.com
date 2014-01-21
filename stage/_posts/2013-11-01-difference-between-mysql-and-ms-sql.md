@@ -3,9 +3,11 @@ layout: post
 title: "MySQL和MS SQL Server的一些区别"
 description: ""
 category: 数据库
-tags: [MySQL,MS SQL]
+tags: [MySQL, MS SQL]
+comments: true
+share: true
 ---
-{% include JB/setup %}
+
 以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。
 
 # 触发器

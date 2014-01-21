@@ -1,0 +1,43 @@
+[
+	
+		{
+		  "title"      : "The Music King",
+		  "category"   : "R",
+		  "url"        : "http://localhost:4000/r/the-music-king/",
+		  "date"       : "Sat Nov 16 00:00:00 +0000 2013",
+		  "shortdate"  : "November 16, 2013"
+		} ,
+	
+		{
+		  "title"      : "MySQL和MS SQL Server的一些区别",
+		  "category"   : "数据库",
+		  "url"        : "http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/",
+		  "date"       : "Fri Nov 01 00:00:00 +0000 2013",
+		  "shortdate"  : "November 01, 2013"
+		} ,
+	
+		{
+		  "title"      : "每周记录 20131028",
+		  "category"   : "生活",
+		  "url"        : "http://localhost:4000/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/",
+		  "date"       : "Tue Oct 29 00:00:00 +0000 2013",
+		  "shortdate"  : "October 29, 2013"
+		} ,
+	
+		{
+		  "title"      : "R中使用正则表达式（1）",
+		  "category"   : "R",
+		  "url"        : "http://localhost:4000/r/regular-expression-in-r-1/",
+		  "date"       : "Mon Aug 12 00:00:00 +0000 2013",
+		  "shortdate"  : "August 12, 2013"
+		} ,
+	
+		{
+		  "title"      : "Rstudio快捷键速查",
+		  "category"   : "R",
+		  "url"        : "http://localhost:4000/r/keyboard-shortcuts-of-rstudio/",
+		  "date"       : "Mon May 20 00:00:00 +0000 2013",
+		  "shortdate"  : "May 20, 2013"
+		} 
+	
+]
