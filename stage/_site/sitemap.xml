@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://localhost:4000</loc>
+        <loc>http://hatmatrix.me</loc>
     </url>
     
     
     <url>
-        <loc>http://localhost:4000/r/the-music-king/</loc>
+        <loc>http://hatmatrix.me/r/the-music-king/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/</loc>
+        <loc>http://hatmatrix.me/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/</loc>
+        <loc>http://hatmatrix.me/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/r/regular-expression-in-r-1/</loc>
+        <loc>http://hatmatrix.me/r/regular-expression-in-r-1/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/r/keyboard-shortcuts-of-rstudio/</loc>
+        <loc>http://hatmatrix.me/r/keyboard-shortcuts-of-rstudio/</loc>
     </url>
     
 </urlset>

@@ -2,26 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">HatMatrix</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://localhost:4000" />
-<updated>2014-01-21T14:15:07+00:00</updated>
-<id>http://localhost:4000/</id>
+<link rel="self" type="application/atom+xml" href="http://hatmatrix.me/feed.xml" />
+<link rel="alternate" type="text/html" href="http://hatmatrix.me" />
+<updated>2014-01-21T14:30:33+00:00</updated>
+<id>http://hatmatrix.me/</id>
 <author>
   <name>HatMatrix</name>
-  <uri>http://localhost:4000/</uri>
+  <uri>http://hatmatrix.me/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[The Music King]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/r/the-music-king/"/>
-  <id>http://localhost:4000/r/the-music-king</id>
+  <link rel="alternate" type="text/html" href="http://hatmatrix.me/r/the-music-king/"/>
+  <id>http://hatmatrix.me/r/the-music-king</id>
   <published>2013-11-16T00:00:00+00:00</published>
   <updated>2013-11-16T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://hatmatrix.me</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;快收工的时候刷了下微博看到了有人很无聊地去统计了汪峰老师（没有黑他的意思，其实人家音乐还是很有力量的好吧）歌词的词频率。于是我想这得多有(wu)趣(liao)啊，于是就决定自己也统计下。于是的于是，我放弃了看TBBT的时间来给统计下汪峰老师的歌词。&lt;/p&gt;
@@ -273,19 +273,19 @@
 
 &lt;p&gt;嗯，差不多就这样。PS：这代码的显示太差劲了，等这个周末以后得把版面改改了。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://hatmatrix.me/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://hatmatrix.me&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[MySQL和MS SQL Server的一些区别]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
-  <id>http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
+  <link rel="alternate" type="text/html" href="http://hatmatrix.me/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
+  <id>http://hatmatrix.me/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
   <published>2013-11-01T00:00:00+00:00</published>
   <updated>2013-11-01T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://hatmatrix.me</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。&lt;/p&gt;
@@ -411,19 +411,19 @@
 &lt;p&gt;就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下&lt;a href=&quot;http://www.postgresql.org/&quot;&gt;Postgresql&lt;/a&gt;这个号称 &lt;strong&gt;&amp;#8220;The world&amp;#8217;s most advanced open source database&amp;#8221;&lt;/strong&gt; 的数据库，这个数据库到目前为止也只是使用过她的查询语句。&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://hatmatrix.me/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://hatmatrix.me&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[每周记录 20131028]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
-  <id>http://localhost:4000/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
+  <link rel="alternate" type="text/html" href="http://hatmatrix.me/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
+  <id>http://hatmatrix.me/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
   <published>2013-10-29T00:00:00+00:00</published>
   <updated>2013-10-29T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://hatmatrix.me</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;2013年很快就要进入第300天了，略伤感。在浪费了小半年以后，开始重新做人，立志成为一个就算恶趣味也要有趣的人。不过话说回来，自己认为的有趣别人会觉得无趣也不一定，有人还觉得王小波没意思呢。&lt;/p&gt;
@@ -461,19 +461,19 @@
 
 &lt;p&gt;完毕，本该礼拜天写的，拜拖延症所赐，又拖了下。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://hatmatrix.me/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://hatmatrix.me&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[R中使用正则表达式（1）]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/r/regular-expression-in-r-1/"/>
-  <id>http://localhost:4000/r/regular-expression-in-r-1</id>
+  <link rel="alternate" type="text/html" href="http://hatmatrix.me/r/regular-expression-in-r-1/"/>
+  <id>http://hatmatrix.me/r/regular-expression-in-r-1</id>
   <published>2013-08-12T00:00:00+00:00</published>
   <updated>2013-08-12T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://hatmatrix.me</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
@@ -912,19 +912,19 @@ cat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://hatmatrix.me/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://hatmatrix.me&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Rstudio快捷键速查]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/r/keyboard-shortcuts-of-rstudio/"/>
-  <id>http://localhost:4000/r/keyboard-shortcuts-of-rstudio</id>
+  <link rel="alternate" type="text/html" href="http://hatmatrix.me/r/keyboard-shortcuts-of-rstudio/"/>
+  <id>http://hatmatrix.me/r/keyboard-shortcuts-of-rstudio</id>
   <published>2013-05-20T00:00:00+00:00</published>
   <updated>2013-05-20T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://hatmatrix.me</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;手不离键盘是我们的追求，这也是我学习使用Emacs的主要原因之一，虽然很享受Emacs那种学会一招大小通吃的感觉，即使学习曲线陡了一点也还是值得的。但是Rstudio的吸引力实在太大了，使得我不得不放弃Emacs的ESS而投奔她。为了达到手不离键盘的程度，决定学习下快捷键，当我打开帮助文档的那一刹那惊呆了——怎么能有这么多快捷键，怎么能这么没规律！现在想想Emcas还是很人性的。以下是在尝试使用的时候记录下来的对键位的描述，其实就是对英文文档的简单翻译，自己记录下来留用。需要注意的是，无论在Windows下还是在Linux下，都会有少数几个快捷键会和系统快捷键冲突。我是没找到在Rstudio中设置快捷键的地方，如果需要只能把系统快捷键换了。&lt;/p&gt;
@@ -1477,7 +1477,7 @@ cat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot
 
 &lt;p&gt;完，多练习（2013/5/21）。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://hatmatrix.me/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://hatmatrix.me&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
 </entry>
 
 </feed>
