@@ -4,7 +4,7 @@ logo:             site-logo.png
 disqus_shortname: maosanoptimist
 search:           true
 # Change url to your domain. Leave localhost server or blank when working locally.
-url:              http://hatmatrix.me
+# url:              http://www.hatmatrix.me
 
 # Owner/author information
 owner:
@@ -21,10 +21,10 @@ owner:
   flickr: 
   tumblr:         
   # For Google Authorship https://plus.google.com/authorship
-  google_plus:    
+  google_plus: https://plus.google.com/114197058213583759973/
 
 # Analytics and webmaster tools stuff goes here
-google_analytics:   
+google_analytics: UA-47366287-1  
 google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:         
@@ -46,7 +46,7 @@ pygments:    true
 markdown:    kramdown
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+permalink:  /cn/:categories/:title/
 
 kramdown:
   auto_ids: true

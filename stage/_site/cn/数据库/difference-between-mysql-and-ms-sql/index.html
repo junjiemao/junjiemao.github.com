@@ -1,0 +1,388 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>MySQL和MS SQL Server的一些区别 &#8211; HatMatrix</title>
+<meta name="description" content="">
+<meta name="keywords" content="MySQL, MS SQL">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL和MS SQL Server的一些区别">
+<meta property="og:description" content="">
+<meta property="og:url" content="/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/">
+<meta property="og:site_name" content="HatMatrix">
+
+
+
+
+
+<link rel="canonical" href="/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
+<link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$']],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  messageStyle: "none",
+  "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/project/">Project</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+		<a href="" class="site-logo" rel="home" title="HatMatrix"><img src="/images/site-logo.png" width="200" height="200" alt="HatMatrix logo" class="animated fadeInUp"></a>
+		<h1 class="site-title animated fadeIn"><a href="">HatMatrix</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">Statistics,Program & Life</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags.html#MySQL" title="Pages tagged MySQL">MySQL</a>&nbsp;&bull;&nbsp;<a href="/tags.html#MS SQL" title="Pages tagged MS SQL">MS SQL</a></span>
+        
+          <h1 class="entry-title">MySQL和MS SQL Server的一些区别</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="HatMatrix photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About HatMatrix">HatMatrix</a></span></span>
+        <span class="entry-date date published"><time datetime="2013-11-01T00:00:00+00:00"><i class="icon-calendar-empty"></i> November 01, 2013</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" rel="bookmark" title="MySQL和MS SQL Server的一些区别"><i class="icon-link"></i> Permalink</a></span>
+        
+        <span class="social-share-facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+        <span class="social-share-twitter">
+            <a href="https://twitter.com/intent/tweet?text=/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+        <span class="social-share-googleplus">
+            <a href="https://plus.google.com/share?url=/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <!-- /.social-share -->
+      </footer>
+      <div class="entry-content">
+        <p>以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。</p>
+
+<h1 id="section">触发器</h1>
+<p>在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno">2</span> <span class="k">CREATE</span>
+<span class="lineno">3</span> <span class="k">DEFINER</span><span class="o">=`</span><span class="n">root</span><span class="o">`@`</span><span class="n">localhost</span><span class="o">`</span>
+<span class="lineno">4</span> <span class="k">TRIGGER</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_afterinsert_on_tab1</span><span class="o">`</span>
+<span class="lineno">5</span> <span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno">6</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
+<span class="lineno">7</span> <span class="k">BEGIN</span>
+<span class="lineno">8</span> <span class="k">sql</span><span class="err">语句；</span>
+<span class="lineno">9</span> <span class="k">END</span><span class="err">$$</span>
+</code></pre></div>
+
+<p>和MS SQL不同的是MySQL的触发器类型有六种，分别是<code>AFTER/BEFORE</code>和<code>INSERT/UPDATE/DELETE</code>之间的组合。而MS SQL的触发器是<code>INSERT</code>,<code>UPDATE</code>,<code>DELETE</code>以及<code>INSTEAD OF</code>四种，其中前三种是之后触发，最后一种是之前触发。如果使用习惯了MS SQL的话，在写触发器中的SQL语句就会遇到一个小小的坑。比如有一张表格有x和y两列，需要一个触发器判断x大于0就插入x否则插入-x。如果习惯了M$ SQL会这样写：</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 2</span> <span class="k">CREATE</span> <span class="k">TRIGGER</span>	<span class="s1">&#39;test&#39;</span><span class="p">.</span><span class="s1">&#39;error_trigger&#39;</span>
+<span class="lineno"> 3</span> <span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno"> 4</span> <span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="lineno"> 5</span> <span class="k">BEGIN</span>
+<span class="lineno"> 6</span> <span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="lineno"> 7</span> <span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="o">-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="lineno"> 8</span> <span class="k">else</span>
+<span class="lineno"> 9</span> <span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="lineno">10</span> <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="lineno">11</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">12</span> <span class="k">DELIMITER</span><span class="p">;</span>
+</code></pre></div>
+
+<p>但是这样话是无法运行的，因为这样已经相当于循环插入了，正确的做法是:</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 2</span> <span class="k">CREATE</span> <span class="k">TRIGGER</span>	<span class="s1">&#39;test&#39;</span><span class="p">.</span><span class="s1">&#39;error_trigger&#39;</span>
+<span class="lineno"> 3</span> <span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno"> 4</span> <span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="lineno"> 5</span> <span class="k">BEGIN</span>
+<span class="lineno"> 6</span> <span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="lineno"> 7</span> <span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno"> 8</span> <span class="k">else</span>
+<span class="lineno"> 9</span> <span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span> <span class="o">#</span><span class="err">也可以不要这句</span>
+<span class="lineno">10</span> <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="lineno">11</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">12</span> <span class="k">DELIMITER</span> <span class="p">;</span>
+</code></pre></div>
+
+<p>在写触发器的时候还要注意的就是<code>new</code>和<code>old</code>的使用，这在MS SQL中是没有的。<code>new</code>加上点(.)加上列名就可以取出相应的列，<code>old</code>在删除的时候会用得比较多点。而在MS SQL中是需要使用<code>select</code>来取出的。</p>
+
+<h1 id="section-1">存储过程</h1>
+
+<p>存储过程没有很大的区别，发现有几点。</p>
+
+<ul>
+  <li>
+    <p>在MySQL中定义变量是不需要使用<code>@</code>符号的。</p>
+  </li>
+  <li>
+    <p>声明参数的格式为<code>输入（IN）变量还是输出（OUT）变量  变量名 变量类型</code>，比如 <code>IN par_name INT</code>这种就表示是INT型的名字韦par_name的输入型变量。</p>
+  </li>
+  <li>
+    <p>在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以<code>selct  @a=a,@b=b from test</code>,其中<code>@a</code>、<code>@b</code>为声明的变量,而在MySQL中只能<code>selet a,b into aa,bb  form test</code>,其中<code>aa</code>和<code>bb</code>为声明的变量。</p>
+  </li>
+  <li>
+    <p>ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：</p>
+  </li>
+</ul>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">UPDATE</span> <span class="n">A</span>
+<span class="lineno">2</span> <span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno">3</span> <span class="k">where</span> <span class="n">x</span> <span class="k">in</span> <span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">;</span>
+</code></pre></div>
+
+<p>这样是会报错的，解决方案为</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">UPDATE</span> <span class="n">A</span>
+<span class="lineno">2</span> <span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno">3</span> <span class="k">where</span> <span class="n">x</span> <span class="k">in</span>
+<span class="lineno">4</span> <span class="k">select</span> <span class="n">x</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">)</span>
+</code></pre></div>
+
+<p>因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。</p>
+
+<h1 id="section-2">函数</h1>
+<p>差别不是很大，注意的也就是参数的声明。</p>
+
+<h1 id="section-3">事件调度</h1>
+<p>MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;event_scheduler&#39;</span><span class="p">;</span>  <span class="o">#</span><span class="err">查看是否开启定时器</span>  
+<span class="lineno"> 2</span> <span class="k">set</span> <span class="k">global</span> <span class="n">event_scheduler</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>  <span class="o">#</span><span class="err">开启定时器</span> 
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 5</span> <span class="k">CREATE</span> <span class="n">EVENT</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">EVENT_CheckOnLine</span>
+<span class="lineno"> 6</span> <span class="k">ON</span> <span class="n">SCHEDULE</span> <span class="k">EVERY</span> <span class="mi">30</span> <span class="k">SECOND</span>
+<span class="lineno"> 7</span> <span class="k">ON</span> <span class="k">COMPLETION</span> <span class="k">PRESERVE</span>
+<span class="lineno"> 8</span> <span class="k">DO</span> <span class="k">BEGIN</span>
+<span class="lineno"> 9</span> <span class="k">call</span> <span class="n">checkOnline</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<span class="lineno">10</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">11</span> <span class="k">DELIMITER</span> <span class="p">;</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">EVENTS</span><span class="p">;</span>   <span class="o">#</span><span class="err">查看事件的调用情况</span>
+</code></pre></div>
+
+<h1 id="section-4">其他需要注意的</h1>
+<p>在使用的过程还发现了其他一些可能导致的错误：</p>
+
+<ul>
+  <li>
+    <p>ERROR 1175的解决方案是<code>SET SQL_SAFE_UPDATES=0</code>,原因是当要执行的SQL语句是进行批量更新或者删除的时候就会提示这个错误，这是一个保护机制，去掉就是了。</p>
+  </li>
+  <li>
+    <p>workbench中编辑数据的时候（估计直接编辑数据也就在测试阶段使用），如果该表没有设置主键的时候是不能直接编辑数据的。吐槽下workbench的可视化编辑器真的<code>print('很'*10000)</code>难用的。</p>
+  </li>
+  <li>
+    <p>自增加(<code>AUTO_INCREMENT</code>)必须是主键的一部分，并且一张表只能有一个<code>AUTO_INCREMENT</code>属性,其可以是任何整数类型的数据。</p>
+  </li>
+</ul>
+
+<p>就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下<a href="http://www.postgresql.org/">Postgresql</a>这个号称 <strong>&#8220;The world&#8217;s most advanced open source database&#8221;</strong> 的数据库，这个数据库到目前为止也只是使用过她的查询语句。</p>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/" class="btn" title="每周记录 20131028">Previous article</a>
+      
+      
+        <a href="/cn/r/the-music-king/" class="btn" title="The Music King">Next article</a>
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	<a href="https://plus.google.com/114197058213583759973/" title="HatMatrix on Google+" target="_blank"><i class="icon-google-plus icon-2x"></i></a>
+	
+	
+	
+	
+	<a href="http://github.com/junjiemao" title="HatMatrix on Github" target="_blank"><i class="icon-github icon-2x"></i></a>
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-47366287-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'maosanoptimist'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>
