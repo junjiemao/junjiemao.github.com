@@ -41,7 +41,7 @@ share: true
 <figure>
 	<a href="https://farm8.staticflickr.com/7035/13845664855_c0cae3f966_b.jpg"><img src="https://farm8.staticflickr.com/7035/13845664855_c0cae3f966_c.jpg"></a>
 </figure>
-像我三次去山里，第一次去栖霞山被马蜂蜇，第二次去黄山掉水坑，这次被猴子咬，大山是我有多大的丑啊。嗯~~下次还是去海边比较保险。
+想我三次去山里，第一次去栖霞山被马蜂蜇，第二次去黄山掉水坑，这次被猴子咬，大山是我有多大的丑啊。嗯~~下次还是去海边比较保险。
 
 
 然后去了趟医院接下来一切都顺利了。其实风景还是挺不错的，关键也许是拍照技术比较好。
@@ -61,7 +61,7 @@ share: true
 	<a href="https://farm8.staticflickr.com/7372/13822215404_9d59c6839b_b.jpg"><img src="https://farm8.staticflickr.com/7372/13822215404_9d59c6839b_b.jpg"></a>
 </figure>
 
-在室外疯了一天后，终于可以躲起来展示不为认知的赌棍的一面了。
+在室外疯了一天后，终于可以躲起来展示不为人知的赌棍的一面了。
 <figure>
 	<a href="https://farm4.staticflickr.com/3729/13823546083_f467b7be38_b.jpg"><img src="https://farm4.staticflickr.com/3729/13823546083_f467b7be38_b.jpg"></a>
 </figure>
