@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /project/
-title: Project
+title: project
 tags: []
 modified: 2014-01-21
 ---
