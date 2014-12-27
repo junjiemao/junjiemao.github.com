@@ -1,7 +1,7 @@
 title:            HatMatrix
 description:      Statistics,Program & Life
 logo:             site-logo.png
-disqus_shortname: maosanoptimist
+disqus_shortname:
 search:           true
 # Change url to your domain. Leave localhost server or blank when working locally.
 # url:              http://www.hatmatrix.me
@@ -24,7 +24,7 @@ owner:
   google_plus: https://plus.google.com/114197058213583759973/
 
 # Analytics and webmaster tools stuff goes here
-google_analytics: UA-47366287-1  
+#google_analytics: UA-47366287-1  
 google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:         
