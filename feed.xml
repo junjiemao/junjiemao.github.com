@@ -4,13 +4,77 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2014-12-27T07:24:56+00:00</updated>
+<updated>2015-01-25T16:19:49+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
   <uri>/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[dplyr中的join类函数的使用注意点]]></title>
+  <link rel="alternate" type="text/html" href="/cn/r/the-dplyr-left-join/"/>
+  <id>/cn/r/the-dplyr-left-join</id>
+  <published>2015-01-25T00:00:00+00:00</published>
+  <updated>2015-01-25T00:00:00+00:00</updated>
+  <author>
+    <name>HatMatrix</name>
+    <uri></uri>
+    <email>hatmatrix42@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的&lt;code&gt;merge&lt;/code&gt;函数，而是使用了
+&lt;code&gt;dplyr::left_join&lt;/code&gt;。和&lt;code&gt;merge&lt;/code&gt;一样，在对两个数据框进行关联的时候，会对列名相同的列进行重命名，
+一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用&lt;code&gt;left_join&lt;/code&gt;，并且在每次关联结束之后
+1;2c没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;require&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 使用left_join的得到的结果，没有返回警告&lt;/span&gt;
+df1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y.y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+df2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+lfmp &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;df2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;copy &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lfmp&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;by&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;copy &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   x y.x y.y.x y.y.x y y.y.y&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 1 1   1     5     5 1     5&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 2 2   2     4     4 2     4&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 3 3   3     3     3 3     3&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 4 4   4     2     2 4     2&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 5 5   5     1     1 5     1&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 使用merge返回的结果，同时返回警告&lt;/span&gt;
+metmp &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; merge&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; df2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;by &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+merge&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; metmp&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; df1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;by &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   x y.x y.y.x y.y.x y y.y.y&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 1 1   1     5     1 1     5&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 2 2   2     4     2 2     4&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 3 3   3     3     3 3     3&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 4 4   4     2     4 4     2&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 5 5   5     1     5 5     1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;从上面的例子中可以看到，在使用&lt;code&gt;left_join&lt;/code&gt;的时候第四列的值不是期望的值，而且第三列的列名和
+第四列的列名是一样的。啊哈，原来是因为列名是一样的，所以该列的值被篡改了。&lt;/p&gt;
+
+&lt;p&gt;然后去看了&lt;code&gt;dplyr::left_join&lt;/code&gt;的源码,在&lt;code&gt;left_join_impl&lt;/code&gt;（&lt;a href=&quot;https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L1143&quot;&gt;代码在这里&lt;/a&gt;）
+中有一个函数为&lt;code&gt;subset&lt;/code&gt;（&lt;a href=&quot;https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L919&quot;&gt;代码在这里&lt;/a&gt;）。
+在里面我们可以看到里面修改列名的方法以及进行赋值的方法,特别需要注意的
+地方为&lt;a href=&quot;https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L960&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;解决方案有两个：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;修改&lt;code&gt;subset&lt;/code&gt;这个函数的源代码&lt;/li&gt;
+  &lt;li&gt;每次join之后修改列名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;从实用和实现来说，都是第二种方案比较好。使用&lt;code&gt;left_join&lt;/code&gt;之所以容易犯以上的错误主要是因为在使用的过程
+中没有出警告，而且如果列名正常的话（指没有&lt;code&gt;.x&lt;/code&gt;这种字符）是要等到第七次join才会出错的。所以，为了以后
+的方便，还是把&lt;code&gt;left_join&lt;/code&gt;的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
+下次再也不会出错了。哦耶~&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/cn/r/the-dplyr-left-join/&quot;&gt;dplyr中的join类函数的使用注意点&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

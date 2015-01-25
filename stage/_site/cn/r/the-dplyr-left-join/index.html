@@ -5,25 +5,25 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>装逼，用力过猛出悲剧 &#8211; HatMatrix</title>
+<title>dplyr中的join类函数的使用注意点 &#8211; HatMatrix</title>
 <meta name="description" content="">
-<meta name="keywords" content="生活, 程序猿">
+<meta name="keywords" content="R, dplyr, tips">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="装逼，用力过猛出悲剧">
+<meta property="og:title" content="dplyr中的join类函数的使用注意点">
 <meta property="og:description" content="">
-<meta property="og:url" content="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/">
+<meta property="og:url" content="/cn/r/the-dplyr-left-join/">
 <meta property="og:site_name" content="HatMatrix">
 
 
 
 
 
-<link rel="canonical" href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/">
+<link rel="canonical" href="/cn/r/the-dplyr-left-join/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
 <link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
 
@@ -130,103 +130,84 @@ MathJax.Hub.Config({
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <span class="entry-tags"><a href="/tags.html#生活" title="Pages tagged 生活">生活</a>&nbsp;&bull;&nbsp;<a href="/tags.html#程序猿" title="Pages tagged 程序猿">程序猿</a></span>
+        <span class="entry-tags"><a href="/tags.html#R" title="Pages tagged R">R</a>&nbsp;&bull;&nbsp;<a href="/tags.html#dplyr" title="Pages tagged dplyr">dplyr</a>&nbsp;&bull;&nbsp;<a href="/tags.html#tips" title="Pages tagged tips">tips</a></span>
         
-          <h1 class="entry-title">装逼，用力过猛出悲剧</h1>
+          <h1 class="entry-title">dplyr中的join类函数的使用注意点</h1>
         
       </header>
       <footer class="entry-meta">
         <img src="/images/bio-photo.jpg" alt="HatMatrix photo" class="author-photo">
         <span class="author vcard">By <span class="fn"><a href="/about/" title="About HatMatrix">HatMatrix</a></span></span>
-        <span class="entry-date date published"><time datetime="2014-12-26T00:00:00+00:00"><i class="icon-calendar-empty"></i> December 26, 2014</time></span>
+        <span class="entry-date date published"><time datetime="2015-01-25T00:00:00+00:00"><i class="icon-calendar-empty"></i> January 25, 2015</time></span>
         
         
-        <span><a href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" rel="bookmark" title="装逼，用力过猛出悲剧"><i class="icon-link"></i> Permalink</a></span>
+        <span><a href="/cn/r/the-dplyr-left-join/" rel="bookmark" title="dplyr中的join类函数的使用注意点"><i class="icon-link"></i> Permalink</a></span>
         
         <span class="social-share-facebook">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/r/the-dplyr-left-join/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
         <span class="social-share-twitter">
-            <a href="https://twitter.com/intent/tweet?text=/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+            <a href="https://twitter.com/intent/tweet?text=/cn/r/the-dplyr-left-join/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
         <span class="social-share-googleplus">
-            <a href="https://plus.google.com/share?url=/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <a href="https://plus.google.com/share?url=/cn/r/the-dplyr-left-join/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
             <!-- /.social-share -->
       </footer>
       <div class="entry-content">
-        <p>最近在知乎上看到<a href="http://www.zhihu.com/people/chang-jing-gu">长颈菇</a>讲的一个故事：</p>
+        <p>前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的<code>merge</code>函数，而是使用了
+<code>dplyr::left_join</code>。和<code>merge</code>一样，在对两个数据框进行关联的时候，会对列名相同的列进行重命名，
+一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用<code>left_join</code>，并且在每次关联结束之后
+1;2c没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：</p>
 
-<blockquote>
-  <p>郑渊洁在1986年参加过一个作家笔会，在会上作家们大谈自己看过的书，有人问他，你有没有看过某个俄罗斯作家的书？ 
-   他摇摇头，对方大惊：你连他的书都没有看过你怎么写作。 </p>
+<div class="highlight"><pre><code class="r">require<span class="p">(</span>dplyr<span class="p">)</span>
+<span class="c1"># 使用left_join的得到的结果，没有返回警告</span>
+df1 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y.y <span class="o">=</span> <span class="m">5</span><span class="o">:</span><span class="m">1</span><span class="p">)</span>
+df2 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span>
+lfmp <span class="o">&lt;-</span> left_join<span class="p">(</span>df1<span class="p">,</span>df2<span class="p">,</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+left_join<span class="p">(</span>lfmp<span class="p">,</span>df1<span class="p">,</span>by<span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
+<span class="c1"># 1 1   1     5     5 1     5</span>
+<span class="c1"># 2 2   2     4     4 2     4</span>
+<span class="c1"># 3 3   3     3     3 3     3</span>
+<span class="c1"># 4 4   4     2     2 4     2</span>
+<span class="c1"># 5 5   5     1     1 5     1</span>
 
-  <p>轮到郑渊洁发言时，他说：我最近在看库斯卡娅的书，特别受启发，你们看过吗？
-   70％的人点点头。然后郑渊洁说：这个名字是我瞎编的。</p>
-</blockquote>
+<span class="c1"># 使用merge返回的结果，同时返回警告</span>
+metmp <span class="o">&lt;-</span> merge<span class="p">(</span>x <span class="o">=</span> df1<span class="p">,</span>y <span class="o">=</span> df2<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
+merge<span class="p">(</span>x <span class="o">=</span> metmp<span class="p">,</span>y <span class="o">=</span> df1<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
+<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
+<span class="c1"># 1 1   1     5     1 1     5</span>
+<span class="c1"># 2 2   2     4     2 2     4</span>
+<span class="c1"># 3 3   3     3     3 3     3</span>
+<span class="c1"># 4 4   4     2     4 4     2</span>
+<span class="c1"># 5 5   5     1     5 5     1</span>
+</code></pre></div>
 
-<p>关于这个故事的真假没有考证过，不过看到这里的时候还是感觉蛮好笑的。像我这种反应比正常人慢0.61803398875秒的人来说，
-突然意识到这种事情在程序猿中不是常有的事么，然后就想到了很久之前在豆瓣上看到的一个线上活动
-<a href="http://www.douban.com/online/11586889/">别装了，敢不敢贴出你假装读过但实际没读过的书</a>，
-看了几页，张张照片都是biger闪闪的。以下几本书榜上有名：</p>
+<p>从上面的例子中可以看到，在使用<code>left_join</code>的时候第四列的值不是期望的值，而且第三列的列名和
+第四列的列名是一样的。啊哈，原来是因为列名是一样的，所以该列的值被篡改了。</p>
 
-<ul>
-  <li>
-    <p>《算法导论》（INTRODUCTION TO ALGORITHMS） 可能因为带了个INTRODUCTION，这个反正很多人假装读过，可是这个介绍
-和那个给你介绍姑娘的介绍不是同一个东西啊。</p>
-  </li>
-  <li>
-    <p>《计算机程序的构造和解释》（SICP）这个应该是被封面上的魔法师欺骗了，感觉萌萌哒，读起来就困困哒。</p>
-  </li>
-  <li>
-    <p>《统计学习基础》（The Elements of Statisticcal Learning,ELS）这个绝壁是被ELEMENTS欺骗的，这是基础那什么是进阶？ 
-看过这个以后，我再装逼至少要看下简介的。</p>
-  </li>
-  <li>
-    <p><a href="http://www.wikiwand.com/zh/%E5%B0%A4%E5%88%A9%E8%A5%BF%E6%96%AF">《尤利西斯》（Ulysses）</a>
-这个装逼太大力了，必死无疑，看维基百科的介绍和其他评论，估计普通人是不会去看这种东西的。</p>
-  </li>
-  <li>
-    <p>《计算机程序设计艺术》（The Art of Computer Programming）这个和尤利西斯差不多的感觉吧。嗯~，Knuth爷爷又得一知音。</p>
-  </li>
-</ul>
+<p>然后去看了<code>dplyr::left_join</code>的源码,在<code>left_join_impl</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L1143">代码在这里</a>）
+中有一个函数为<code>subset</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L919">代码在这里</a>）。
+在里面我们可以看到里面修改列名的方法以及进行赋值的方法,特别需要注意的
+地方为<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L960">这里</a>。</p>
 
-<p>后来，我学会了怎么大力出奇迹而又不会用力过猛：</p>
-
-<ul>
-  <li>
-    <p>书得有名</p>
-  </li>
-  <li>
-    <p>必须通俗</p>
-  </li>
-  <li>
-    <p>不读完，简介得看下，就可以发挥了</p>
-  </li>
-</ul>
-
-<p>比如，这些就是是正确的示范：</p>
+<p>解决方案有两个：</p>
 
 <ul>
-  <li>
-    <p>《大数据》（Big Data）</p>
-  </li>
-  <li>
-    <p>《失控：机器、社会与经济的新生物学》（Out of Control: The New Biology of Machines, Social Systems, and the Economic World）</p>
-  </li>
-  <li>
-    <p>《枪炮、病菌与钢铁》（Guns, Germs and Steel: The Fates of Human Societies）</p>
-  </li>
+  <li>修改<code>subset</code>这个函数的源代码</li>
+  <li>每次join之后修改列名</li>
 </ul>
 
-<p>脑洞大的话，一边看一边出奇迹。啊哈~，我要去看《失控》了，因为我真的看不懂SICP啊，要死了要死了（逃~~</p>
+<p>从实用和实现来说，都是第二种方案比较好。使用<code>left_join</code>之所以容易犯以上的错误主要是因为在使用的过程
+中没有出警告，而且如果列名正常的话（指没有<code>.x</code>这种字符）是要等到第七次join才会出错的。所以，为了以后
+的方便，还是把<code>left_join</code>的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
+下次再也不会出错了。哦耶~</p>
 
         
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
       
-        <a href="/cn/%E7%94%9F%E6%B4%BB/lu_mountain/" class="btn" title="老残游记">Previous article</a>
+        <a href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" class="btn" title="装逼，用力过猛出悲剧">Previous article</a>
       
-      
-        <a href="/cn/r/the-dplyr-left-join/" class="btn" title="dplyr中的join类函数的使用注意点">Next article</a>
       
     </nav><!-- /.pagination -->
   </article>
