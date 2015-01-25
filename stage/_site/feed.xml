@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-01-25T16:19:49+00:00</updated>
+<updated>2015-01-25T16:22:23+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
@@ -27,7 +27,7 @@
   <content type="html">&lt;p&gt;前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的&lt;code&gt;merge&lt;/code&gt;函数，而是使用了
 &lt;code&gt;dplyr::left_join&lt;/code&gt;。和&lt;code&gt;merge&lt;/code&gt;一样，在对两个数据框进行关联的时候，会对列名相同的列进行重命名，
 一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用&lt;code&gt;left_join&lt;/code&gt;，并且在每次关联结束之后
-1;2c没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：&lt;/p&gt;
+没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;require&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;# 使用left_join的得到的结果，没有返回警告&lt;/span&gt;
