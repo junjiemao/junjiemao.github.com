@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "使用Google的小技巧",
+		  "category"   : "Google",
+		  "url"        : "/cn/google/google-search-tips/",
+		  "date"       : "2015-03-05 00:00:00 +0000",
+		  "shortdate"  : "March 05, 2015"
+		} ,
+	
+		{
 		  "title"      : "dplyr中的join类函数的使用注意点",
 		  "category"   : "R",
 		  "url"        : "/cn/r/the-dplyr-left-join/",

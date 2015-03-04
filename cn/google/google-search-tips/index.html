@@ -5,25 +5,25 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>dplyr中的join类函数的使用注意点 &#8211; HatMatrix</title>
+<title>使用Google的小技巧 &#8211; HatMatrix</title>
 <meta name="description" content="">
-<meta name="keywords" content="R, dplyr, tips">
+<meta name="keywords" content="Google, tips">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dplyr中的join类函数的使用注意点">
+<meta property="og:title" content="使用Google的小技巧">
 <meta property="og:description" content="">
-<meta property="og:url" content="/cn/r/the-dplyr-left-join/">
+<meta property="og:url" content="/cn/google/google-search-tips/">
 <meta property="og:site_name" content="HatMatrix">
 
 
 
 
 
-<link rel="canonical" href="/cn/r/the-dplyr-left-join/">
+<link rel="canonical" href="/cn/google/google-search-tips/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
 <link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
 
@@ -130,86 +130,78 @@ MathJax.Hub.Config({
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <span class="entry-tags"><a href="/tags.html#R" title="Pages tagged R">R</a>&nbsp;&bull;&nbsp;<a href="/tags.html#dplyr" title="Pages tagged dplyr">dplyr</a>&nbsp;&bull;&nbsp;<a href="/tags.html#tips" title="Pages tagged tips">tips</a></span>
+        <span class="entry-tags"><a href="/tags.html#Google" title="Pages tagged Google">Google</a>&nbsp;&bull;&nbsp;<a href="/tags.html#tips" title="Pages tagged tips">tips</a></span>
         
-          <h1 class="entry-title">dplyr中的join类函数的使用注意点</h1>
+          <h1 class="entry-title">使用Google的小技巧</h1>
         
       </header>
       <footer class="entry-meta">
         <img src="/images/bio-photo.jpg" alt="HatMatrix photo" class="author-photo">
         <span class="author vcard">By <span class="fn"><a href="/about/" title="About HatMatrix">HatMatrix</a></span></span>
-        <span class="entry-date date published"><time datetime="2015-01-25T00:00:00+00:00"><i class="icon-calendar-empty"></i> January 25, 2015</time></span>
+        <span class="entry-date date published"><time datetime="2015-03-05T00:00:00+00:00"><i class="icon-calendar-empty"></i> March 05, 2015</time></span>
         
         
-        <span><a href="/cn/r/the-dplyr-left-join/" rel="bookmark" title="dplyr中的join类函数的使用注意点"><i class="icon-link"></i> Permalink</a></span>
+        <span><a href="/cn/google/google-search-tips/" rel="bookmark" title="使用Google的小技巧"><i class="icon-link"></i> Permalink</a></span>
         
         <span class="social-share-facebook">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/r/the-dplyr-left-join/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/google/google-search-tips/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
         <span class="social-share-twitter">
-            <a href="https://twitter.com/intent/tweet?text=/cn/r/the-dplyr-left-join/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+            <a href="https://twitter.com/intent/tweet?text=/cn/google/google-search-tips/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
         <span class="social-share-googleplus">
-            <a href="https://plus.google.com/share?url=/cn/r/the-dplyr-left-join/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <a href="https://plus.google.com/share?url=/cn/google/google-search-tips/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
             <!-- /.social-share -->
       </footer>
       <div class="entry-content">
-        <p>前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的<code>merge</code>函数，而是使用了
-<code>dplyr::left_join</code>。和<code>merge</code>一样，在对两个数据框进行关联的时候，会对列名相同的列进行重命名，
-一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用<code>left_join</code>，并且在每次关联结束之后
-没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：</p>
+        <p>首先反驳下，百度更懂中文是不成立的，搜索下『黃』（不是『黄』，而是『黃』），会发现百度给出的结果全部都是关于『黄』的，洋鬼子Google在第二条和第三条给出了正确的结果。</p>
 
-<div class="highlight"><pre><code class="r">require<span class="p">(</span>dplyr<span class="p">)</span>
-<span class="c1"># 使用left_join的得到的结果，没有返回警告</span>
-df1 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y.y <span class="o">=</span> <span class="m">5</span><span class="o">:</span><span class="m">1</span><span class="p">)</span>
-df2 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span>
-lfmp <span class="o">&lt;-</span> left_join<span class="p">(</span>df1<span class="p">,</span>df2<span class="p">,</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-left_join<span class="p">(</span>lfmp<span class="p">,</span>df1<span class="p">,</span>by<span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
-<span class="c1"># 1 1   1     5     5 1     5</span>
-<span class="c1"># 2 2   2     4     4 2     4</span>
-<span class="c1"># 3 3   3     3     3 3     3</span>
-<span class="c1"># 4 4   4     2     2 4     2</span>
-<span class="c1"># 5 5   5     1     1 5     1</span>
+<p>一般的搜索就会觉得其质量之高，而Google的高级指令则更加令人感到其强大，下面介绍一些小技巧和常见操作符的使用，本文大部分内容都摘自<a href="http://book.douban.com/subject/3676292/">Google Hacking技术手册</a>，且只是整本书的冰山一角，想要自定义个人搜索引擎的看官可以看看这本书。</p>
 
-<span class="c1"># 使用merge返回的结果，同时返回警告</span>
-metmp <span class="o">&lt;-</span> merge<span class="p">(</span>x <span class="o">=</span> df1<span class="p">,</span>y <span class="o">=</span> df2<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
-merge<span class="p">(</span>x <span class="o">=</span> metmp<span class="p">,</span>y <span class="o">=</span> df1<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
-<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
-<span class="c1"># 1 1   1     5     1 1     5</span>
-<span class="c1"># 2 2   2     4     2 2     4</span>
-<span class="c1"># 3 3   3     3     3 3     3</span>
-<span class="c1"># 4 4   4     2     4 4     2</span>
-<span class="c1"># 5 5   5     1     5 5     1</span>
-</code></pre></div>
-
-<p>从上面的例子中可以看到，在使用<code>left_join</code>的时候第四列的值不是期望的值，而且第三列的列名和
-第四列的列名是一样的。啊哈，原来是因为列名是一样的，所以该列的值被篡改了。</p>
-
-<p>然后去看了<code>dplyr::left_join</code>的源码,在<code>left_join_impl</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L1143">代码在这里</a>）
-中有一个函数为<code>subset</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L919">代码在这里</a>）。
-在里面我们可以看到里面修改列名的方法以及进行赋值的方法,特别需要注意的
-地方为<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L960">这里</a>。</p>
-
-<p>解决方案有两个：</p>
-
+<h1 id="section">小技巧</h1>
 <ul>
-  <li>修改<code>subset</code>这个函数的源代码</li>
-  <li>每次join之后修改列名</li>
+  <li>首先得科学上网</li>
+  <li>可以直接对图片进行搜索</li>
+  <li><a href="www.google.com/preferences">偏好设置</a></li>
+  <li>防止跳转，如果你在中国大陆，但是你不想使用.hk的Google，那么可以使用www.google.com/ncr来防止跳转</li>
+  <li>Google不区分大小写</li>
+  <li>使用<strong>关键字</strong>，<strong>千万</strong>不要使用类似于『我的U盘无法读取了怎么办？』这种句子搜索，如果非要这样，建议换成英文试试<a href="http://www.wolframalpha.com/">WolframAlpha</a>，会发现一个不一样的世界。</li>
+  <li>通配符合*nix中的通配符不一样</li>
+  <li>停词（比如the等等）可能会被忽略</li>
+  <li>最多搜索32个单词</li>
+  <li>Google的空格表示的是并且（AND）的意思</li>
+  <li>操作符之后不能跟空格，要不然这个操作符就会被当做搜索词来进行搜索</li>
+  <li>Google的URL语法，这个比较复杂，使用这个可以拼接出想要的查询请求</li>
 </ul>
 
-<p>从实用和实现来说，都是第二种方案比较好。使用<code>left_join</code>之所以容易犯以上的错误主要是因为在使用的过程
-中没有出警告，而且如果列名正常的话（指没有<code>.x</code>这种字符）是要等到第七次join才会出错的。所以，为了以后
-的方便，还是把<code>left_join</code>的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
-下次再也不会出错了。哦耶~</p>
+<h1 id="google">google操作符</h1>
+<ul>
+  <li>加号(+)会强制Google搜索后面的单词，比如搜索<code>tom+jerry</code>的结果中会同时含有两个单词。注意：加号必须是英文的加号！如果同时搜索两个词组需要加上引号，比如<code>“美丽的小鹿“ +“可爱的小猪“</code>，可以比较<code>美丽的小鹿+可爱的小猪</code>之间的差别。</li>
+  <li>减号(-)会要求Google去掉包含前面一个单词但是不包含后面一个单词的结果，比如查询词语<code>"熊猫" -"动物"</code>会搜索出包含『熊猫』但是不包含『动物』的结果。</li>
+  <li>intitle和allintitle：对标题栏中的文字进行筛选，比如搜索<code>intitle:duang 草泥马</code>会搜索标题中有『下载』以及整个网页包括标题中有『草泥马』的结果，使用<code>allintitle:duang 草泥马</code>则要求标题中必须同时含有这两个关键词。</li>
+  <li>allintext：只是在网页内容中搜索关键字</li>
+  <li>inurl和allinurl：使用方法和intitle类似，比如搜索<code>inurl:草泥马</code>会得到几乎所有url中包含『草泥马』的链接。</li>
+  <li>site：可以在站内搜索，当然这得在网站允许爬虫抓取的条件下，比如想在知乎下搜索『草泥马』，但是知乎自己的搜索做的渣烂烂的怎么办呢，可以试试<code>草泥马 site:zhihu.com</code>。注意：需要直接使用顶级域名，不能使用类似于<code>www.zhihu.com</code>或者<code>www.zhihu.com/xxx</code>这种。</li>
+  <li>filetype：指定搜索的文件类型，你想找本kindle的电子书（啊喂~盗版可耻啊！），那么可以试试<code>爱你就想爱生命 filetype:mobi</code>。啊喂，就一条记录，还是github的链接，好像有点讽刺。其他格式，比如xlsx，docx，pdf类似，文件的扩展名可以去filext.org上去看看。</li>
+  <li>link：搜索与当前网页存在链接的网页,比如搜索<code>link:www.gov.cn</code>可以看到哪些网站链接了最牛逼的网站。</li>
+  <li>inanchor：与link相似，不同的是，这个搜索的不是链接，是链接对应的文本，比如我们搜索<code>inanchor:中华人民共和国中央人民政府</code>,会得到带有『中华人民共和国中央人民政府』这个链接的网站，但是链接到哪里就不能确定了。</li>
+  <li>cache：这个可查到被删除的网页，具体适用场景你知道的。</li>
+  <li>numrange：搜索最大值和最小值之间的数，比如搜索<code>numrange:144-147</code>，会得到含有145之间146数值的结果。</li>
+  <li>daterange：可以查询在某一段时间中发布的网页。</li>
+  <li>info：显示Google对某一个站点的摘要信息，后面必须跟一个有效的URL，试试<code>info:www.zhihu.com</code>。</li>
+  <li>related：显示相关站点，后面也必须跟一个有效的URL，试试<code>related:www.v2ex.com</code></li>
+  <li>stocks:搜索股票的信息，比如<code>stocks:google</code></li>
+  <li>define:搜索某个术语的定义，看看这段时间最热门的PM2.5，<code>define:pm2.5</code></li>
+  <li>~~phonebook:分三块rphonebook（住宅电话），bphonebook（商业电话），phonebook（两部分都包含）。看看环保局的电话号码呢，<code>phonebook:环保局</code>~~</li>
+  <li>weather：查询某一个城市的天气，<code>weather:南京</code></li>
+</ul>
+
 
         
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
       
-        <a href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/" class="btn" title="装逼，用力过猛出悲剧">Previous article</a>
+        <a href="/cn/r/the-dplyr-left-join/" class="btn" title="dplyr中的join类函数的使用注意点">Previous article</a>
       
-      
-        <a href="/cn/google/google-search-tips/" class="btn" title="使用Google的小技巧">Next article</a>
       
     </nav><!-- /.pagination -->
   </article>
