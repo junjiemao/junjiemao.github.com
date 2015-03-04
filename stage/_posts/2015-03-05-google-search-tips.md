@@ -42,6 +42,5 @@ share: true
 * related：显示相关站点，后面也必须跟一个有效的URL，试试`related:www.v2ex.com`
 * stocks:搜索股票的信息，比如`stocks:google`
 * define:搜索某个术语的定义，看看这段时间最热门的PM2.5，`define:pm2.5`
-* ~~phonebook:分三块rphonebook（住宅电话），bphonebook（商业电话），phonebook（两部分都包含）。看看环保局的电话号码呢，`phonebook:环保局`~~
 * weather：查询某一个城市的天气，`weather:南京`
 
