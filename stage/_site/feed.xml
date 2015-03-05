@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-03-04T17:50:47+00:00</updated>
+<updated>2015-03-05T00:07:53+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
@@ -36,7 +36,7 @@
   &lt;li&gt;防止跳转，如果你在中国大陆，但是你不想使用.hk的Google，那么可以使用www.google.com/ncr来防止跳转&lt;/li&gt;
   &lt;li&gt;Google不区分大小写&lt;/li&gt;
   &lt;li&gt;使用&lt;strong&gt;关键字&lt;/strong&gt;，&lt;strong&gt;千万&lt;/strong&gt;不要使用类似于『我的U盘无法读取了怎么办？』这种句子搜索，如果非要这样，建议换成英文试试&lt;a href=&quot;http://www.wolframalpha.com/&quot;&gt;WolframAlpha&lt;/a&gt;，会发现一个不一样的世界。&lt;/li&gt;
-  &lt;li&gt;通配符合*nix中的通配符不一样&lt;/li&gt;
+  &lt;li&gt;通配符合和&lt;code&gt;*nix&lt;/code&gt;中的通配符不一样&lt;/li&gt;
   &lt;li&gt;停词（比如the等等）可能会被忽略&lt;/li&gt;
   &lt;li&gt;最多搜索32个单词&lt;/li&gt;
   &lt;li&gt;Google的空格表示的是并且（AND）的意思&lt;/li&gt;
@@ -44,7 +44,7 @@
   &lt;li&gt;Google的URL语法，这个比较复杂，使用这个可以拼接出想要的查询请求&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;google&quot;&gt;google操作符&lt;/h1&gt;
+&lt;h1 id=&quot;google&quot;&gt;Google的常见操作符&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;加号(+)会强制Google搜索后面的单词，比如搜索&lt;code&gt;tom+jerry&lt;/code&gt;的结果中会同时含有两个单词。注意：加号必须是英文的加号！如果同时搜索两个词组需要加上引号，比如&lt;code&gt;“美丽的小鹿“ +“可爱的小猪“&lt;/code&gt;，可以比较&lt;code&gt;美丽的小鹿+可爱的小猪&lt;/code&gt;之间的差别。&lt;/li&gt;
   &lt;li&gt;减号(-)会要求Google去掉包含前面一个单词但是不包含后面一个单词的结果，比如查询词语&lt;code&gt;&quot;熊猫&quot; -&quot;动物&quot;&lt;/code&gt;会搜索出包含『熊猫』但是不包含『动物』的结果。&lt;/li&gt;
@@ -52,7 +52,7 @@
   &lt;li&gt;allintext：只是在网页内容中搜索关键字&lt;/li&gt;
   &lt;li&gt;inurl和allinurl：使用方法和intitle类似，比如搜索&lt;code&gt;inurl:草泥马&lt;/code&gt;会得到几乎所有url中包含『草泥马』的链接。&lt;/li&gt;
   &lt;li&gt;site：可以在站内搜索，当然这得在网站允许爬虫抓取的条件下，比如想在知乎下搜索『草泥马』，但是知乎自己的搜索做的渣烂烂的怎么办呢，可以试试&lt;code&gt;草泥马 site:zhihu.com&lt;/code&gt;。注意：需要直接使用顶级域名，不能使用类似于&lt;code&gt;www.zhihu.com&lt;/code&gt;或者&lt;code&gt;www.zhihu.com/xxx&lt;/code&gt;这种。&lt;/li&gt;
-  &lt;li&gt;filetype：指定搜索的文件类型，你想找本kindle的电子书（啊喂~盗版可耻啊！），那么可以试试&lt;code&gt;爱你就想爱生命 filetype:mobi&lt;/code&gt;。啊喂，就一条记录，还是github的链接，好像有点讽刺。其他格式，比如xlsx，docx，pdf类似，文件的扩展名可以去filext.org上去看看。&lt;/li&gt;
+  &lt;li&gt;filetype：指定搜索的文件类型，你想找本kindle的电子书（啊喂~盗版可耻啊！），那么可以试试&lt;code&gt;爱你就像爱生命 filetype:mobi&lt;/code&gt;。啊喂，有一条记录还是github的链接，好像有点讽刺。其他格式，比如xlsx，docx，pdf类似，文件的扩展名可以去filext.org上去看看。&lt;/li&gt;
   &lt;li&gt;link：搜索与当前网页存在链接的网页,比如搜索&lt;code&gt;link:www.gov.cn&lt;/code&gt;可以看到哪些网站链接了最牛逼的网站。&lt;/li&gt;
   &lt;li&gt;inanchor：与link相似，不同的是，这个搜索的不是链接，是链接对应的文本，比如我们搜索&lt;code&gt;inanchor:中华人民共和国中央人民政府&lt;/code&gt;,会得到带有『中华人民共和国中央人民政府』这个链接的网站，但是链接到哪里就不能确定了。&lt;/li&gt;
   &lt;li&gt;cache：这个可查到被删除的网页，具体适用场景你知道的。&lt;/li&gt;
