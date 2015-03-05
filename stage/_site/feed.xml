@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-03-05T00:07:53+00:00</updated>
+<updated>2015-03-05T00:11:05+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
@@ -48,7 +48,7 @@
 &lt;ul&gt;
   &lt;li&gt;加号(+)会强制Google搜索后面的单词，比如搜索&lt;code&gt;tom+jerry&lt;/code&gt;的结果中会同时含有两个单词。注意：加号必须是英文的加号！如果同时搜索两个词组需要加上引号，比如&lt;code&gt;“美丽的小鹿“ +“可爱的小猪“&lt;/code&gt;，可以比较&lt;code&gt;美丽的小鹿+可爱的小猪&lt;/code&gt;之间的差别。&lt;/li&gt;
   &lt;li&gt;减号(-)会要求Google去掉包含前面一个单词但是不包含后面一个单词的结果，比如查询词语&lt;code&gt;&quot;熊猫&quot; -&quot;动物&quot;&lt;/code&gt;会搜索出包含『熊猫』但是不包含『动物』的结果。&lt;/li&gt;
-  &lt;li&gt;intitle和allintitle：对标题栏中的文字进行筛选，比如搜索&lt;code&gt;intitle:duang 草泥马&lt;/code&gt;会搜索标题中有『下载』以及整个网页包括标题中有『草泥马』的结果，使用&lt;code&gt;allintitle:duang 草泥马&lt;/code&gt;则要求标题中必须同时含有这两个关键词。&lt;/li&gt;
+  &lt;li&gt;intitle和allintitle：对标题栏中的文字进行筛选，比如搜索&lt;code&gt;intitle:duang 草泥马&lt;/code&gt;会搜索标题中有『duang』以及整个网页包括标题中有『草泥马』的结果，使用&lt;code&gt;allintitle:duang 草泥马&lt;/code&gt;则要求标题中必须同时含有这两个关键词。&lt;/li&gt;
   &lt;li&gt;allintext：只是在网页内容中搜索关键字&lt;/li&gt;
   &lt;li&gt;inurl和allinurl：使用方法和intitle类似，比如搜索&lt;code&gt;inurl:草泥马&lt;/code&gt;会得到几乎所有url中包含『草泥马』的链接。&lt;/li&gt;
   &lt;li&gt;site：可以在站内搜索，当然这得在网站允许爬虫抓取的条件下，比如想在知乎下搜索『草泥马』，但是知乎自己的搜索做的渣烂烂的怎么办呢，可以试试&lt;code&gt;草泥马 site:zhihu.com&lt;/code&gt;。注意：需要直接使用顶级域名，不能使用类似于&lt;code&gt;www.zhihu.com&lt;/code&gt;或者&lt;code&gt;www.zhihu.com/xxx&lt;/code&gt;这种。&lt;/li&gt;

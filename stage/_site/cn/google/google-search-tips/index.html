@@ -176,7 +176,7 @@ MathJax.Hub.Config({
 <ul>
   <li>加号(+)会强制Google搜索后面的单词，比如搜索<code>tom+jerry</code>的结果中会同时含有两个单词。注意：加号必须是英文的加号！如果同时搜索两个词组需要加上引号，比如<code>“美丽的小鹿“ +“可爱的小猪“</code>，可以比较<code>美丽的小鹿+可爱的小猪</code>之间的差别。</li>
   <li>减号(-)会要求Google去掉包含前面一个单词但是不包含后面一个单词的结果，比如查询词语<code>"熊猫" -"动物"</code>会搜索出包含『熊猫』但是不包含『动物』的结果。</li>
-  <li>intitle和allintitle：对标题栏中的文字进行筛选，比如搜索<code>intitle:duang 草泥马</code>会搜索标题中有『下载』以及整个网页包括标题中有『草泥马』的结果，使用<code>allintitle:duang 草泥马</code>则要求标题中必须同时含有这两个关键词。</li>
+  <li>intitle和allintitle：对标题栏中的文字进行筛选，比如搜索<code>intitle:duang 草泥马</code>会搜索标题中有『duang』以及整个网页包括标题中有『草泥马』的结果，使用<code>allintitle:duang 草泥马</code>则要求标题中必须同时含有这两个关键词。</li>
   <li>allintext：只是在网页内容中搜索关键字</li>
   <li>inurl和allinurl：使用方法和intitle类似，比如搜索<code>inurl:草泥马</code>会得到几乎所有url中包含『草泥马』的链接。</li>
   <li>site：可以在站内搜索，当然这得在网站允许爬虫抓取的条件下，比如想在知乎下搜索『草泥马』，但是知乎自己的搜索做的渣烂烂的怎么办呢，可以试试<code>草泥马 site:zhihu.com</code>。注意：需要直接使用顶级域名，不能使用类似于<code>www.zhihu.com</code>或者<code>www.zhihu.com/xxx</code>这种。</li>
