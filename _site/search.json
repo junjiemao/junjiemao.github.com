@@ -1,0 +1,75 @@
+[
+	
+		{
+		  "title"      : "使用Google的小技巧",
+		  "category"   : "Google",
+		  "url"        : "/cn/google/google-search-tips/",
+		  "date"       : "2015-03-05 00:00:00 +0000",
+		  "shortdate"  : "March 05, 2015"
+		} ,
+	
+		{
+		  "title"      : "dplyr中的join类函数的使用注意点",
+		  "category"   : "R",
+		  "url"        : "/cn/r/the-dplyr-left-join/",
+		  "date"       : "2015-01-25 00:00:00 +0000",
+		  "shortdate"  : "January 25, 2015"
+		} ,
+	
+		{
+		  "title"      : "装逼，用力过猛出悲剧",
+		  "category"   : "生活",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/",
+		  "date"       : "2014-12-26 00:00:00 +0000",
+		  "shortdate"  : "December 26, 2014"
+		} ,
+	
+		{
+		  "title"      : "老残游记",
+		  "category"   : "生活",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/lu_mountain/",
+		  "date"       : "2014-04-14 00:00:00 +0000",
+		  "shortdate"  : "April 14, 2014"
+		} ,
+	
+		{
+		  "title"      : "The Music King",
+		  "category"   : "R",
+		  "url"        : "/cn/r/the-music-king/",
+		  "date"       : "2013-11-16 00:00:00 +0000",
+		  "shortdate"  : "November 16, 2013"
+		} ,
+	
+		{
+		  "title"      : "MySQL和MS SQL Server的一些区别",
+		  "category"   : "数据库",
+		  "url"        : "/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/",
+		  "date"       : "2013-11-01 00:00:00 +0000",
+		  "shortdate"  : "November 01, 2013"
+		} ,
+	
+		{
+		  "title"      : "每周记录 20131028",
+		  "category"   : "生活",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/",
+		  "date"       : "2013-10-29 00:00:00 +0000",
+		  "shortdate"  : "October 29, 2013"
+		} ,
+	
+		{
+		  "title"      : "R中使用正则表达式（1）",
+		  "category"   : "R",
+		  "url"        : "/cn/r/regular-expression-in-r-1/",
+		  "date"       : "2013-08-12 00:00:00 +0000",
+		  "shortdate"  : "August 12, 2013"
+		} ,
+	
+		{
+		  "title"      : "Rstudio快捷键速查",
+		  "category"   : "R",
+		  "url"        : "/cn/r/keyboard-shortcuts-of-rstudio/",
+		  "date"       : "2013-05-20 00:00:00 +0000",
+		  "shortdate"  : "May 20, 2013"
+		} 
+	
+]

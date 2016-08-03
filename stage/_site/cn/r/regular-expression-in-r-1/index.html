@@ -159,204 +159,163 @@ MathJax.Hub.Config({
 <h1 id="r">R中怎么使用正则表达式</h1>
 <p>在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：</p>
 
-<div class="highlight"><pre><code class="r"><span class="lineno">1</span> regexec<span class="p">(</span>pattern<span class="p">,</span> text<span class="p">,</span> ignore.case <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> fixed <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> useBytes <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-<span class="lineno">2</span> <span class="c1"># pattern就是我们要写的正则表达式 text是需要处理的文本</span>
-<span class="lineno">3</span> <span class="c1"># ignore.case表示是不是忽略大小写</span>
-<span class="lineno">4</span> <span class="c1"># fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&#39;.&#39;之类的字符当作实义字符</span>
-<span class="lineno">5</span> <span class="c1"># useBytes 暂时没有使用过</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)
+# pattern就是我们要写的正则表达式 text是需要处理的文本
+# ignore.case表示是不是忽略大小写
+# fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&#39;.&#39;之类的字符当作实义字符
+# useBytes 暂时没有使用过</code></pre></figure>
 
 <p>接下来都是在grep上使用正则表达式，其他的都是差不多的。</p>
 
 <h1 id="r-1">R中使用正则表达式实战</h1>
 <p>## 匹配纯文本</p>
 
-<div class="highlight"><pre><code class="r"><span class="lineno">1</span> x <span class="o">&lt;-</span> <span class="s">&quot;Hello ,my name is Ben.Please visit my website&quot;</span>
-<span class="lineno">2</span> m <span class="o">&lt;-</span> regexec<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;Ben&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">)</span>
-<span class="lineno">3</span> regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- &quot;Hello ,my name is Ben.Please visit my website&quot;
+m &lt;- regexec(pattern = &quot;Ben&quot;, text = x)
+regmatches(x, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;Ben&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;Ben&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r"><span class="c1"># 全局匹配</span>
-m <span class="o">&lt;-</span> regexec<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;my&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">)</span>  <span class="c1">#注意只是给出第一个匹配的，要全局匹配需要使用gregexpr</span>
-regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"># 全局匹配
+m &lt;- regexec(pattern = &quot;my&quot;, text = x)  #注意只是给出第一个匹配的，要全局匹配需要使用gregexpr
+regmatches(x, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;my&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;my&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;my&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">)</span>
-regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;my&quot;, text = x)
+regmatches(x, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;my&quot; &quot;my&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;my&quot; &quot;my&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r"><span class="c1"># 不考虑字母大小写</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;My&quot;</span><span class="p">,</span> text <span class="o">=</span> x<span class="p">,</span> ignore.case <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-regmatches<span class="p">(</span>x<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"># 不考虑字母大小写
+m &lt;- gregexpr(pattern = &quot;My&quot;, text = x, ignore.case = TRUE)
+regmatches(x, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;my&quot; &quot;my&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;my&quot; &quot;my&quot;</code></pre></figure>
 
 <h2 id="section">匹配任意字符</h2>
 <p>正则表达式中使用点(.)来匹配一个 <strong>一个或者多个</strong> 字符，可以匹配任意单个字符串，包括点(.)本身。</p>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;sales.&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;)
+grep(pattern = &quot;sales.&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r"><span class="c1"># 点(.)可以连着使用也可以分开使用</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;.a.&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"># 点(.)可以连着使用也可以分开使用
+grep(pattern = &quot;.a.&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
-## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
+## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;.a..&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">grep(pattern = &quot;.a..&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
-## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales.xls&quot;   &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
+## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;</code></pre></figure>
 
 <h2 id="section-1">匹配特殊字符</h2>
 <p>匹配特殊字符需要进行转义，转义一般使用\，但是在R中我们使用\来表示，这个是需要注意的。还有一个需要注意的就是如果比需要表示\也是需要转义的。</p>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;.a.\\.&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;)
+grep(pattern = &quot;.a.\\.&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;na1.xls&quot; &quot;na2.xls&quot; &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;na1.xls&quot; &quot;na2.xls&quot; &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;a\\d&quot;</span><span class="p">,</span> <span class="s">&quot;acd&quot;</span><span class="p">,</span> <span class="s">&quot;dsa&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;a\\\\&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>  <span class="c1">#需要注意在R中，\本身是要用\\表示的</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;a\\d&quot;, &quot;acd&quot;, &quot;dsa&quot;)
+grep(pattern = &quot;a\\\\&quot;, x = x, value = TRUE)  #需要注意在R中，\本身是要用\\表示的</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;a\\d&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;a\\d&quot;</code></pre></figure>
 
 <h2 id="section-2">匹配一组字符</h2>
 <p>我们需要的几个字符中的任意一个</p>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">)</span>
-<span class="c1"># 我们需要sa开是和na开始的</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;[sn]a.\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;)
+# 我们需要sa开是和na开始的
+grep(pattern = &quot;[sn]a.\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;na1.xls&quot; &quot;na2.xls&quot; &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;na1.xls&quot; &quot;na2.xls&quot; &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;The phrase regullar expression is often abbreciated as RegEx or regex&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;[Rr]eg[Ee]x&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;The phrase regullar expression is often abbreciated as RegEx or regex&quot;
+m &lt;- gregexpr(pattern = &quot;[Rr]eg[Ee]x&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;RegEx&quot; &quot;regex&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;RegEx&quot; &quot;regex&quot;</code></pre></figure>
 
 <h2 id="section-3">利用字符区间</h2>
 <p>使用集合的时候对于有规律的我们可以使用区间来表示</p>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..[0123456789]\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;)
+grep(pattern = &quot;..[0123456789]\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
-## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
+## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..[0-9]\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">grep(pattern = &quot;..[0-9]\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
-## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
+## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..[0-2]\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">grep(pattern = &quot;..[0-2]\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales2.xls&quot; &quot;apac1.xls&quot;  &quot;na1.xls&quot;    &quot;na2.xls&quot;    &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales2.xls&quot; &quot;apac1.xls&quot;  &quot;na1.xls&quot;    &quot;na2.xls&quot;    &quot;sa1.xls&quot;</code></pre></figure>
 
 <p>这里只要是开始和结尾是合法的ASCII字符都是可以的，不过常用的还是字符区间和数字区间。</p>
 
 <h2 id="section-4">取非匹配</h2>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sam.xls&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..[^0123456789]\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;, &quot;sam.xls&quot;)
+grep(pattern = &quot;..[^0123456789]\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales.xls&quot; &quot;sam.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales.xls&quot; &quot;sam.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;[ns]a[^0-9]\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">grep(pattern = &quot;[ns]a[^0-9]\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sam.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sam.xls&quot;</code></pre></figure>
 
 <h2 id="section-5">匹配空白字符</h2>
 <p>空白字符有换页符\f，换行符\n，回车符\r，制表符\t，垂直制表符\v。
 在匹配的时候记得转义就好了</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;I am Justin\nHello   world\n&quot;</span>  <span class="c1">#在justin和world之间换行了</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\n.*&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;I am Justin\nHello   world\n&quot;  #在justin和world之间换行了
+m &lt;- gregexpr(pattern = &quot;\n.*&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;\nHello   world\n&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;\nHello   world\n&quot;</code></pre></figure>
 
 <h2 id="section-6">匹配特定的字符类型</h2>
 <p>### 匹配数字
 可以使用[0-9]来匹配数字，也可以使用\d来匹配数字使用\D来匹配非数字,但是在R中我们要使用\d和\D来替代</p>
 
-<div class="highlight"><pre><code class="r">x <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;sales.xls&quot;</span><span class="p">,</span> <span class="s">&quot;orders3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales3.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sales.4.xls&quot;</span><span class="p">,</span> 
-    <span class="s">&quot;apac1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;na2.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sa1.xls&quot;</span><span class="p">,</span> <span class="s">&quot;sam.xls&quot;</span><span class="p">)</span>
-grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..\\d\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">x &lt;- c(&quot;sales.xls&quot;, &quot;orders3.xls&quot;, &quot;sales2.xls&quot;, &quot;sales3.xls&quot;, &quot;sales.4.xls&quot;, 
+    &quot;apac1.xls&quot;, &quot;na1.xls&quot;, &quot;na2.xls&quot;, &quot;sa1.xls&quot;, &quot;sam.xls&quot;)
+grep(pattern = &quot;..\\d\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
-## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;orders3.xls&quot; &quot;sales2.xls&quot;  &quot;sales3.xls&quot;  &quot;sales.4.xls&quot; &quot;apac1.xls&quot;  
+## [6] &quot;na1.xls&quot;     &quot;na2.xls&quot;     &quot;sa1.xls&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">grep<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;..\\D\\.xls&quot;</span><span class="p">,</span> x <span class="o">=</span> x<span class="p">,</span> value <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">grep(pattern = &quot;..\\D\\.xls&quot;, x = x, value = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;sales.xls&quot; &quot;sam.xls&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;sales.xls&quot; &quot;sam.xls&quot;</code></pre></figure>
 
 <h3 id="section-7">匹配字母和数字</h3>
 <p>匹配所有的字母和数字，用\w表示，等价于[0-9a-zA-Z]我们用\W表示非字母和数字。</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;\n11213\nA1C2E3\n48075\nM184F2\n90046\nH1H2H2\n&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\w\\d\\w\\d\\w\\d&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;\n11213\nA1C2E3\n48075\nM184F2\n90046\nH1H2H2\n&quot;
+m &lt;- gregexpr(pattern = &quot;\\w\\d\\w\\d\\w\\d&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;A1C2E3&quot; &quot;M184F2&quot; &quot;H1H2H2&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;A1C2E3&quot; &quot;M184F2&quot; &quot;H1H2H2&quot;</code></pre></figure>
 
 <h3 id="section-8">匹配空白字符</h3>
 <p>\s，包含我们上面提到的所有的空白字符
@@ -369,63 +328,53 @@ regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">
 <h2 id="section-9">匹配一个或者多个字符</h2>
 <p>使用加号(“+”)来匹配一个或者多个字符</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;Send personal emain to ben@forta.com or spam@gmail.com&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\w+@\\w+\\.\\w+&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;Send personal emain to ben@forta.com or spam@gmail.com&quot;
+m &lt;- gregexpr(pattern = &quot;\\w+@\\w+\\.\\w+&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;ben@forta.com&quot;  &quot;spam@gmail.com&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;ben@forta.com&quot;  &quot;spam@gmail.com&quot;</code></pre></figure>
 
 <h2 id="section-10">匹配零个或者多个字符</h2>
 <p>使用星号(*)来匹配零个或者多个字符</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;Hello ben@forta.com is my email address&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\w+[\\w.]*@\\w+\\.\\w+&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;Hello ben@forta.com is my email address&quot;
+m &lt;- gregexpr(pattern = &quot;\\w+[\\w.]*@\\w+\\.\\w+&quot;, text = text)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;ben@forta.com&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;ben@forta.com&quot;</code></pre></figure>
 
 <h2 id="section-11">匹配零个或者一个字符</h2>
 <p>使用问号(?)来匹配零个或者一个字符</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;The URL is http://www.forta.com/,to connec securely use https://www.forta.com/ instead&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;https?://[\\w./]+&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">,</span> perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>  <span class="c1">#注意perl参数的设置的结果的差异</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;The URL is http://www.forta.com/,to connec securely use https://www.forta.com/ instead&quot;
+m &lt;- gregexpr(pattern = &quot;https?://[\\w./]+&quot;, text = text, perl = TRUE)  #注意perl参数的设置的结果的差异
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;http://www.forta.com/&quot;  &quot;https://www.forta.com/&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;http://www.forta.com/&quot;  &quot;https://www.forta.com/&quot;</code></pre></figure>
 
 <h2 id="section-12">重复精确的次数</h2>
 <p>用大括号({})中写上数字来表示重复的次数</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;&lt;BOdy BGCOLOR=\&quot;#336633\&quot;,TEXT=\&quot;#FFFFFF\&quot;,MARGINWIDTH=\&quot;0\&quot;&gt;&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;[[:xdigit:]]{6}&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;&lt;BOdy BGCOLOR=\&quot;#336633\&quot;,TEXT=\&quot;#FFFFFF\&quot;,MARGINWIDTH=\&quot;0\&quot;&gt;&quot;
+m &lt;- gregexpr(pattern = &quot;[[:xdigit:]]{6}&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;336633&quot; &quot;FFFFFF&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;336633&quot; &quot;FFFFFF&quot;</code></pre></figure>
 
 <h2 id="section-13">为重复设置一个区间</h2>
 <p>用大括号中写上范围({2,5})表示写重复的次数的范围</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;4/8/03\n10-6-2004\n2/2/2\n01-01-01\n&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\d{1,2}[-/]\\d{1,2}[-/]\\d{2,4}&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">,</span> 
-    perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;4/8/03\n10-6-2004\n2/2/2\n01-01-01\n&quot;
+m &lt;- gregexpr(pattern = &quot;\\d{1,2}[-/]\\d{1,2}[-/]\\d{2,4}&quot;, text = text, 
+    perl = TRUE)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;4/8/03&quot;    &quot;10-6-2004&quot; &quot;01-01-01&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;4/8/03&quot;    &quot;10-6-2004&quot; &quot;01-01-01&quot;</code></pre></figure>
 
 <h2 id="section-14">至少重复的次数</h2>
 <p>使用{3,}表示至少重复3次</p>
@@ -433,159 +382,129 @@ regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">
 <h2 id="section-15">单词边界</h2>
 <p>使用\b表示单词的边界,\B表示不匹配边界</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;The cat scattered his foof all over the room&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;cat&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;The cat scattered his foof all over the room&quot;
+m &lt;- gregexpr(pattern = &quot;cat&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;cat&quot; &quot;cat&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;cat&quot; &quot;cat&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\bcat\\b&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;\\bcat\\b&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;cat&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;cat&quot;</code></pre></figure>
 
 <h2 id="section-16">字符串边界</h2>
 <p>使用乘方符号(^)和美元符号($)来表示首尾。</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;This is bad,real bad.  &lt;?xml version=\&quot;1.0\&quot;?&gt; &quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\s*&lt;\\?xml.*\\?&gt;&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;This is bad,real bad.  &lt;?xml version=\&quot;1.0\&quot;?&gt; &quot;
+m &lt;- gregexpr(pattern = &quot;\\s*&lt;\\?xml.*\\?&gt;&quot;, text = text)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;  &lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;  &lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;^\\s*&lt;\\?xml.*\\?&gt;&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>  <span class="c1">#这样可以检验出不合法的xml文档</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;^\\s*&lt;\\?xml.*\\?&gt;&quot;, text = text)
+regmatches(text, m)  #这样可以检验出不合法的xml文档</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## character(0)
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## character(0)</code></pre></figure>
 
 <h2 id="section-17">分行匹配模式</h2>
 <p>在分行模式下，还将匹配换行符后面的内容，使用分行模式需要使用(?m)来完成。</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot; %InLiNe_IdEnTiFiEr% \&quot;#include&lt;stdio.h&gt;\&quot;\n//ptrint Hello world\nint main()\n{\n//begin\nprintf(%,\&quot;Hello world\&quot;);\nreturn 0;\n//end\n}\n&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;^\\s*//.*$&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">,</span> perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot; %InLiNe_IdEnTiFiEr% \&quot;#include&lt;stdio.h&gt;\&quot;\n//ptrint Hello world\nint main()\n{\n//begin\nprintf(%,\&quot;Hello world\&quot;);\nreturn 0;\n//end\n}\n&quot;
+m &lt;- gregexpr(pattern = &quot;^\\s*//.*$&quot;, text = text, perl = TRUE)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## character(0)
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## character(0)</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;(?m)^\\s*//.*$&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">,</span> perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-regmatches<span class="p">(</span>text<span class="p">,</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;(?m)^\\s*//.*$&quot;, text = text, perl = TRUE)
+regmatches(text, m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;//ptrint Hello world&quot; &quot;//begin&quot;              &quot;//end&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;//ptrint Hello world&quot; &quot;//begin&quot;              &quot;//end&quot;</code></pre></figure>
 
 <h2 id="section-18">子表达式</h2>
 <p>据一个例子来说明子表达式什么，比如我们处理”hellohellohello world hello world”这句话的时候我们想把其中的hello连在一起达到两次或者两次以上的字符串找出来，于是我们使用<code>hello{2,}</code>，但是发现出来的结果和我们想要的有很大的差距，因为表示次数的式子只对离着最近的一个字母起作用。我们想要达到预想的效果需要把hello当作是一个整体，这个时候我们就需要用到子表达式。</p>
 
 <p>在正则表达式中，子表达式使用（）括起来就可以了，看下面的例子：</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;hellohellohello world hello world&quot;</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;hellohellohello world hello world&quot;
 
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;hello{2,}&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+m &lt;- gregexpr(pattern = &quot;hello{2,}&quot;, text = text)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## character(0)
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## character(0)</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;(hello){2,}&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;(hello){2,}&quot;, text = text)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;hellohellohello&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;hellohellohello&quot;</code></pre></figure>
 
 <h3 id="section-19">子表达式的嵌套</h3>
 <p>通过一个找出有效IP地址的例子中了解子表达式的嵌套，合法的IP必须满足数字小于255，我们看下面的例子:</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;ping 167.42.223.4 and 56.256.2.3&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;(((\\d{1,2})|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))\\.){3}((\\d{1,2})|(1\\d{2})|(a[0-4]\\d)|(25[0-5]))&quot;</span><span class="p">,</span> 
-    text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;ping 167.42.223.4 and 56.256.2.3&quot;
+m &lt;- gregexpr(pattern = &quot;(((\\d{1,2})|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))\\.){3}((\\d{1,2})|(1\\d{2})|(a[0-4]\\d)|(25[0-5]))&quot;, 
+    text = text)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;167.42.223.4&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;167.42.223.4&quot;</code></pre></figure>
 
 <h2 id="section-20">回溯引用</h2>
 <p>回溯应用是对于子表达式来说的，简单的就是我们用一个符号来表示前面出现过的子表达式。通过下面的应用场合来了解，我们需要找出所有的标题：</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;&lt;BODY&gt;\n&lt;H1&gt; H1&lt;/H1&gt;\nBababallll~~~\n&lt;H2&gt; H2&lt;/H2&gt;\nmiaomimaomi~~~~~\n&lt;H3&gt; H3&lt;/H3&gt;\nwangwangwang~~~\n&lt;H4&gt; H4&lt;/H4&gt;\n&lt;BODY&gt;&quot;</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;&lt;BODY&gt;\n&lt;H1&gt; H1&lt;/H1&gt;\nBababallll~~~\n&lt;H2&gt; H2&lt;/H2&gt;\nmiaomimaomi~~~~~\n&lt;H3&gt; H3&lt;/H3&gt;\nwangwangwang~~~\n&lt;H4&gt; H4&lt;/H4&gt;\n&lt;BODY&gt;&quot;
 
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;&lt;[hH][1-4]&gt;.*?&lt;/[hH][1-4]&gt;&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>  <span class="c1">#懒惰型</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>  <span class="c1">#貌似可以工作，但是不通用</span>
-</code></pre></div>
+m &lt;- gregexpr(pattern = &quot;&lt;[hH][1-4]&gt;.*?&lt;/[hH][1-4]&gt;&quot;, text = text)  #懒惰型
+regmatches(x = text, m = m)  #貌似可以工作，但是不通用</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;&quot; &quot;&lt;H2&gt; H2&lt;/H2&gt;&quot; &quot;&lt;H3&gt; H3&lt;/H3&gt;&quot; &quot;&lt;H4&gt; H4&lt;/H4&gt;&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;&quot; &quot;&lt;H2&gt; H2&lt;/H2&gt;&quot; &quot;&lt;H3&gt; H3&lt;/H3&gt;&quot; &quot;&lt;H4&gt; H4&lt;/H4&gt;&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;&lt;[hH][1-4]&gt;.*&lt;/[hH][1-4]&gt;&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>  <span class="c1">#贪婪型</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;&lt;[hH][1-4]&gt;.*&lt;/[hH][1-4]&gt;&quot;, text = text)  #贪婪型
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;\nBababallll~~~\n&lt;H2&gt; H2&lt;/H2&gt;\nmiaomimaomi~~~~~\n&lt;H3&gt; H3&lt;/H3&gt;\nwangwangwang~~~\n&lt;H4&gt; H4&lt;/H4&gt;&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;\nBababallll~~~\n&lt;H2&gt; H2&lt;/H2&gt;\nmiaomimaomi~~~~~\n&lt;H3&gt; H3&lt;/H3&gt;\nwangwangwang~~~\n&lt;H4&gt; H4&lt;/H4&gt;&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;&lt;[hH]([1-4])&gt;.*&lt;/[hH]\\1&gt;&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">m &lt;- gregexpr(pattern = &quot;&lt;[hH]([1-4])&gt;.*&lt;/[hH]\\1&gt;&quot;, text = text)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;&quot; &quot;&lt;H2&gt; H2&lt;/H2&gt;&quot; &quot;&lt;H3&gt; H3&lt;/H3&gt;&quot; &quot;&lt;H4&gt; H4&lt;/H4&gt;&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;&lt;H1&gt; H1&lt;/H1&gt;&quot; &quot;&lt;H2&gt; H2&lt;/H2&gt;&quot; &quot;&lt;H3&gt; H3&lt;/H3&gt;&quot; &quot;&lt;H4&gt; H4&lt;/H4&gt;&quot;</code></pre></figure>
 
 <h2 id="section-21">回溯引用在替代中的使用</h2>
 <p>直接看下面的例子:</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;balabala~~~  gmail@gmail.com miaomiaomaio~~&quot;</span>
-m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+&quot;</span><span class="p">,</span> text <span class="o">=</span> text<span class="p">,</span> 
-    perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-regmatches<span class="p">(</span>x <span class="o">=</span> text<span class="p">,</span> m <span class="o">=</span> m<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;balabala~~~  gmail@gmail.com miaomiaomaio~~&quot;
+m &lt;- gregexpr(pattern = &quot;\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+&quot;, text = text, 
+    perl = TRUE)
+regmatches(x = text, m = m)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [[1]]
-## [1] &quot;gmail@gmail.com&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [[1]]
+## [1] &quot;gmail@gmail.com&quot;</code></pre></figure>
 
-<div class="highlight"><pre><code class="r">sub<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;(\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+)&quot;</span><span class="p">,</span> replacement <span class="o">=</span> <span class="s">&quot;&lt;A HREF=\\\&quot;mailto:\\1\\\&quot;&gt;\\1&lt;/A&gt;&quot;</span><span class="p">,</span> 
-    x <span class="o">=</span> text<span class="p">,</span> perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">sub(pattern = &quot;(\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+)&quot;, replacement = &quot;&lt;A HREF=\\\&quot;mailto:\\1\\\&quot;&gt;\\1&lt;/A&gt;&quot;, 
+    x = text, perl = TRUE)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## [1] &quot;balabala~~~  &lt;A HREF=\&quot;mailto:gmail@gmail.com\&quot;&gt;gmail@gmail.com&lt;/A&gt; miaomiaomaio~~&quot;
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;balabala~~~  &lt;A HREF=\&quot;mailto:gmail@gmail.com\&quot;&gt;gmail@gmail.com&lt;/A&gt; miaomiaomaio~~&quot;</code></pre></figure>
 
 <p>注意R中sub和gsub（sub的全局版本）函数的使用。下面再看一个对电话号码重新排序的问题：</p>
 
-<div class="highlight"><pre><code class="r">text <span class="o">&lt;-</span> <span class="s">&quot;324-245-2521\n324-255-6156&quot;</span>
-text <span class="o">&lt;-</span> gsub<span class="p">(</span>pattern <span class="o">=</span> <span class="s">&quot;(\\d{3})(-)(\\d{3})(-)(\\d{4})&quot;</span><span class="p">,</span> replacement <span class="o">=</span> <span class="s">&quot;\\(\\1\\) \\3-\\5&quot;</span><span class="p">,</span> 
-    x <span class="o">=</span> text<span class="p">,</span> perl <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-cat<span class="p">(</span>text<span class="p">)</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">text &lt;- &quot;324-245-2521\n324-255-6156&quot;
+text &lt;- gsub(pattern = &quot;(\\d{3})(-)(\\d{3})(-)(\\d{4})&quot;, replacement = &quot;\\(\\1\\) \\3-\\5&quot;, 
+    x = text, perl = TRUE)
+cat(text)</code></pre></figure>
 
-<div class="highlight"><pre><code class="text">## (324) 245-2521
-## (324) 255-6156
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## (324) 245-2521
+## (324) 255-6156</code></pre></figure>
 
 
         
@@ -604,7 +523,7 @@ cat<span class="p">(</span>text<span class="p">)</span>
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    <span>&copy; 2015 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
+    <span>&copy; 2016 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
 <div class="social-icons">
 	
 	

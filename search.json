@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "slidify中的中文乱码解决方案",
+		  "category"   : "R",
+		  "url"        : "/cn/r/slidify-mojibake/",
+		  "date"       : "2016-08-02 00:00:00 +0000",
+		  "shortdate"  : "August 02, 2016"
+		} ,
+	
+		{
 		  "title"      : "使用Google的小技巧",
 		  "category"   : "Google",
 		  "url"        : "/cn/google/google-search-tips/",

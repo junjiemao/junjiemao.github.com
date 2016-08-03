@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>MySQL和MS SQL Server的一些区别 | HatMatrix</title>
+    <meta name="description" content="">
+    <meta name="author" content="HatMarix">
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/assets/themes/jade/css/bootstrap-1.4.0-min.css" rel="stylesheet" type="text/css" media="all">
+  	<link href="/assets/themes/jade/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="/pygments.css">
+
+    
+  <script src="/assets/javascripts/require-js/require.js"></script>
+	<script>
+	require.config({
+	  baseUrl : "/assets/javascripts/require-js",
+	});
+	require(['order!jquery','jb'], function($, JB){
+	  JB.init(function(){
+	  
+	    $("a[rel='twipsy']").twipsy();
+	    $("a[rel='popover']").popover();
+	  });
+	});
+	</script>
+
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Mao's An Optimist</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+
+  
+
+    
+    
+  	
+  	<li><a href="/pages.html">页面</a></li>
+  	
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+    
+    
+  	
+  	<li><a href="/tags.html">标签</a></li>
+  	
+    
+    
+    
+  
+
+  
+
+    
+    
+  	
+  	<li><a href="/categories.html">类别</a></li>
+  	
+    
+    
+    
+  
+
+  
+
+  
+
+    
+    
+  	
+  	<li><a href="/archive.html">归档</a></li>
+  	
+    
+    
+    
+  
+
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content tabify">
+        <div class="post-header">
+  <h0>MySQL和MS SQL Server的一些区别 </h0>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。</p>
+
+<h1>触发器</h1>
+
+<p>在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno">2</span> <span class="k">CREATE</span>
+<span class="lineno">3</span> <span class="k">DEFINER</span><span class="o">=`</span><span class="n">root</span><span class="o">`@`</span><span class="n">localhost</span><span class="o">`</span>
+<span class="lineno">4</span> <span class="k">TRIGGER</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_afterinsert_on_tab1</span><span class="o">`</span>
+<span class="lineno">5</span> <span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno">6</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
+<span class="lineno">7</span> <span class="k">BEGIN</span>
+<span class="lineno">8</span> <span class="k">sql</span><span class="err">语句；</span>
+<span class="lineno">9</span> <span class="k">END</span><span class="err">$$</span>
+</code></pre></div>
+
+
+<p>和MS SQL不同的是MySQL的触发器类型有六种，分别是<code>AFTER/BEFORE</code>和<code>INSERT/UPDATE/DELETE</code>之间的组合。而MS SQL的触发器是<code>INSERT</code>,<code>UPDATE</code>,<code>DELETE</code>以及<code>INSTEAD OF</code>四种，其中前三种是之后触发，最后一种是之前触发。如果使用习惯了MS SQL的话，在写触发器中的SQL语句就会遇到一个小小的坑。比如有一张表格有x和y两列，需要一个触发器判断x大于0就插入x否则插入-x。如果习惯了M$ SQL会这样写：</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 2</span> <span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="s1">&#39;test&#39;</span><span class="p">.</span><span class="s1">&#39;error_trigger&#39;</span>
+<span class="lineno"> 3</span> <span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno"> 4</span> <span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="lineno"> 5</span> <span class="k">BEGIN</span>
+<span class="lineno"> 6</span> <span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="lineno"> 7</span> <span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="o">-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="lineno"> 8</span> <span class="k">else</span>
+<span class="lineno"> 9</span> <span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="lineno">10</span> <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="lineno">11</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">12</span> <span class="k">DELIMITER</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>但是这样话是无法运行的，因为这样已经相当于循环插入了，正确的做法是:</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 2</span> <span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="s1">&#39;test&#39;</span><span class="p">.</span><span class="s1">&#39;error_trigger&#39;</span>
+<span class="lineno"> 3</span> <span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="o">`</span><span class="n">test</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">test</span><span class="o">`</span>
+<span class="lineno"> 4</span> <span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="lineno"> 5</span> <span class="k">BEGIN</span>
+<span class="lineno"> 6</span> <span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="lineno"> 7</span> <span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno"> 8</span> <span class="k">else</span>
+<span class="lineno"> 9</span> <span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span> <span class="o">#</span><span class="err">也可以不要这句</span>
+<span class="lineno">10</span> <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="lineno">11</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">12</span> <span class="k">DELIMITER</span> <span class="p">;</span>
+</code></pre></div>
+
+
+<p>在写触发器的时候还要注意的就是<code>new</code>和<code>old</code>的使用，这在MS SQL中是没有的。<code>new</code>加上点(.)加上列名就可以取出相应的列，<code>old</code>在删除的时候会用得比较多点。而在MS SQL中是需要使用<code>select</code>来取出的。</p>
+
+<h1>存储过程</h1>
+
+<p>存储过程没有很大的区别，发现有几点。</p>
+
+<ul>
+<li><p>在MySQL中定义变量是不需要使用<code>@</code>符号的。</p></li>
+<li><p>声明参数的格式为<code>输入（IN）变量还是输出（OUT）变量  变量名 变量类型</code>，比如 <code>IN par_name INT</code>这种就表示是INT型的名字韦par_name的输入型变量。</p></li>
+<li><p>在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以<code>selct  @a=a,@b=b from test</code>,其中<code>@a</code>、<code>@b</code>为声明的变量,而在MySQL中只能<code>selet a,b into aa,bb  form test</code>,其中<code>aa</code>和<code>bb</code>为声明的变量。</p></li>
+<li><p>ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：</p></li>
+</ul>
+
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">UPDATE</span> <span class="n">A</span>
+<span class="lineno">2</span> <span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno">3</span> <span class="k">where</span> <span class="n">x</span> <span class="k">in</span> <span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>这样是会报错的，解决方案为</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno">1</span> <span class="k">UPDATE</span> <span class="n">A</span>
+<span class="lineno">2</span> <span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="lineno">3</span> <span class="k">where</span> <span class="n">x</span> <span class="k">in</span>
+<span class="lineno">4</span> <span class="k">select</span> <span class="n">x</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。</p>
+
+<h1>函数</h1>
+
+<p>差别不是很大，注意的也就是参数的声明。</p>
+
+<h1>事件调度</h1>
+
+<p>MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。</p>
+
+<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;event_scheduler&#39;</span><span class="p">;</span>  <span class="o">#</span><span class="err">查看是否开启定时器</span>  
+<span class="lineno"> 2</span> <span class="k">set</span> <span class="k">global</span> <span class="n">event_scheduler</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>  <span class="o">#</span><span class="err">开启定时器</span> 
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span> <span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="lineno"> 5</span> <span class="k">CREATE</span> <span class="n">EVENT</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">EVENT_CheckOnLine</span>
+<span class="lineno"> 6</span> <span class="k">ON</span> <span class="n">SCHEDULE</span> <span class="k">EVERY</span> <span class="mi">30</span> <span class="k">SECOND</span>
+<span class="lineno"> 7</span> <span class="k">ON</span> <span class="k">COMPLETION</span> <span class="k">PRESERVE</span>
+<span class="lineno"> 8</span> <span class="k">DO</span> <span class="k">BEGIN</span>
+<span class="lineno"> 9</span> <span class="k">call</span> <span class="n">checkOnline</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<span class="lineno">10</span> <span class="k">END</span><span class="err">$$</span>
+<span class="lineno">11</span> <span class="k">DELIMITER</span> <span class="p">;</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">EVENTS</span><span class="p">;</span>   <span class="o">#</span><span class="err">查看事件的调用情况</span>
+</code></pre></div>
+
+
+<h1>其他需要注意的</h1>
+
+<p>在使用的过程还发现了其他一些可能导致的错误：</p>
+
+<ul>
+<li><p>ERROR 1175的解决方案是<code>SET SQL_SAFE_UPDATES=0</code>,原因是当要执行的SQL语句是进行批量更新或者删除的时候就会提示这个错误，这是一个保护机制，去掉就是了。</p></li>
+<li><p>workbench中编辑数据的时候（估计直接编辑数据也就在测试阶段使用），如果该表没有设置主键的时候是不能直接编辑数据的。吐槽下workbench的可视化编辑器真的<code>print('很'*10000)</code>难用的。</p></li>
+<li><p>自增加(<code>AUTO_INCREMENT</code>)必须是主键的一部分，并且一张表只能有一个<code>AUTO_INCREMENT</code>属性,其可以是任何整数类型的数据。</p></li>
+</ul>
+
+
+<p>就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下<a href="http://www.postgresql.org/">Postgresql</a>这个号称 <strong>"The world's most advanced open source database"</strong> 的数据库，这个数据库到目前为止也只是使用过她的查询语句。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028" title="每周记录 20131028">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/r/2013/11/16/the-music-king" title="The Music King">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+     <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'mylove2stat'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>01 November 2013</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+   
+  	<li><a href="#MySQL-ref">MySQL <span>1</span></a></li>
+   
+  	<li><a href="#MS SQL-ref">MS SQL <span>1</span></a></li>
+  
+
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+        <p>&copy; 2013 |HatMarix
+           Proudly powered by <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap </a> and <a href="http://plusjade.com">Jade Dominguez</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <div id="custom_sidebar">
+  
+  <img src="http://www.gravatar.com/avatar/cae59ed433ef26f560841e07900a684a?s=160" alt="self" id="me">
+  
+  <h5>HatMatrix</h5>
+  <p>
+编译于628488732，运行在全世界第四大Linux服务器上，严重依赖于汉语和英语环境，UI简(chou)洁 (lou)，支持R与Python接口，需要Google API支持，自带驱动，不开放源代码。    
+
+  </p>
+	<h5>我还在这里</h5>
+	
+  <ul id="contact_list">
+    <li>
+      <a href="http://github.com/junjiemao">
+        <img src="/assets/images/icons/github.gif" alt="Facebook Link">
+        Github
+      </a>
+    </li>
+    <li>
+      <a href="mailto:maojunj1989@gmail.com">
+       <img src="/assets/images/icons/gmail.png" alt="Newspaper Icon" height=2.2 width=1.6>
+        Gmail
+      </a>
+    </li>
+    <li>
+      <a href="http://weibo.com/1727877543/">
+       <img src="/assets/images/icons/sina.png" alt="Sina Weibo Icon">
+        新浪微博
+      </a>
+    </li> 
+    <li>
+      <a href="http://www.douban.com/people/mylove2stat/">
+       <img src="/assets/images/icons/douban.png" alt="DouBan Icon">
+        豆瓣
+      </a>
+    </li>
+
+  </ul>
+
+</div>
+
+  
+  </body>
+</html>
+
+
+<!-- MathJax Section -->
+ 
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+MathJax.Hub.Config({
+tex2jax: {
+skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+}
+});
+MathJax.Hub.Queue(function() {
+var all = MathJax.Hub.getAllJax(), i;
+for(i=0; i < all.length; i += 1) {
+all[i].SourceElement().parentNode.className += ' has-jax';
+}
+});
+</script>

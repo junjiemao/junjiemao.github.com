@@ -1,0 +1,1722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Mao's An Optimist</title>
+ <link href="http://junjiemao.github.com/" rel="self"/>
+ <link href="http://junjiemao.github.com"/>
+ <updated>2013-11-16T02:44:17+08:00</updated>
+ <id>http://junjiemao.github.com</id>
+ <author>
+   <name>HatMarix</name>
+   <email>maojunj1989@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>The Music King</title>
+   <link href="http://junjiemao.github.com/r/2013/11/16/the-music-king"/>
+   <updated>2013-11-16T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/r/2013/11/16/the-music-king</id>
+   <content type="html">&lt;p&gt;快收工的时候刷了下微博看到了有人很无聊地去统计了汪峰老师（没有黑他的意思，其实人家音乐还是很有力量的好吧）歌词的词频率。于是我想这得多有(wu)趣(liao)啊，于是就决定自己也统计下。于是的于是，我放弃了看TBBT的时间来给统计下汪峰老师的歌词。&lt;/p&gt;
+
+&lt;p&gt;要想统计就得有歌词啊，一个个找也不是懒人的风格，于是想到了&lt;a href=&quot;http://www.xiami.com/&quot;&gt;虾米&lt;/a&gt;上是有歌词的，去抓下来就好了嘛，其实也很简单，把网页抓下来解析一下。以前这活都是给Pyhon干的，今天想想用R尝试下吧。R解析HTML应该可以用XML包，但是因为以前都是使用Python来解析HTML,所有XML包压根就没有用过，于是决定自己写正则表达式来完成吧。&lt;/p&gt;
+
+&lt;h1&gt;抓取歌词&lt;/h1&gt;
+
+&lt;p&gt;汪峰在虾米上的ID是887，使用&lt;code&gt;http://www.xiami.com/artist/album/id/887/d//p//page/1&lt;/code&gt;的网址可以直接查看其专辑。&lt;/p&gt;
+
+&lt;p&gt;我们首先获得其专辑的信息，这里主要是名字和专辑的链接。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; artistSearch &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com/artist/album/id/887/d//p//page/1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt;                   &lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com/artist/album/id/887/d//p//page/2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; getURL&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;artistSearch&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;p class=\&amp;quot;name\&amp;quot;&amp;gt;.*&amp;lt;strong&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; album &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#取得专辑的名字&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; getName &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=title=\&amp;quot;).*(?=\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#取得专辑的链接&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; getLink &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=href=\&amp;quot;).*[0-9](?=\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#获得专辑的名字和链接&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt; albumDetails &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;unname&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;unlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sapply&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;X&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ablum&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;FUN&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;getName&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;simplify&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vector&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))),&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;                           link&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;unname&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;unlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sapply&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;X&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ablum&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;FUN&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;getLink&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;simplify&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vector&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ablumDetial
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;                        name              link
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;                  生来彷徨  &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;784338853&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;                  一起摇摆  &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;580530673&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;    汪峰&lt;span class=&quot;m&quot;&gt;2011&lt;/span&gt;生无所求演唱会 &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2075241743&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;                  生无所求     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;478379&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;              像梦一样自由     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;432313&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;            信仰在空中飘扬     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;337989&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;                  勇敢的心       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4423&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;                怒放的生命       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4424&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;9&lt;/span&gt;  Live In Beijing 飞得更高       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4425&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;                   笑着哭       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4426&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;       爱是一颗幸福的子弹       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4427&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;  十七岁的单车 电影原声带     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;168383&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;13&lt;/span&gt;             花火&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;台湾版&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;374017&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt;                     &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt;                     花火       &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;album&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4428&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上获得了专辑的名字和专辑的链接地址，接下来要做的就是去这个专辑中找到这些歌曲然后找到这些歌曲的歌词就可以了。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#获取专辑中歌曲信息&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; getSongDetails  &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ablumDetails&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; getURL&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;paste0&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;ablumDetails&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;link&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=&amp;lt;td class=\&amp;quot;song_name\&amp;quot;&amp;gt;).*?(?=&amp;lt;/a&amp;gt;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言 非贪婪&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; songs &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#获取歌曲名字&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; getName &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=title=\&amp;quot;\&amp;quot;&amp;gt;).*&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言,&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#歌曲链接名字&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; getLink &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=&amp;lt;a href=\&amp;quot;).*[0-9](?=\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; songDetails &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;  data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;unname&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;unlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sapply&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;X&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;songs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;FUN&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;getName&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;simplify&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vector&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))),&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; link&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;unname&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;unlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sapply&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;X&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;songs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;FUN&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;getLink&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;simplify&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vector&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;songDetial&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#获得歌曲的信息&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; songDetail &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; getSongDetail&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ablumDetial&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#获取歌词&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; getLrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;songDetail&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; getURL&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;paste0&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xiami.com/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;songDetail&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;link&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt; m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(?&amp;lt;=&amp;lt;div class=\&amp;quot;lrc_main\&amp;quot;&amp;gt;)[^..]*?(?=&amp;lt;.div&amp;gt;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;text&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;perl&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#需要使用正则的零宽度断言 非贪婪 注意空行的匹配&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt; lrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;m&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; lrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;(\\s)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;replacement&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lrc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; lrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;br/&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;replacement&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;\n&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lrc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lrc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt; Lrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; getLrc&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;songDetail&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#把歌词的信息加入&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt; songDetail&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Lrc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; Lrc
+&lt;span class=&quot;lineno&quot;&gt;39&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;40&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; songDetail&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;41&lt;/span&gt;       name             link
+&lt;span class=&quot;lineno&quot;&gt;42&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; 生来彷徨 &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;song&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1772331683&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;43&lt;/span&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Lrc
+&lt;span class=&quot;lineno&quot;&gt;44&lt;/span&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; 每天走在疯狂逐梦的大街上\n我们精神褴褛却又毫无倦意\n徘徊着寻找着那虚空的欢愉\n奔波着抗争着那无常的命运\n\n朋友啊这生活会把你的心伤烂\n可它从来就不会有一丝怜悯\n再也别象个傻瓜一样的哭了\n因为象我们这样的人生来彷徨\n\n传真机到炼钢厂有一万光年\n那只是我们失梦之路的起点\n妈妈你善良的孩子还没放弃\n他想在今夜的街上爱到死去\n\n朋友啊这世界会将你的梦破败\n而它从来就不会有一丝同情\n再也别象个疯子一样的拼了\n因为象我们这样的人生来彷徨\n\n路上散落着花朵般受伤的英雄\n如同我们一起挣扎着的那些片段\n明天我们是否活着却依然不在\n明天我们是否存在却迷惘依然\n\n朋友啊这生活会把你的骨折断\n而它从来就只是在袖手旁观\n不如象一块石头一样的滚吧\n因为象我们这样的人生来彷徨\n\n朋友啊这世界会将你的爱破灭\n而它从来就不会给一次拯救\n不如让我们一起放任自流吧\n反正象我们这样的人生来彷徨
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;分词&lt;/h1&gt;
+
+&lt;p&gt;接下来就是统计词频率了,分词使用分词包&lt;a href=&quot;http://jliblog.com/app/rwordseg&quot;&gt;Rwordseg&lt;/a&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; library&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Rwordseg&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; segWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segmentCN&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;strwords&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;songDetail&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Lrc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;nature&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; segWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; unlist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; stopwords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;./Document/Temp/stopwords.txt&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; segWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;segWords&lt;span class=&quot;o&quot;&gt;%in%&lt;/span&gt;c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;的&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;是&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;在&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;也&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;得&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;地&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;制作人&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;录音师&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#去掉ul&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; segWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ul&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#去掉uj&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; segWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;uj&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#统计动词&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; verbWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;v&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; as.data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;verbWords&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;order&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Freq&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;decreasing&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),][&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#统计名词&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt; nounWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;n&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; as.data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nounWords&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;order&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Freq&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;decreasing&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),][&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#统计形容词/副词语&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt; aWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;a&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; as.data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aWords&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;order&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Freq&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;decreasing&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),][&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#统计量词&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; mWords &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; segWords&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;names&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;segWords&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;m&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; as.data.frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mWords&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;order&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Freq&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;decreasing&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),][&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;结果&lt;/h1&gt;
+
+&lt;p&gt;结果是基本上就是下面这样的&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;动词的统计&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;verbWords&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Freq&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;823&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;像&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;227&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;900&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;有&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;191&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;          &lt;span class=&quot;err&quot;&gt;爱&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;173&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;340&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;会&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;156&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;515&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;没有&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;146&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;618&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;让&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;135&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;950&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;知道&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;162&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;到&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;113&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;868&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;要&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;110&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;149&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;带&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;97&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;426&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;可&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;816&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;想&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;493&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;录音&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;76&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;447&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;来&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;73&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;613&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;去&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;73&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;166&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;等待&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;71&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;341&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;混&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;67&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;处理&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;928&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;找&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;57&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;428&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;可以&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;52&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;538&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;能&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;433&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;哭泣&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;49&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;432&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;哭&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;785&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;无&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;986&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;走&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;47&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;913&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;再见&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;44&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;696&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;说&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;41&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;407&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;觉得&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;39&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;252&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;感到&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;32&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;585&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;破碎&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;33&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;34&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;35&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;名词的统计&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;36&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nounWords&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Freq&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;37&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;574&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;生命&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;125&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;38&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;177&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;感觉&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;118&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;39&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;526&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;人&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;106&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;40&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;785&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;音&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;41&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;692&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;象&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;88&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;42&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;421&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;梦&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;85&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;43&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;203&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;工作室&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;78&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;44&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;408&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;妈妈&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;75&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;45&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;843&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;助理&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;46&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;711&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;心&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;53&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;47&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;305&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;键盘&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;48&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;293&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;吉他&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;49&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;589&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;世界&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;164&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;风&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;45&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;51&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;148&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;方向&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;52&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;627&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;天空&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;39&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;53&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;528&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;人们&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;54&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;227&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;孩子&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;55&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;爱情&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;56&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;804&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;雨&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;57&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;784&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;意义&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;386&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;灵魂&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;59&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;582&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;时光&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;783&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;意思&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;61&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;92&lt;/span&gt;       &lt;span class=&quot;err&quot;&gt;大地&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;62&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;201&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;工程&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;63&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;397&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;录音室&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;64&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;467&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;朋友&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;65&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;396&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;录音棚&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;66&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;767&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;阳光&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;67&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;68&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;形容词和副词&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;69&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;aWords&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Freq&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;70&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;63&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;孤独&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;71&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;144&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;美丽&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;72&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;268&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;自由&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;73&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;151&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;迷惘&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;74&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;178&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;亲爱&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;75&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;疯狂&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;76&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;坚强&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;77&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;悲伤&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;78&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;灿烂&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;79&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;236&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;幸福&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;80&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;85&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;辉煌&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;81&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;206&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;碎&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;82&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;246&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;勇敢&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;83&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;88&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;寂寞&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;84&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;繁华&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;85&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;102&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;紧&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;86&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;迷茫&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;87&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;蹩脚&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;88&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;大&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;89&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;高&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;90&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;111&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;倦&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;91&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;113&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;绝望&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;92&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;125&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;快乐&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;93&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;炽热&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;94&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;132&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;乐&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;95&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;251&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;远&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;96&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;257&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;真实&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;97&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;长&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;98&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;好&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;99&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;172&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;平静&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;最后肯定要总结下，要不然就文不对题了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;其实汪峰歌还是很好的，就算不是Music King，可人家在章子怡心中就是King啊。&lt;/li&gt;
+&lt;li&gt;章子怡很漂亮的，我基本不黑漂亮的女孩。&lt;/li&gt;
+&lt;li&gt;那些把Music King翻译成“音帝”的人，你东西掉了……&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;嗯，差不多就这样。PS：这代码的显示太差劲了，等这个周末以后得把版面改改了。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>MySQL和MS SQL Server的一些区别</title>
+   <link href="http://junjiemao.github.com/%E6%95%B0%E6%8D%AE%E5%BA%93/2013/11/01/difference-between-mysql-and-ms-sql"/>
+   <updated>2013-11-01T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/%E6%95%B0%E6%8D%AE%E5%BA%93/2013/11/01/difference-between-mysql-and-ms-sql</id>
+   <content type="html">&lt;p&gt;以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。&lt;/p&gt;
+
+&lt;h1&gt;触发器&lt;/h1&gt;
+
+&lt;p&gt;在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFINER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`@`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;localhost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TRIGGER&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t_afterinsert_on_tab1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AFTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FOR&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EACH&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ROW&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEGIN&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;语句；&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;和MS SQL不同的是MySQL的触发器类型有六种，分别是&lt;code&gt;AFTER/BEFORE&lt;/code&gt;和&lt;code&gt;INSERT/UPDATE/DELETE&lt;/code&gt;之间的组合。而MS SQL的触发器是&lt;code&gt;INSERT&lt;/code&gt;,&lt;code&gt;UPDATE&lt;/code&gt;,&lt;code&gt;DELETE&lt;/code&gt;以及&lt;code&gt;INSTEAD OF&lt;/code&gt;四种，其中前三种是之后触发，最后一种是之前触发。如果使用习惯了MS SQL的话，在写触发器中的SQL语句就会遇到一个小小的坑。比如有一张表格有x和y两列，需要一个触发器判断x大于0就插入x否则插入-x。如果习惯了M$ SQL会这样写：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TRIGGER&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;error_trigger&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEFORE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INSTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FOR&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EACH&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;　&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;ROW&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEGIN&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inster&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inster&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;但是这样话是无法运行的，因为这样已经相当于循环插入了，正确的做法是:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TRIGGER&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;error_trigger&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEFORE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INSTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FOR&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EACH&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;　&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;ROW&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEGIN&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;也可以不要这句&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在写触发器的时候还要注意的就是&lt;code&gt;new&lt;/code&gt;和&lt;code&gt;old&lt;/code&gt;的使用，这在MS SQL中是没有的。&lt;code&gt;new&lt;/code&gt;加上点(.)加上列名就可以取出相应的列，&lt;code&gt;old&lt;/code&gt;在删除的时候会用得比较多点。而在MS SQL中是需要使用&lt;code&gt;select&lt;/code&gt;来取出的。&lt;/p&gt;
+
+&lt;h1&gt;存储过程&lt;/h1&gt;
+
+&lt;p&gt;存储过程没有很大的区别，发现有几点。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在MySQL中定义变量是不需要使用&lt;code&gt;@&lt;/code&gt;符号的。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;声明参数的格式为&lt;code&gt;输入（IN）变量还是输出（OUT）变量  变量名 变量类型&lt;/code&gt;，比如 &lt;code&gt;IN par_name INT&lt;/code&gt;这种就表示是INT型的名字韦par_name的输入型变量。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以&lt;code&gt;selct  @a=a,@b=b from test&lt;/code&gt;,其中&lt;code&gt;@a&lt;/code&gt;、&lt;code&gt;@b&lt;/code&gt;为声明的变量,而在MySQL中只能&lt;code&gt;selet a,b into aa,bb  form test&lt;/code&gt;,其中&lt;code&gt;aa&lt;/code&gt;和&lt;code&gt;bb&lt;/code&gt;为声明的变量。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t_xxxx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样是会报错的，解决方案为&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t_xxxx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。&lt;/p&gt;
+
+&lt;h1&gt;函数&lt;/h1&gt;
+
+&lt;p&gt;差别不是很大，注意的也就是参数的声明。&lt;/p&gt;
+
+&lt;h1&gt;事件调度&lt;/h1&gt;
+
+&lt;p&gt;MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variables&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;event_scheduler&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;查看是否开启定时器&lt;/span&gt;  
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;开启定时器&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EVENT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EVENT_CheckOnLine&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SCHEDULE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EVERY&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SECOND&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COMPLETION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;PRESERVE&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DO&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BEGIN&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkOnline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$$&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;information_schema&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EVENTS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;查看事件的调用情况&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;其他需要注意的&lt;/h1&gt;
+
+&lt;p&gt;在使用的过程还发现了其他一些可能导致的错误：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ERROR 1175的解决方案是&lt;code&gt;SET SQL_SAFE_UPDATES=0&lt;/code&gt;,原因是当要执行的SQL语句是进行批量更新或者删除的时候就会提示这个错误，这是一个保护机制，去掉就是了。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;workbench中编辑数据的时候（估计直接编辑数据也就在测试阶段使用），如果该表没有设置主键的时候是不能直接编辑数据的。吐槽下workbench的可视化编辑器真的&lt;code&gt;print(&#39;很&#39;*10000)&lt;/code&gt;难用的。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;自增加(&lt;code&gt;AUTO_INCREMENT&lt;/code&gt;)必须是主键的一部分，并且一张表只能有一个&lt;code&gt;AUTO_INCREMENT&lt;/code&gt;属性,其可以是任何整数类型的数据。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下&lt;a href=&quot;http://www.postgresql.org/&quot;&gt;Postgresql&lt;/a&gt;这个号称 &lt;strong&gt;&quot;The world&#39;s most advanced open source database&quot;&lt;/strong&gt; 的数据库，这个数据库到目前为止也只是使用过她的查询语句。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>每周记录 20131028</title>
+   <link href="http://junjiemao.github.com/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028"/>
+   <updated>2013-10-29T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/%E7%94%9F%E6%B4%BB/2013/10/29/mei-zhou-ji-lu-20131028</id>
+   <content type="html">&lt;p&gt;2013年很快就要进入第300天了，略伤感。在浪费了小半年以后，开始重新做人，立志成为一个就算恶趣味也要有趣的人。不过话说回来，自己认为的有趣别人会觉得无趣也不一定，有人还觉得王小波没意思呢。&lt;/p&gt;
+
+&lt;p&gt;这300天来，大多数时间花在纠结上，也许人最怕的是纠结，纠结的生，纠结的死，纠结的生死，纠结到死。所以啊，这纠结的大半年就头发长了点，似乎什么都没有长的感觉。不对，好像拖延症更加严重了，什么事情不到最后期限是绝对不会做完的。就说打算有计划地写博客这件事也因为拖延症的发作而拖延了。&lt;/p&gt;
+
+&lt;p&gt;本来这里是所谓的技术博客，现在先用来吐吐槽。本周的槽点有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;正则表达式绝对是一个有助于提高幸福指数的东西。某个小孩子由于失误在写MySQL的查询语句的时候少写了反引号，然后就悲剧了，接近100句的查询语句要一句一句地改。这时候就该祭出正则表达式这个杀器了，当然还要感谢&lt;a href=&quot;http://www.sublimetext.com/2&quot;&gt;sublime text2&lt;/a&gt;。sublime使用的正则式引擎是&lt;a href=&quot;http://www.boost.org/doc/libs/1_34_0/libs/regex/doc/index.html&quot;&gt;boost&lt;/a&gt;，在向后引用的时候使用的是&lt;code&gt;$&lt;/code&gt;符号，别的有没有区别就没有细看了，有时间看下。顺便吐槽下M$的VS。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Excel什么真的很讨厌，读取什么真心麻烦。对面的姐姐让帮忙按固定格式生成报表，给的居然是Excel表格。好吧，我也不懂VBA，只能用R给写了个小脚本，顺利完成任务，我R威武，有xlsx包相助。貌似又吐槽了下M$。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在回家的路上对面走来一个看起来及其熟悉的人，于是瞬间呆掉，好在意识中已经深深地打上了不可能再见到的印记，只是停了几步，怔怔地望了几眼，但愿没有被发现，赶紧逃离现场，安抚下狂跳的小心脏，然后吃碗面压压惊。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;听一群高智力（不是智商）的人吹牛比还是很享受的，虽然大家会文理攻击，但是在黑芮成刚这件事上还是很一致的。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;我只是喜欢日本和德国的制造业，顺便看不上中医，其实我还是很爱国的，真的不骗你。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;大数定理的证明一如既往的看不懂，又纠结了。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;尝试了下番茄工作法，不喜欢这个名字，因为我不喜欢吃番茄。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;刚刚被坑了一把，jekyll默认的markdown解析器对中文无序列表居然无法解析，&lt;a href=&quot;http://nepshi.com/2012-10-08/chinese-characters-in-jekyll/&quot;&gt;按照这个办法解决了&lt;/a&gt;，真所谓在计算机的世界里中文处处埋下坑。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;完毕，本该礼拜天写的，拜拖延症所赐，又拖了下。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>R中使用正则表达式（1）</title>
+   <link href="http://junjiemao.github.com/r/2013/08/12/regular-expression-in-r-1"/>
+   <updated>2013-08-12T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/r/2013/08/12/regular-expression-in-r-1</id>
+   <content type="html">&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
+
+&lt;p&gt;以下主要参考的是Ben Forta的《正则表达式必知必会》的中文版，其他的正则表达式的教材大多很厚，到现在为止我就发现这本比较靠谱，希望大家有更加好的可以给我推荐，谢谢。&lt;/p&gt;
+
+&lt;h1&gt;R中怎么使用正则表达式&lt;/h1&gt;
+
+&lt;p&gt;在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; regexec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ignore.case &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fixed &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; useBytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# pattern就是我们要写的正则表达式 text是需要处理的文本&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# ignore.case表示是不是忽略大小写&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# fixed为FALSE则使用正则表达式匹配，否则就使用精确匹配，也就是把&amp;#39;.&amp;#39;之类的字符当作实义字符&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# useBytes 暂时没有使用过&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接下来都是在grep上使用正则表达式，其他的都是差不多的。&lt;/p&gt;
+
+&lt;h1&gt;R中使用正则表达式实战&lt;/h1&gt;
+
+&lt;h2&gt;匹配纯文本&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Hello ,my name is Ben.Please visit my website&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; regexec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Ben&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;Ben&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 全局匹配&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; regexec&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;my&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#注意只是给出第一个匹配的，要全局匹配需要使用gregexpr&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;my&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot; &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 不考虑字母大小写&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;My&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ignore.case &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;my&amp;quot; &amp;quot;my&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配任意字符&lt;/h2&gt;
+
+&lt;p&gt;正则表达式中使用点(.)来匹配一个 &lt;strong&gt;一个或者多个&lt;/strong&gt; 字符，可以匹配任意单个字符串，包括点(.)本身。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 点(.)可以连着使用也可以分开使用&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;.a.&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;.a..&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配特殊字符&lt;/h2&gt;
+
+&lt;p&gt;匹配特殊字符需要进行转义，转义一般使用\，但是在R中我们使用\来表示，这个是需要注意的。还有一个需要注意的就是如果比需要表示\也是需要转义的。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;.a.\\.&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;na1.xls&amp;quot; &amp;quot;na2.xls&amp;quot; &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;a\\d&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;acd&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;dsa&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;a\\\\&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#需要注意在R中，\本身是要用\\表示的&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;a\\d&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配一组字符&lt;/h2&gt;
+
+&lt;p&gt;我们需要的几个字符中的任意一个&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 我们需要sa开是和na开始的&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;[sn]a.\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;na1.xls&amp;quot; &amp;quot;na2.xls&amp;quot; &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;The phrase regullar expression is often abbreciated as RegEx or regex&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;[Rr]eg[Ee]x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;RegEx&amp;quot; &amp;quot;regex&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;利用字符区间&lt;/h2&gt;
+
+&lt;p&gt;使用集合的时候对于有规律的我们可以使用区间来表示&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..[0123456789]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..[0-9]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..[0-2]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales2.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  &amp;quot;na1.xls&amp;quot;    &amp;quot;na2.xls&amp;quot;    &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里只要是开始和结尾是合法的ASCII字符都是可以的，不过常用的还是字符区间和数字区间。&lt;/p&gt;
+
+&lt;h2&gt;取非匹配&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sam.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..[^0123456789]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot; &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;[ns]a[^0-9]\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配空白字符&lt;/h2&gt;
+
+&lt;p&gt;空白字符有换页符\f，换行符\n，回车符\r，制表符\t，垂直制表符\v。
+在匹配的时候记得转义就好了&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;I am Justin\nHello   world\n&amp;quot;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#在justin和world之间换行了&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\n.*&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;\nHello   world\n&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配特定的字符类型&lt;/h2&gt;
+
+&lt;h3&gt;匹配数字&lt;/h3&gt;
+
+&lt;p&gt;可以使用[0-9]来匹配数字，也可以使用\d来匹配数字使用\D来匹配非数字,但是在R中我们要使用\d和\D来替代&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; c&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sales.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;orders3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales3.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sales.4.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;s&quot;&gt;&amp;quot;apac1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;na2.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sa1.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sam.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..\\d\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;orders3.xls&amp;quot; &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
+## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;grep&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;..\\D\\.xls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot; &amp;quot;sam.xls&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;匹配字母和数字&lt;/h3&gt;
+
+&lt;p&gt;匹配所有的字母和数字，用\w表示，等价于[0-9a-zA-Z]我们用\W表示非字母和数字。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\n11213\nA1C2E3\n48075\nM184F2\n90046\nH1H2H2\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\w\\d\\w\\d\\w\\d&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;A1C2E3&amp;quot; &amp;quot;M184F2&amp;quot; &amp;quot;H1H2H2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;匹配空白字符&lt;/h3&gt;
+
+&lt;p&gt;\s，包含我们上面提到的所有的空白字符&lt;/p&gt;
+
+&lt;h3&gt;匹配十六进制和八进制数值&lt;/h3&gt;
+
+&lt;p&gt;使用\x0后跟十六进制数，\0后面跟八进制数&lt;/p&gt;
+
+&lt;h2&gt;使用POSIX字符类&lt;/h2&gt;
+
+&lt;p&gt;可以在R的帮助文档查看那些可以使用的&lt;/p&gt;
+
+&lt;h2&gt;匹配一个或者多个字符&lt;/h2&gt;
+
+&lt;p&gt;使用加号(&quot;+&quot;)来匹配一个或者多个字符&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Send personal emain to ben@forta.com or spam@gmail.com&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\w+@\\w+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;ben@forta.com&amp;quot;  &amp;quot;spam@gmail.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配零个或者多个字符&lt;/h2&gt;
+
+&lt;p&gt;使用星号(*)来匹配零个或者多个字符&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Hello ben@forta.com is my email address&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\w+[\\w.]*@\\w+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;ben@forta.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;匹配零个或者一个字符&lt;/h2&gt;
+
+&lt;p&gt;使用问号(?)来匹配零个或者一个字符&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;The URL is http://www.forta.com/,to connec securely use https://www.forta.com/ instead&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;https?://[\\w./]+&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#注意perl参数的设置的结果的差异&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;http://www.forta.com/&amp;quot;  &amp;quot;https://www.forta.com/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;重复精确的次数&lt;/h2&gt;
+
+&lt;p&gt;用大括号({})中写上数字来表示重复的次数&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;BOdy BGCOLOR=\&amp;quot;#336633\&amp;quot;,TEXT=\&amp;quot;#FFFFFF\&amp;quot;,MARGINWIDTH=\&amp;quot;0\&amp;quot;&amp;gt;&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;[[:xdigit:]]{6}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;336633&amp;quot; &amp;quot;FFFFFF&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;为重复设置一个区间&lt;/h2&gt;
+
+&lt;p&gt;用大括号中写上范围({2,5})表示写重复的次数的范围&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;4/8/03\n10-6-2004\n2/2/2\n01-01-01\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\d{1,2}[-/]\\d{1,2}[-/]\\d{2,4}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;4/8/03&amp;quot;    &amp;quot;10-6-2004&amp;quot; &amp;quot;01-01-01&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;至少重复的次数&lt;/h2&gt;
+
+&lt;p&gt;使用{3,}表示至少重复3次&lt;/p&gt;
+
+&lt;h2&gt;单词边界&lt;/h2&gt;
+
+&lt;p&gt;使用\b表示单词的边界,\B表示不匹配边界&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;The cat scattered his foof all over the room&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;cat&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;cat&amp;quot; &amp;quot;cat&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\bcat\\b&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;cat&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;字符串边界&lt;/h2&gt;
+
+&lt;p&gt;使用乘方符号(^)和美元符号($)来表示首尾。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;This is bad,real bad.  &amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt; &amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\s*&amp;lt;\\?xml.*\\?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;  &amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;^\\s*&amp;lt;\\?xml.*\\?&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#这样可以检验出不合法的xml文档&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;分行匹配模式&lt;/h2&gt;
+
+&lt;p&gt;在分行模式下，还将匹配换行符后面的内容，使用分行模式需要使用(?m)来完成。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; %InLiNe_IdEnTiFiEr% \&amp;quot;#include&amp;lt;stdio.h&amp;gt;\&amp;quot;\n//ptrint Hello world\nint main()\n{\n//begin\nprintf(%,\&amp;quot;Hello world\&amp;quot;);\nreturn 0;\n//end\n}\n&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;^\\s*//.*$&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;(?m)^\\s*//.*$&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;//ptrint Hello world&amp;quot; &amp;quot;//begin&amp;quot;              &amp;quot;//end&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;子表达式&lt;/h2&gt;
+
+&lt;p&gt;据一个例子来说明子表达式什么，比如我们处理&quot;hellohellohello world hello world&quot;这句话的时候我们想把其中的hello连在一起达到两次或者两次以上的字符串找出来，于是我们使用&lt;code&gt;hello{2,}&lt;/code&gt;，但是发现出来的结果和我们想要的有很大的差距，因为表示次数的式子只对离着最近的一个字母起作用。我们想要达到预想的效果需要把hello当作是一个整体，这个时候我们就需要用到子表达式。&lt;/p&gt;
+
+&lt;p&gt;在正则表达式中，子表达式使用（）括起来就可以了，看下面的例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;hellohellohello world hello world&amp;quot;&lt;/span&gt;
+
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;hello{2,}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;(hello){2,}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;hellohellohello&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;子表达式的嵌套&lt;/h3&gt;
+
+&lt;p&gt;通过一个找出有效IP地址的例子中了解子表达式的嵌套，合法的IP必须满足数字小于255，我们看下面的例子:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;ping 167.42.223.4 and 56.256.2.3&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;(((\\d{1,2})|(1\\d{2})|(2[0-4]\\d)|(25[0-5]))\\.){3}((\\d{1,2})|(1\\d{2})|(a[0-4]\\d)|(25[0-5]))&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;167.42.223.4&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;回溯引用&lt;/h2&gt;
+
+&lt;p&gt;回溯应用是对于子表达式来说的，简单的就是我们用一个符号来表示前面出现过的子表达式。通过下面的应用场合来了解，我们需要找出所有的标题：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;BODY&amp;gt;\n&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;\nBababallll~~~\n&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;\nmiaomimaomi~~~~~\n&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;\nwangwangwang~~~\n&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;\n&amp;lt;BODY&amp;gt;&amp;quot;&lt;/span&gt;
+
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;[hH][1-4]&amp;gt;.*?&amp;lt;/[hH][1-4]&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#懒惰型&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#貌似可以工作，但是不通用&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;&amp;quot; &amp;quot;&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;&amp;quot; &amp;quot;&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;&amp;quot; &amp;quot;&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;[hH][1-4]&amp;gt;.*&amp;lt;/[hH][1-4]&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#贪婪型&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;\nBababallll~~~\n&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;\nmiaomimaomi~~~~~\n&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;\nwangwangwang~~~\n&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;[hH]([1-4])&amp;gt;.*&amp;lt;/[hH]\\1&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;&amp;quot; &amp;quot;&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;&amp;quot; &amp;quot;&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;&amp;quot; &amp;quot;&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;回溯引用在替代中的使用&lt;/h2&gt;
+
+&lt;p&gt;直接看下面的例子:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;balabala~~~  gmail@gmail.com miaomiaomaio~~&amp;quot;&lt;/span&gt;
+m &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gregexpr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+regmatches&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; m &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; m&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [[1]]
+## [1] &amp;quot;gmail@gmail.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;sub&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;(\\w+[\\w\\.]*@[\\w\\.]+\\.\\w+)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; replacement &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;lt;A HREF=\\\&amp;quot;mailto:\\1\\\&amp;quot;&amp;gt;\\1&amp;lt;/A&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## [1] &amp;quot;balabala~~~  &amp;lt;A HREF=\&amp;quot;mailto:gmail@gmail.com\&amp;quot;&amp;gt;gmail@gmail.com&amp;lt;/A&amp;gt; miaomiaomaio~~&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意R中sub和gsub（sub的全局版本）函数的使用。下面再看一个对电话号码重新排序的问题：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;324-245-2521\n324-255-6156&amp;quot;&lt;/span&gt;
+text &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gsub&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pattern &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;(\\d{3})(-)(\\d{3})(-)(\\d{4})&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; replacement &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\\(\\1\\) \\3-\\5&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; text&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; perl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+cat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;text&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;## (324) 245-2521
+## (324) 255-6156
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Rstudio快捷键速查</title>
+   <link href="http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio"/>
+   <updated>2013-05-20T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/r/2013/05/20/keyboard-shortcuts-of-rstudio</id>
+   <content type="html">&lt;p&gt;手不离键盘是我们的追求，这也是我学习使用Emacs的主要原因之一，虽然很享受Emacs那种学会一招大小通吃的感觉，即使学习曲线陡了一点也还是值得的。但是Rstudio的吸引力实在太大了，使得我不得不放弃Emacs的ESS而投奔她。为了达到手不离键盘的程度，决定学习下快捷键，当我打开帮助文档的那一刹那惊呆了——怎么能有这么多快捷键，怎么能这么没规律！现在想想Emcas还是很人性的。以下是在尝试使用的时候记录下来的对键位的描述，其实就是对英文文档的简单翻译，自己记录下来留用。需要注意的是，无论在Windows下还是在Linux下，都会有少数几个快捷键会和系统快捷键冲突。我是没找到在Rstudio中设置快捷键的地方，如果需要只能把系统快捷键换了。&lt;/p&gt;
+
+&lt;h1&gt;控制台&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;描述&lt;/td&gt;
+&lt;td&gt;键位(Windows和Linux)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标移动到控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;清除控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;移动光标到行首&lt;/td&gt;
+&lt;td&gt;Home&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;移动光标到行尾&lt;/td&gt;
+&lt;td&gt;End&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;调出以前使用过的命令&lt;/td&gt;
+&lt;td&gt;上箭头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;弹出历史命令的菜单&lt;/td&gt;
+&lt;td&gt;Ctrl+上箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;中断当前正在执行的命令&lt;/td&gt;
+&lt;td&gt;Esc&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;改变工作目录&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+K&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;h1&gt;源代码编辑区&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;描述&lt;/td&gt;
+&lt;td&gt;键位(Windows和Linux)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳到上方的前往文件和函数的搜索框&lt;/td&gt;
+&lt;td&gt;Ctrl+.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使光标移向源文件编辑区&lt;/td&gt;
+&lt;td&gt;Ctrl+1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;新建文件(在Windows和Chrome中不起作用)&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+N&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;打开文件&lt;/td&gt;
+&lt;td&gt;Ctrl+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;保存文件&lt;/td&gt;
+&lt;td&gt;Ctrl+S&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭当前文件（Chrome中不起作用）&lt;/td&gt;
+&lt;td&gt;Ctrl+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭当前文件（仅在Chrome中其作用）&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;关闭所有打开的文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+W&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;预览HTML&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Y&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使用Knitr转换成HTML&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+H&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;编译PDF&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;插入chunk（Sweave和Knitr）&lt;/td&gt;
+&lt;td&gt;Ctrl+Atl+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;插入代码段&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前行或者选择的行&lt;/td&gt;
+&lt;td&gt;Ctrl+Enter&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;再次运行上次选择的块&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+R&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;从文件开头运行到该行&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+B&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;从该行运行到文件结束&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+E&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前函数的定义部分&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;运行当前的Sweave快&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+C&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;运行下一个Sweave块&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+N&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载一个文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载当前文件&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+S&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载当前文件，不输出结果&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Enter&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;折叠选择的代码&lt;/td&gt;
+&lt;td&gt;ALt+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展开折叠的代码&lt;/td&gt;
+&lt;td&gt;Alt+Shift+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;折叠左右代码&lt;/td&gt;
+&lt;td&gt;Alt+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展开所有代码&lt;/td&gt;
+&lt;td&gt;Alt+Shift+O&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;想要达到的行&lt;/td&gt;
+&lt;td&gt;Shift+Alt+G&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳转到&lt;/td&gt;
+&lt;td&gt;Shift+Alt+J&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;切换到选项卡&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+Down(Linux会和默认的系统快捷键冲突)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;上一个选项卡&lt;/td&gt;
+&lt;td&gt;Ctrl+PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;下一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+PageDown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;第一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+Alt+Left&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;最后一个选项卡&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+Alt+Right&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选项卡向后导航&lt;/td&gt;
+&lt;td&gt; Ctrl+F9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt; 选项卡想钱导航&lt;/td&gt;
+&lt;td&gt; Ctrl+F10&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;把选择的代码提取为一个函数&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+U&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;行缩进进行整理代码 &lt;/td&gt;
+&lt;td&gt;Ctrl+I&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt; 注释/消除注释当前行或者所选代码&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+C&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;回流注释（不知道什么意思）&lt;/td&gt;
+&lt;td&gt;Shift+Ctrl+/ &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;上下移动整行 &lt;/td&gt;
+&lt;td&gt;Alt+上肩头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;复制行&lt;/td&gt;
+&lt;td&gt; Shift+Alt+上箭头/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳转到匹配的括号&lt;/td&gt;
+&lt;td&gt; Ctrl+P&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找替换&lt;/td&gt;
+&lt;td&gt; Ctrl+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找上一个&lt;/td&gt;
+&lt;td&gt;Shift+F3(Windows);Ctrl+Shift+G(Linux) &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;查找下一个&lt;/td&gt;
+&lt;td&gt; F3（Windows）；Ctrl+G&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;在文件中寻找&lt;/td&gt;
+&lt;td&gt; Ctrl+Shift+F&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;检查拼写（需要字典的支持）&lt;/td&gt;
+&lt;td&gt; F7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;h1&gt;在控制台和源码编辑器中编辑&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;撤消&lt;/td&gt;
+&lt;td&gt;Ctrl+Z&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;回到撤消前&lt;/td&gt;
+&lt;td&gt;Crtrl+Shift+Z&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;剪切&lt;/td&gt;
+&lt;td&gt;Ctrl+X（这个吐槽下，由于用Emacs的习惯，总是Ctrl-X-Ctrl-S保存）&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;拷贝&lt;/td&gt;
+&lt;td&gt;Ctrl+C&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;粘贴&lt;/td&gt;
+&lt;td&gt;Ctrl+V&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;全选&lt;/td&gt;
+&lt;td&gt;Ctrl+A&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;按词为单位跳动&lt;/td&gt;
+&lt;td&gt;Ctrl+左/右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;跳到开头/结尾&lt;/td&gt;
+&lt;td&gt;Ctrl+Home/End&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;删除行&lt;/td&gt;
+&lt;td&gt;Ctrl+D&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择&lt;/td&gt;
+&lt;td&gt;Shift+箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择单词&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+左/右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;选择到行首&lt;/td&gt;
+&lt;td&gt;Ctrl+Alt+左箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择到行尾&lt;/td&gt;
+&lt;td&gt;Ctrl+ALt+右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;向下/上选择页&lt;/td&gt;
+&lt;td&gt;Shift+PageDown/PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择到文章开始/结束&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+Home/End&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;删除左边的单词&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;缩进&lt;/td&gt;
+&lt;td&gt;Tab&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;凸出&lt;/td&gt;
+&lt;td&gt;Shift+Tab&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;使得光标处的文字移到行开头&lt;/td&gt;
+&lt;td&gt;Ctrl+U&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;使得光标处的文字移到行结尾&lt;/td&gt;
+&lt;td&gt;Ctrl+K&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;召回当前Yank(怎么翻译)的文字（有点Emacs的味道哦）&lt;/td&gt;
+&lt;td&gt;Ctrl+Y&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;插入赋值符号&lt;/td&gt;
+&lt;td&gt;Ctrl+-(这个对=控没什么用)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示函数的帮助&lt;/td&gt;
+&lt;td&gt;F1(很有用，除非你是骨灰级高手，要不然帮组还是要看的)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;展示函数的源代码&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;F2(不解释，谁用谁知道)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;h1&gt;补全&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;尝试补全&lt;/td&gt;
+&lt;td&gt;Tab或者Ctrl+Space&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;候选项导航&lt;/td&gt;
+&lt;td&gt;上/下箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;选择待选项&lt;/td&gt;
+&lt;td&gt;Enter或者Tab或者右箭头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;取消候选菜单&lt;/td&gt;
+&lt;td&gt;Esc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;h1&gt;浏览&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;把光标焦点移动到源代码编辑框&lt;/td&gt;
+&lt;td&gt;Ctrl+1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标焦点移动到控制台&lt;/td&gt;
+&lt;td&gt;Ctrl+2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;光标移动到帮组文档中&lt;/td&gt;
+&lt;td&gt; Ctrl+3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展现历史命令&lt;/td&gt;
+&lt;td&gt; Ctrl+4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示文件 &lt;/td&gt;
+&lt;td&gt; Ctrl+5&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;
+&lt;td&gt;展示图像 &lt;/td&gt;
+&lt;td&gt;Ctrl+6 &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示包&lt;/td&gt;
+&lt;td&gt; Ctrl+7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;展示工作空间 &lt;/td&gt;
+&lt;td&gt; Ctrl+8&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;战士Git或者SVN &lt;/td&gt;
+&lt;td&gt;Ctrl+9&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;同步编辑或者PDF预览&lt;/td&gt;
+&lt;td&gt;Ctrl+F8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+&lt;h1&gt;构建&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;构建和重新加载&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+B&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;加载全部&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+L&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;检查包&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+E&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+
+&lt;h1&gt;画图&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;预览图像&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+PageUp&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;下一副图像&lt;/td&gt;
+&lt;td&gt;Ctrl+Shift+PageDown&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+
+&lt;p&gt;未完，头晕了，比学Emacs的时候还有郁闷，明天继续（2013/5/20）。&lt;/p&gt;
+
+&lt;p&gt;完，多练习（2013/5/21）。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>我又回来了</title>
+   <link href="http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/wo-you-hui-lai-le"/>
+   <updated>2013-05-17T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/wo-you-hui-lai-le</id>
+   <content type="html">&lt;p&gt;真的太丢人了，说来这已经是我第三次使用jekyll搭建博客了。第一次是使用Octopress搭建的，然后就很长一段时间没有再打理过它。经过一段时间以后发现真的是其丑无比啊，一点写作的欲望都没有了（额，其实，有可能是为懒找的借口）。由于上面几乎没有什么内容，于是就全部删了重建了，还顺带着换了一个主题，感觉还是挺好的。但是不幸的事情还是发生了，我的破机器上的硬盘挂点了。这不是关键，关键是我上面有几篇正在写着的准备发表在博客上的读书笔记，太后悔当时没有&lt;code&gt;git push&lt;/code&gt;上去了，再回头看看上面几乎没有什么有价值的东西了，而这个时候真好看到了&lt;a href=&quot;http://wrongwaycn.github.io/bootstrap/docs/index.html&quot;&gt;Bootstrap&lt;/a&gt;。然后就搜到了&lt;a href=&quot;http://jekyllbootstrap.com&quot;&gt;Jekyll Bootstrap&lt;/a&gt;,于是就又无情地抛弃了原来的博客，换上了现在这个博客，主要是觉得现在的博客可定制性更加强一点。对博客进行了一点点的改变，这个主题的原版来自与&lt;a href=&quot;http://plusjade.com&quot;&gt;Jade Dominguez&lt;/a&gt;，我主要改了一下style.css来改变了下标题的配色，由于我是色弱患者，配色可能显得有点丑。&lt;/p&gt;
+
+&lt;p&gt;最近太忙了，加上对css了解的并不多，需要等到闲下来再进一步改变，最近就在上面写写读书笔记什么的了。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>测试</title>
+   <link href="http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/test"/>
+   <updated>2013-05-17T00:00:00+08:00</updated>
+   <id>http://junjiemao.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2013/05/17/test</id>
+   <content type="html">&lt;p&gt;这是第一篇文章 测试测试测试&lt;/p&gt;
+
+&lt;h1&gt;一级标题&lt;/h1&gt;
+
+&lt;h2&gt;二级标题&lt;/h2&gt;
+
+&lt;h3&gt;三级标题&lt;/h3&gt;
+
+&lt;p&gt;我要写写什么了&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; foo &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt;    cat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;$$x&lt;sup&gt;2&lt;/sup&gt;+y&lt;sup&gt;2&lt;/sup&gt;=x&lt;sup&gt;2&lt;/sup&gt;$$&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;全心全意为人民服务&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;插入图片&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7283/8745158830_5d90371b3c.jpg&quot; title=&quot;来自flickr&quot; alt=&quot;图片展示&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>

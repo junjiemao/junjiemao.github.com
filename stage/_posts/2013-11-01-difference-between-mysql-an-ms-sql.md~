@@ -1,8 +1,0 @@
----
-layout: post
-title: "MySQL和MS SQL Server的一些区别"
-description: ""
-category: 数据库
-tags: [MySQL,MS SQL]
----
-{% include JB/setup %}

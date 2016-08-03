@@ -161,235 +161,231 @@ MathJax.Hub.Config({
 
 <p>我们首先获得其专辑的信息，这里主要是名字和专辑的链接。</p>
 
-<div class="highlight"><pre><code class="r"><span class="lineno"> 1</span> artistSearch <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">&quot;http://www.xiami.com/artist/album/id/887/d//p//page/1&quot;</span><span class="p">,</span>
-<span class="lineno"> 2</span>                   <span class="s">&quot;http://www.xiami.com/artist/album/id/887/d//p//page/2&quot;</span><span class="p">)</span>
-<span class="lineno"> 3</span> text <span class="o">&lt;-</span> getURL<span class="p">(</span>artistSearch<span class="p">)</span>
-<span class="lineno"> 4</span> m <span class="o">&lt;-</span> gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;&lt;p class=\&quot;name\&quot;&gt;.*&lt;strong&gt;&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="lineno"> 5</span> album <span class="o">&lt;-</span> regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">)</span>
-<span class="lineno"> 6</span> 
-<span class="lineno"> 7</span> <span class="c1">#取得专辑的名字</span>
-<span class="lineno"> 8</span> getName <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>text<span class="p">){</span>
-<span class="lineno"> 9</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=title=\&quot;).*(?=\&quot;)&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言</span>
-<span class="lineno">10</span> <span class="kr">return</span><span class="p">(</span>regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">))</span>
-<span class="lineno">11</span> <span class="p">}</span>
-<span class="lineno">12</span> 
-<span class="lineno">13</span> <span class="c1">#取得专辑的链接</span>
-<span class="lineno">14</span> getLink <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>text<span class="p">){</span>
-<span class="lineno">15</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=href=\&quot;).*[0-9](?=\&quot;)&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言</span>
-<span class="lineno">16</span> <span class="kr">return</span><span class="p">(</span>regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">))</span>
-<span class="lineno">17</span> <span class="p">}</span>
-<span class="lineno">18</span> 
-<span class="lineno">19</span> <span class="c1">#获得专辑的名字和链接</span>
-<span class="lineno">20</span> albumDetails <span class="o">&lt;-</span> data.frame<span class="p">(</span>name<span class="o">=</span>unname<span class="p">(</span>unlist<span class="p">(</span>sapply<span class="p">(</span>X<span class="o">=</span>ablum<span class="p">,</span>FUN<span class="o">=</span>getName<span class="p">,</span>simplify<span class="o">=</span><span class="s">&quot;vector&quot;</span><span class="p">))),</span>
-<span class="lineno">21</span>                           link<span class="o">=</span>unname<span class="p">(</span>unlist<span class="p">(</span>sapply<span class="p">(</span>X<span class="o">=</span>ablum<span class="p">,</span>FUN<span class="o">=</span>getLink<span class="p">,</span>simplify<span class="o">=</span><span class="s">&quot;vector&quot;</span><span class="p">))))</span>
-<span class="lineno">22</span> 
-<span class="lineno">23</span> <span class="o">&gt;</span> ablumDetial
-<span class="lineno">24</span>                        name              link
-<span class="lineno">25</span> 					   <span class="m">1</span>                  生来彷徨  <span class="o">/</span>album<span class="o">/</span><span class="m">784338853</span>
-<span class="lineno">26</span> 					   <span class="m">2</span>                  一起摇摆  <span class="o">/</span>album<span class="o">/</span><span class="m">580530673</span>
-<span class="lineno">27</span> 					   <span class="m">3</span>    汪峰<span class="m">2011</span>生无所求演唱会 <span class="o">/</span>album<span class="o">/</span><span class="m">2075241743</span>
-<span class="lineno">28</span> 					   <span class="m">4</span>                  生无所求     <span class="o">/</span>album<span class="o">/</span><span class="m">478379</span>
-<span class="lineno">29</span> 					   <span class="m">5</span>              像梦一样自由     <span class="o">/</span>album<span class="o">/</span><span class="m">432313</span>
-<span class="lineno">30</span> 					   <span class="m">6</span>            信仰在空中飘扬     <span class="o">/</span>album<span class="o">/</span><span class="m">337989</span>
-<span class="lineno">31</span> 					   <span class="m">7</span>                  勇敢的心       <span class="o">/</span>album<span class="o">/</span><span class="m">4423</span>
-<span class="lineno">32</span> 					   <span class="m">8</span>                怒放的生命       <span class="o">/</span>album<span class="o">/</span><span class="m">4424</span>
-<span class="lineno">33</span> 					   <span class="m">9</span>  Live In Beijing 飞得更高       <span class="o">/</span>album<span class="o">/</span><span class="m">4425</span>
-<span class="lineno">34</span> 					   <span class="m">10</span>                   笑着哭       <span class="o">/</span>album<span class="o">/</span><span class="m">4426</span>
-<span class="lineno">35</span> 					   <span class="m">11</span>       爱是一颗幸福的子弹       <span class="o">/</span>album<span class="o">/</span><span class="m">4427</span>
-<span class="lineno">36</span> 					   <span class="m">12</span>  十七岁的单车 电影原声带     <span class="o">/</span>album<span class="o">/</span><span class="m">168383</span>
-<span class="lineno">37</span> 					   <span class="m">13</span>             花火<span class="p">(</span>台湾版<span class="p">)</span>     <span class="o">/</span>album<span class="o">/</span><span class="m">374017</span>
-<span class="lineno">38</span> 					   <span class="m">14</span>                     花火       <span class="o">/</span>album<span class="o">/</span><span class="m">4428</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">artistSearch &lt;- c(&quot;http://www.xiami.com/artist/album/id/887/d//p//page/1&quot;,
+                  &quot;http://www.xiami.com/artist/album/id/887/d//p//page/2&quot;)
+text &lt;- getURL(artistSearch)
+m &lt;- gregexpr(pattern=&quot;&lt;p class=\&quot;name\&quot;&gt;.*&lt;strong&gt;&quot;,text=text,perl=TRUE)
+album &lt;- regmatches(x=text,m=m)
+
+#取得专辑的名字
+getName &lt;- function(text){
+m=gregexpr(pattern=&quot;(?&lt;=title=\&quot;).*(?=\&quot;)&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言
+return(regmatches(x=text,m=m))
+}
+
+#取得专辑的链接
+getLink &lt;- function(text){
+m=gregexpr(pattern=&quot;(?&lt;=href=\&quot;).*[0-9](?=\&quot;)&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言
+return(regmatches(x=text,m=m))
+}
+
+#获得专辑的名字和链接
+albumDetails &lt;- data.frame(name=unname(unlist(sapply(X=ablum,FUN=getName,simplify=&quot;vector&quot;))),
+                          link=unname(unlist(sapply(X=ablum,FUN=getLink,simplify=&quot;vector&quot;))))
+
+&gt; ablumDetial
+                       name              link
+					   1                  生来彷徨  /album/784338853
+					   2                  一起摇摆  /album/580530673
+					   3    汪峰2011生无所求演唱会 /album/2075241743
+					   4                  生无所求     /album/478379
+					   5              像梦一样自由     /album/432313
+					   6            信仰在空中飘扬     /album/337989
+					   7                  勇敢的心       /album/4423
+					   8                怒放的生命       /album/4424
+					   9  Live In Beijing 飞得更高       /album/4425
+					   10                   笑着哭       /album/4426
+					   11       爱是一颗幸福的子弹       /album/4427
+					   12  十七岁的单车 电影原声带     /album/168383
+					   13             花火(台湾版)     /album/374017
+					   14                     花火       /album/4428</code></pre></figure>
 
 <p>以上获得了专辑的名字和专辑的链接地址，接下来要做的就是去这个专辑中找到这些歌曲然后找到这些歌曲的歌词就可以了。</p>
 
-<div class="highlight"><pre><code class="r"><span class="lineno"> 1</span> <span class="c1">#获取专辑中歌曲信息</span>
-<span class="lineno"> 2</span> getSongDetails  <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>ablumDetails<span class="p">){</span>
-<span class="lineno"> 3</span> text <span class="o">&lt;-</span> getURL<span class="p">(</span>url<span class="o">=</span>paste0<span class="p">(</span><span class="s">&quot;http://www.xiami.com&quot;</span><span class="p">,</span>ablumDetails<span class="o">$</span>link<span class="p">))</span>
-<span class="lineno"> 4</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=&lt;td class=\&quot;song_name\&quot;&gt;).*?(?=&lt;/a&gt;)&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言 非贪婪</span>
-<span class="lineno"> 5</span> songs <span class="o">&lt;-</span> regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">)</span>
-<span class="lineno"> 6</span> <span class="c1">#获取歌曲名字</span>
-<span class="lineno"> 7</span> getName <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>text<span class="p">){</span>
-<span class="lineno"> 8</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=title=\&quot;\&quot;&gt;).*&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言,</span>
-<span class="lineno"> 9</span> <span class="kr">return</span><span class="p">(</span>regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">))</span>
-<span class="lineno">10</span> <span class="p">}</span>
-<span class="lineno">11</span> <span class="c1">#歌曲链接名字</span>
-<span class="lineno">12</span> getLink <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>text<span class="p">){</span>
-<span class="lineno">13</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=&lt;a href=\&quot;).*[0-9](?=\&quot;)&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言</span>
-<span class="lineno">14</span> <span class="kr">return</span><span class="p">(</span>regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">))</span>
-<span class="lineno">15</span> <span class="p">}</span>
-<span class="lineno">16</span> songDetails <span class="o">&lt;-</span>  data.frame<span class="p">(</span>name<span class="o">=</span>unname<span class="p">(</span>unlist<span class="p">(</span>sapply<span class="p">(</span>X<span class="o">=</span>songs<span class="p">,</span>FUN<span class="o">=</span>getName<span class="p">,</span>simplify<span class="o">=</span><span class="s">&quot;vector&quot;</span><span class="p">))),</span>
-<span class="lineno">17</span> link<span class="o">=</span>unname<span class="p">(</span>unlist<span class="p">(</span>sapply<span class="p">(</span>X<span class="o">=</span>songs<span class="p">,</span>FUN<span class="o">=</span>getLink<span class="p">,</span>simplify<span class="o">=</span><span class="s">&quot;vector&quot;</span><span class="p">))))</span>
-<span class="lineno">18</span> <span class="kr">return</span><span class="p">(</span>songDetial<span class="p">)</span>
-<span class="lineno">19</span> <span class="p">}</span>
-<span class="lineno">20</span> 
-<span class="lineno">21</span> <span class="c1">#获得歌曲的信息</span>
-<span class="lineno">22</span> songDetail <span class="o">&lt;-</span> getSongDetail<span class="p">(</span>ablumDetial<span class="p">)</span>
-<span class="lineno">23</span> 
-<span class="lineno">24</span> 
-<span class="lineno">25</span> <span class="c1">#获取歌词</span>
-<span class="lineno">26</span> getLrc <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>songDetail<span class="p">){</span>
-<span class="lineno">27</span> text <span class="o">&lt;-</span> getURL<span class="p">(</span>url<span class="o">=</span>paste0<span class="p">(</span><span class="s">&quot;http://www.xiami.com/&quot;</span><span class="p">,</span>songDetail<span class="o">$</span>link<span class="p">))</span>
-<span class="lineno">28</span> m<span class="o">=</span>gregexpr<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(?&lt;=&lt;div class=\&quot;lrc_main\&quot;&gt;)[^..]*?(?=&lt;.div&gt;)&quot;</span><span class="p">,</span>text<span class="o">=</span>text<span class="p">,</span>perl<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span> <span class="c1">#需要使用正则的零宽度断言 非贪婪 注意空行的匹配</span>
-<span class="lineno">29</span> lrc <span class="o">&lt;-</span> regmatches<span class="p">(</span>x<span class="o">=</span>text<span class="p">,</span>m<span class="o">=</span>m<span class="p">)</span>
-<span class="lineno">30</span> lrc <span class="o">&lt;-</span> gsub<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;(\\s)&quot;</span><span class="p">,</span>replacement<span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>x<span class="o">=</span>lrc<span class="p">)</span>
-<span class="lineno">31</span> lrc <span class="o">&lt;-</span> gsub<span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;&lt;br/&gt;&quot;</span><span class="p">,</span>replacement<span class="o">=</span><span class="s">&quot;\n&quot;</span><span class="p">,</span>x<span class="o">=</span>lrc<span class="p">)</span>
-<span class="lineno">32</span> <span class="kr">return</span><span class="p">(</span>lrc<span class="p">)</span>
-<span class="lineno">33</span> <span class="p">}</span>
-<span class="lineno">34</span> 
-<span class="lineno">35</span> Lrc <span class="o">&lt;-</span> getLrc<span class="p">(</span>songDetail<span class="p">)</span>
-<span class="lineno">36</span> 
-<span class="lineno">37</span> <span class="c1">#把歌词的信息加入</span>
-<span class="lineno">38</span> songDetail<span class="o">$</span>Lrc <span class="o">&lt;-</span> Lrc
-<span class="lineno">39</span> 
-<span class="lineno">40</span> <span class="o">&gt;</span> songDetail<span class="p">[</span><span class="m">1</span><span class="p">,]</span>
-<span class="lineno">41</span>       name             link
-<span class="lineno">42</span> 	  <span class="m">1</span> 生来彷徨 <span class="o">/</span>song<span class="o">/</span><span class="m">1772331683</span>
-<span class="lineno">43</span> 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Lrc
-<span class="lineno">44</span> 																																																																																																																																																																																																 <span class="m">1</span> 每天走在疯狂逐梦的大街上\n我们精神褴褛却又毫无倦意\n徘徊着寻找着那虚空的欢愉\n奔波着抗争着那无常的命运\n\n朋友啊这生活会把你的心伤烂\n可它从来就不会有一丝怜悯\n再也别象个傻瓜一样的哭了\n因为象我们这样的人生来彷徨\n\n传真机到炼钢厂有一万光年\n那只是我们失梦之路的起点\n妈妈你善良的孩子还没放弃\n他想在今夜的街上爱到死去\n\n朋友啊这世界会将你的梦破败\n而它从来就不会有一丝同情\n再也别象个疯子一样的拼了\n因为象我们这样的人生来彷徨\n\n路上散落着花朵般受伤的英雄\n如同我们一起挣扎着的那些片段\n明天我们是否活着却依然不在\n明天我们是否存在却迷惘依然\n\n朋友啊这生活会把你的骨折断\n而它从来就只是在袖手旁观\n不如象一块石头一样的滚吧\n因为象我们这样的人生来彷徨\n\n朋友啊这世界会将你的爱破灭\n而它从来就不会给一次拯救\n不如让我们一起放任自流吧\n反正象我们这样的人生来彷徨
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">#获取专辑中歌曲信息
+getSongDetails  &lt;- function(ablumDetails){
+text &lt;- getURL(url=paste0(&quot;http://www.xiami.com&quot;,ablumDetails$link))
+m=gregexpr(pattern=&quot;(?&lt;=&lt;td class=\&quot;song_name\&quot;&gt;).*?(?=&lt;/a&gt;)&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言 非贪婪
+songs &lt;- regmatches(x=text,m=m)
+#获取歌曲名字
+getName &lt;- function(text){
+m=gregexpr(pattern=&quot;(?&lt;=title=\&quot;\&quot;&gt;).*&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言,
+return(regmatches(x=text,m=m))
+}
+#歌曲链接名字
+getLink &lt;- function(text){
+m=gregexpr(pattern=&quot;(?&lt;=&lt;a href=\&quot;).*[0-9](?=\&quot;)&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言
+return(regmatches(x=text,m=m))
+}
+songDetails &lt;-  data.frame(name=unname(unlist(sapply(X=songs,FUN=getName,simplify=&quot;vector&quot;))),
+link=unname(unlist(sapply(X=songs,FUN=getLink,simplify=&quot;vector&quot;))))
+return(songDetial)
+}
+
+#获得歌曲的信息
+songDetail &lt;- getSongDetail(ablumDetial)
+
+
+#获取歌词
+getLrc &lt;- function(songDetail){
+text &lt;- getURL(url=paste0(&quot;http://www.xiami.com/&quot;,songDetail$link))
+m=gregexpr(pattern=&quot;(?&lt;=&lt;div class=\&quot;lrc_main\&quot;&gt;)[^..]*?(?=&lt;.div&gt;)&quot;,text=text,perl=TRUE) #需要使用正则的零宽度断言 非贪婪 注意空行的匹配
+lrc &lt;- regmatches(x=text,m=m)
+lrc &lt;- gsub(pattern=&quot;(\\s)&quot;,replacement=&quot;&quot;,x=lrc)
+lrc &lt;- gsub(pattern=&quot;&lt;br/&gt;&quot;,replacement=&quot;\n&quot;,x=lrc)
+return(lrc)
+}
+
+Lrc &lt;- getLrc(songDetail)
+
+#把歌词的信息加入
+songDetail$Lrc &lt;- Lrc
+
+&gt; songDetail[1,]
+      name             link
+	  1 生来彷徨 /song/1772331683
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Lrc
+																																																																																																																																																																																																 1 每天走在疯狂逐梦的大街上\n我们精神褴褛却又毫无倦意\n徘徊着寻找着那虚空的欢愉\n奔波着抗争着那无常的命运\n\n朋友啊这生活会把你的心伤烂\n可它从来就不会有一丝怜悯\n再也别象个傻瓜一样的哭了\n因为象我们这样的人生来彷徨\n\n传真机到炼钢厂有一万光年\n那只是我们失梦之路的起点\n妈妈你善良的孩子还没放弃\n他想在今夜的街上爱到死去\n\n朋友啊这世界会将你的梦破败\n而它从来就不会有一丝同情\n再也别象个疯子一样的拼了\n因为象我们这样的人生来彷徨\n\n路上散落着花朵般受伤的英雄\n如同我们一起挣扎着的那些片段\n明天我们是否活着却依然不在\n明天我们是否存在却迷惘依然\n\n朋友啊这生活会把你的骨折断\n而它从来就只是在袖手旁观\n不如象一块石头一样的滚吧\n因为象我们这样的人生来彷徨\n\n朋友啊这世界会将你的爱破灭\n而它从来就不会给一次拯救\n不如让我们一起放任自流吧\n反正象我们这样的人生来彷徨</code></pre></figure>
 
 <h1 id="section-1">分词</h1>
 
 <p>接下来就是统计词频率了,分词使用分词包<a href="http://jliblog.com/app/rwordseg">Rwordseg</a>。</p>
 
-<div class="highlight"><pre><code class="r"><span class="lineno"> 1</span> library<span class="p">(</span>Rwordseg<span class="p">)</span>
-<span class="lineno"> 2</span> segWords <span class="o">&lt;-</span> segmentCN<span class="p">(</span>strwords<span class="o">=</span>songDetail<span class="o">$</span>Lrc<span class="p">,</span>nature<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> segWords <span class="o">&lt;-</span> unlist<span class="p">(</span>segWords<span class="p">)</span>
-<span class="lineno"> 5</span> stopwords <span class="o">&lt;-</span> read.table<span class="p">(</span><span class="s">&quot;./Document/Temp/stopwords.txt&quot;</span><span class="p">)</span>
-<span class="lineno"> 6</span> segWords <span class="o">&lt;-</span> segWords<span class="p">[</span><span class="o">!</span>segWords<span class="o">%in%</span>c<span class="p">(</span><span class="s">&quot;的&quot;</span><span class="p">,</span><span class="s">&quot;是&quot;</span><span class="p">,</span><span class="s">&quot;在&quot;</span><span class="p">,</span><span class="s">&quot;也&quot;</span><span class="p">,</span><span class="s">&quot;得&quot;</span><span class="p">,</span><span class="s">&quot;地&quot;</span><span class="p">,</span><span class="s">&quot;制作人&quot;</span><span class="p">,</span><span class="s">&quot;录音师&quot;</span><span class="p">)]</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="c1">#去掉ul</span>
-<span class="lineno"> 9</span> segWords <span class="o">&lt;-</span> segWords<span class="p">[</span><span class="o">!</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;ul&quot;</span><span class="p">]</span>
-<span class="lineno">10</span> <span class="c1">#去掉uj</span>
-<span class="lineno">11</span> segWords <span class="o">&lt;-</span> segWords<span class="p">[</span><span class="o">!</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;uj&quot;</span><span class="p">]</span>
-<span class="lineno">12</span> 
-<span class="lineno">13</span> 
-<span class="lineno">14</span> <span class="c1">#统计动词</span>
-<span class="lineno">15</span> verbWords <span class="o">&lt;-</span> segWords<span class="p">[</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;v&quot;</span><span class="p">]</span>
-<span class="lineno">16</span> x <span class="o">&lt;-</span> as.data.frame<span class="p">(</span>table<span class="p">(</span>verbWords<span class="p">))</span>
-<span class="lineno">17</span> x<span class="p">[</span>order<span class="p">(</span>x<span class="o">$</span>Freq<span class="p">,</span>decreasing<span class="o">=</span><span class="kc">TRUE</span><span class="p">),][</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,]</span>
-<span class="lineno">18</span> 
-<span class="lineno">19</span> <span class="c1">#统计名词</span>
-<span class="lineno">20</span> nounWords <span class="o">&lt;-</span> segWords<span class="p">[</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;n&quot;</span><span class="p">]</span>
-<span class="lineno">21</span> x <span class="o">&lt;-</span> as.data.frame<span class="p">(</span>table<span class="p">(</span>nounWords<span class="p">))</span>
-<span class="lineno">22</span> x<span class="p">[</span>order<span class="p">(</span>x<span class="o">$</span>Freq<span class="p">,</span>decreasing<span class="o">=</span><span class="kc">TRUE</span><span class="p">),][</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,]</span>
-<span class="lineno">23</span> 
-<span class="lineno">24</span> <span class="c1">#统计形容词/副词语</span>
-<span class="lineno">25</span> aWords <span class="o">&lt;-</span> segWords<span class="p">[</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;a&quot;</span><span class="p">]</span>
-<span class="lineno">26</span> x <span class="o">&lt;-</span> as.data.frame<span class="p">(</span>table<span class="p">(</span>aWords<span class="p">))</span>
-<span class="lineno">27</span> x<span class="p">[</span>order<span class="p">(</span>x<span class="o">$</span>Freq<span class="p">,</span>decreasing<span class="o">=</span><span class="kc">TRUE</span><span class="p">),][</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,]</span>
-<span class="lineno">28</span> 
-<span class="lineno">29</span> <span class="c1">#统计量词</span>
-<span class="lineno">30</span> mWords <span class="o">&lt;-</span> segWords<span class="p">[</span>names<span class="p">(</span>segWords<span class="p">)</span><span class="o">==</span><span class="s">&quot;m&quot;</span><span class="p">]</span>
-<span class="lineno">31</span> x <span class="o">&lt;-</span> as.data.frame<span class="p">(</span>table<span class="p">(</span>mWords<span class="p">))</span>
-<span class="lineno">32</span> x<span class="p">[</span>order<span class="p">(</span>x<span class="o">$</span>Freq<span class="p">,</span>decreasing<span class="o">=</span><span class="kc">TRUE</span><span class="p">),][</span><span class="m">1</span><span class="o">:</span><span class="m">30</span><span class="p">,]</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">library(Rwordseg)
+segWords &lt;- segmentCN(strwords=songDetail$Lrc,nature=TRUE)
+
+segWords &lt;- unlist(segWords)
+stopwords &lt;- read.table(&quot;./Document/Temp/stopwords.txt&quot;)
+segWords &lt;- segWords[!segWords%in%c(&quot;的&quot;,&quot;是&quot;,&quot;在&quot;,&quot;也&quot;,&quot;得&quot;,&quot;地&quot;,&quot;制作人&quot;,&quot;录音师&quot;)]
+
+#去掉ul
+segWords &lt;- segWords[!names(segWords)==&quot;ul&quot;]
+#去掉uj
+segWords &lt;- segWords[!names(segWords)==&quot;uj&quot;]
+
+
+#统计动词
+verbWords &lt;- segWords[names(segWords)==&quot;v&quot;]
+x &lt;- as.data.frame(table(verbWords))
+x[order(x$Freq,decreasing=TRUE),][1:30,]
+
+#统计名词
+nounWords &lt;- segWords[names(segWords)==&quot;n&quot;]
+x &lt;- as.data.frame(table(nounWords))
+x[order(x$Freq,decreasing=TRUE),][1:30,]
+
+#统计形容词/副词语
+aWords &lt;- segWords[names(segWords)==&quot;a&quot;]
+x &lt;- as.data.frame(table(aWords))
+x[order(x$Freq,decreasing=TRUE),][1:30,]
+
+#统计量词
+mWords &lt;- segWords[names(segWords)==&quot;m&quot;]
+x &lt;- as.data.frame(table(mWords))
+x[order(x$Freq,decreasing=TRUE),][1:30,]</code></pre></figure>
 
 <h1 id="section-2">结果</h1>
 <p>结果是基本上就是下面这样的</p>
 
-<div class="highlight"><pre><code class="sql"><span class="lineno"> 1</span> <span class="o">#</span><span class="err">动词的统计</span>
-<span class="lineno"> 2</span>    <span class="n">verbWords</span> <span class="n">Freq</span>
-<span class="lineno"> 3</span>    <span class="mi">823</span>        <span class="err">像</span>  <span class="mi">227</span>
-<span class="lineno"> 4</span>    <span class="mi">900</span>        <span class="err">有</span>  <span class="mi">191</span>
-<span class="lineno"> 5</span>    <span class="mi">1</span>          <span class="err">爱</span>  <span class="mi">173</span>
-<span class="lineno"> 6</span>    <span class="mi">340</span>        <span class="err">会</span>  <span class="mi">156</span>
-<span class="lineno"> 7</span>    <span class="mi">515</span>      <span class="err">没有</span>  <span class="mi">146</span>
-<span class="lineno"> 8</span>    <span class="mi">618</span>        <span class="err">让</span>  <span class="mi">135</span>
-<span class="lineno"> 9</span>    <span class="mi">950</span>      <span class="err">知道</span>  <span class="mi">120</span>
-<span class="lineno">10</span>    <span class="mi">162</span>        <span class="err">到</span>  <span class="mi">113</span>
-<span class="lineno">11</span>    <span class="mi">868</span>        <span class="err">要</span>  <span class="mi">110</span>
-<span class="lineno">12</span>    <span class="mi">149</span>        <span class="err">带</span>   <span class="mi">97</span>
-<span class="lineno">13</span>    <span class="mi">426</span>        <span class="err">可</span>   <span class="mi">94</span>
-<span class="lineno">14</span>    <span class="mi">816</span>        <span class="err">想</span>   <span class="mi">80</span>
-<span class="lineno">15</span>    <span class="mi">493</span>      <span class="err">录音</span>   <span class="mi">76</span>
-<span class="lineno">16</span>    <span class="mi">447</span>        <span class="err">来</span>   <span class="mi">73</span>
-<span class="lineno">17</span>    <span class="mi">613</span>        <span class="err">去</span>   <span class="mi">73</span>
-<span class="lineno">18</span>    <span class="mi">166</span>      <span class="err">等待</span>   <span class="mi">71</span>
-<span class="lineno">19</span>    <span class="mi">341</span>        <span class="err">混</span>   <span class="mi">67</span>
-<span class="lineno">20</span>    <span class="mi">120</span>      <span class="err">处理</span>   <span class="mi">64</span>
-<span class="lineno">21</span>    <span class="mi">928</span>        <span class="err">找</span>   <span class="mi">57</span>
-<span class="lineno">22</span>    <span class="mi">428</span>      <span class="err">可以</span>   <span class="mi">52</span>
-<span class="lineno">23</span>    <span class="mi">538</span>        <span class="err">能</span>   <span class="mi">51</span>
-<span class="lineno">24</span>    <span class="mi">433</span>      <span class="err">哭泣</span>   <span class="mi">49</span>
-<span class="lineno">25</span>    <span class="mi">432</span>        <span class="err">哭</span>   <span class="mi">48</span>
-<span class="lineno">26</span>    <span class="mi">785</span>        <span class="err">无</span>   <span class="mi">48</span>
-<span class="lineno">27</span>    <span class="mi">986</span>        <span class="err">走</span>   <span class="mi">47</span>
-<span class="lineno">28</span>    <span class="mi">913</span>      <span class="err">再见</span>   <span class="mi">44</span>
-<span class="lineno">29</span>    <span class="mi">696</span>        <span class="err">说</span>   <span class="mi">41</span>
-<span class="lineno">30</span>    <span class="mi">407</span>      <span class="err">觉得</span>   <span class="mi">39</span>
-<span class="lineno">31</span>    <span class="mi">252</span>      <span class="err">感到</span>   <span class="mi">38</span>
-<span class="lineno">32</span>    <span class="mi">585</span>      <span class="err">破碎</span>   <span class="mi">38</span>
-<span class="lineno">33</span> 
-<span class="lineno">34</span> 
-<span class="lineno">35</span> <span class="o">#</span><span class="err">名词的统计</span>
-<span class="lineno">36</span> <span class="n">nounWords</span> <span class="n">Freq</span>
-<span class="lineno">37</span> <span class="mi">574</span>      <span class="err">生命</span>  <span class="mi">125</span>
-<span class="lineno">38</span> <span class="mi">177</span>      <span class="err">感觉</span>  <span class="mi">118</span>
-<span class="lineno">39</span> <span class="mi">526</span>        <span class="err">人</span>  <span class="mi">106</span>
-<span class="lineno">40</span> <span class="mi">785</span>        <span class="err">音</span>   <span class="mi">94</span>
-<span class="lineno">41</span> <span class="mi">692</span>        <span class="err">象</span>   <span class="mi">88</span>
-<span class="lineno">42</span> <span class="mi">421</span>        <span class="err">梦</span>   <span class="mi">85</span>
-<span class="lineno">43</span> <span class="mi">203</span>    <span class="err">工作室</span>   <span class="mi">78</span>
-<span class="lineno">44</span> <span class="mi">408</span>      <span class="err">妈妈</span>   <span class="mi">75</span>
-<span class="lineno">45</span> <span class="mi">843</span>      <span class="err">助理</span>   <span class="mi">64</span>
-<span class="lineno">46</span> <span class="mi">711</span>        <span class="err">心</span>   <span class="mi">53</span>
-<span class="lineno">47</span> <span class="mi">305</span>      <span class="err">键盘</span>   <span class="mi">51</span>
-<span class="lineno">48</span> <span class="mi">293</span>      <span class="err">吉他</span>   <span class="mi">50</span>
-<span class="lineno">49</span> <span class="mi">589</span>      <span class="err">世界</span>   <span class="mi">50</span>
-<span class="lineno">50</span> <span class="mi">164</span>        <span class="err">风</span>   <span class="mi">45</span>
-<span class="lineno">51</span> <span class="mi">148</span>      <span class="err">方向</span>   <span class="mi">40</span>
-<span class="lineno">52</span> <span class="mi">627</span>      <span class="err">天空</span>   <span class="mi">39</span>
-<span class="lineno">53</span> <span class="mi">528</span>      <span class="err">人们</span>   <span class="mi">37</span>
-<span class="lineno">54</span> <span class="mi">227</span>      <span class="err">孩子</span>   <span class="mi">36</span>
-<span class="lineno">55</span> <span class="mi">1</span>        <span class="err">爱情</span>   <span class="mi">33</span>
-<span class="lineno">56</span> <span class="mi">804</span>        <span class="err">雨</span>   <span class="mi">33</span>
-<span class="lineno">57</span> <span class="mi">784</span>      <span class="err">意义</span>   <span class="mi">32</span>
-<span class="lineno">58</span> <span class="mi">386</span>      <span class="err">灵魂</span>   <span class="mi">29</span>
-<span class="lineno">59</span> <span class="mi">582</span>      <span class="err">时光</span>   <span class="mi">28</span>
-<span class="lineno">60</span> <span class="mi">783</span>      <span class="err">意思</span>   <span class="mi">28</span>
-<span class="lineno">61</span> <span class="mi">92</span>       <span class="err">大地</span>   <span class="mi">26</span>
-<span class="lineno">62</span> <span class="mi">201</span>      <span class="err">工程</span>   <span class="mi">26</span>
-<span class="lineno">63</span> <span class="mi">397</span>    <span class="err">录音室</span>   <span class="mi">26</span>
-<span class="lineno">64</span> <span class="mi">467</span>      <span class="err">朋友</span>   <span class="mi">26</span>
-<span class="lineno">65</span> <span class="mi">396</span>    <span class="err">录音棚</span>   <span class="mi">24</span>
-<span class="lineno">66</span> <span class="mi">767</span>      <span class="err">阳光</span>   <span class="mi">24</span>
-<span class="lineno">67</span> 
-<span class="lineno">68</span> <span class="o">#</span><span class="err">形容词和副词</span>
-<span class="lineno">69</span>  <span class="n">aWords</span> <span class="n">Freq</span>
-<span class="lineno">70</span>  <span class="mi">63</span>    <span class="err">孤独</span>   <span class="mi">65</span>
-<span class="lineno">71</span>  <span class="mi">144</span>   <span class="err">美丽</span>   <span class="mi">42</span>
-<span class="lineno">72</span>  <span class="mi">268</span>   <span class="err">自由</span>   <span class="mi">37</span>
-<span class="lineno">73</span>  <span class="mi">151</span>   <span class="err">迷惘</span>   <span class="mi">32</span>
-<span class="lineno">74</span>  <span class="mi">178</span>   <span class="err">亲爱</span>   <span class="mi">32</span>
-<span class="lineno">75</span>  <span class="mi">51</span>    <span class="err">疯狂</span>   <span class="mi">28</span>
-<span class="lineno">76</span>  <span class="mi">90</span>    <span class="err">坚强</span>   <span class="mi">27</span>
-<span class="lineno">77</span>  <span class="mi">12</span>    <span class="err">悲伤</span>   <span class="mi">24</span>
-<span class="lineno">78</span>  <span class="mi">22</span>    <span class="err">灿烂</span>   <span class="mi">24</span>
-<span class="lineno">79</span>  <span class="mi">236</span>   <span class="err">幸福</span>   <span class="mi">21</span>
-<span class="lineno">80</span>  <span class="mi">85</span>    <span class="err">辉煌</span>   <span class="mi">17</span>
-<span class="lineno">81</span>  <span class="mi">206</span>     <span class="err">碎</span>   <span class="mi">16</span>
-<span class="lineno">82</span>  <span class="mi">246</span>   <span class="err">勇敢</span>   <span class="mi">16</span>
-<span class="lineno">83</span>  <span class="mi">88</span>    <span class="err">寂寞</span>   <span class="mi">15</span>
-<span class="lineno">84</span>  <span class="mi">48</span>    <span class="err">繁华</span>   <span class="mi">14</span>
-<span class="lineno">85</span>  <span class="mi">102</span>     <span class="err">紧</span>   <span class="mi">14</span>
-<span class="lineno">86</span>  <span class="mi">150</span>   <span class="err">迷茫</span>   <span class="mi">14</span>
-<span class="lineno">87</span>  <span class="mi">14</span>    <span class="err">蹩脚</span>   <span class="mi">13</span>
-<span class="lineno">88</span>  <span class="mi">42</span>      <span class="err">大</span>   <span class="mi">13</span>
-<span class="lineno">89</span>  <span class="mi">56</span>      <span class="err">高</span>   <span class="mi">13</span>
-<span class="lineno">90</span>  <span class="mi">111</span>     <span class="err">倦</span>   <span class="mi">13</span>
-<span class="lineno">91</span>  <span class="mi">113</span>   <span class="err">绝望</span>   <span class="mi">13</span>
-<span class="lineno">92</span>  <span class="mi">125</span>   <span class="err">快乐</span>   <span class="mi">13</span>
-<span class="lineno">93</span>  <span class="mi">31</span>    <span class="err">炽热</span>   <span class="mi">12</span>
-<span class="lineno">94</span>  <span class="mi">132</span>     <span class="err">乐</span>   <span class="mi">12</span>
-<span class="lineno">95</span>  <span class="mi">251</span>     <span class="err">远</span>   <span class="mi">12</span>
-<span class="lineno">96</span>  <span class="mi">257</span>   <span class="err">真实</span>   <span class="mi">12</span>
-<span class="lineno">97</span>  <span class="mi">26</span>      <span class="err">长</span>   <span class="mi">11</span>
-<span class="lineno">98</span>  <span class="mi">70</span>      <span class="err">好</span>   <span class="mi">11</span>
-<span class="lineno">99</span>  <span class="mi">172</span>   <span class="err">平静</span>   <span class="mi">11</span>
-</code></pre></div>
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql">#动词的统计
+   verbWords Freq
+   823        像  227
+   900        有  191
+   1          爱  173
+   340        会  156
+   515      没有  146
+   618        让  135
+   950      知道  120
+   162        到  113
+   868        要  110
+   149        带   97
+   426        可   94
+   816        想   80
+   493      录音   76
+   447        来   73
+   613        去   73
+   166      等待   71
+   341        混   67
+   120      处理   64
+   928        找   57
+   428      可以   52
+   538        能   51
+   433      哭泣   49
+   432        哭   48
+   785        无   48
+   986        走   47
+   913      再见   44
+   696        说   41
+   407      觉得   39
+   252      感到   38
+   585      破碎   38
+
+
+#名词的统计
+nounWords Freq
+574      生命  125
+177      感觉  118
+526        人  106
+785        音   94
+692        象   88
+421        梦   85
+203    工作室   78
+408      妈妈   75
+843      助理   64
+711        心   53
+305      键盘   51
+293      吉他   50
+589      世界   50
+164        风   45
+148      方向   40
+627      天空   39
+528      人们   37
+227      孩子   36
+1        爱情   33
+804        雨   33
+784      意义   32
+386      灵魂   29
+582      时光   28
+783      意思   28
+92       大地   26
+201      工程   26
+397    录音室   26
+467      朋友   26
+396    录音棚   24
+767      阳光   24
+
+#形容词和副词
+ aWords Freq
+ 63    孤独   65
+ 144   美丽   42
+ 268   自由   37
+ 151   迷惘   32
+ 178   亲爱   32
+ 51    疯狂   28
+ 90    坚强   27
+ 12    悲伤   24
+ 22    灿烂   24
+ 236   幸福   21
+ 85    辉煌   17
+ 206     碎   16
+ 246   勇敢   16
+ 88    寂寞   15
+ 48    繁华   14
+ 102     紧   14
+ 150   迷茫   14
+ 14    蹩脚   13
+ 42      大   13
+ 56      高   13
+ 111     倦   13
+ 113   绝望   13
+ 125   快乐   13
+ 31    炽热   12
+ 132     乐   12
+ 251     远   12
+ 257   真实   12
+ 26      长   11
+ 70      好   11
+ 172   平静   11</code></pre></figure>
 
 <p>最后肯定要总结下，要不然就文不对题了。</p>
 
@@ -417,7 +413,7 @@ MathJax.Hub.Config({
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    <span>&copy; 2015 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
+    <span>&copy; 2016 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
 <div class="social-icons">
 	
 	

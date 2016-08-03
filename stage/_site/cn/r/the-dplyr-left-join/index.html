@@ -157,29 +157,28 @@ MathJax.Hub.Config({
 一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用<code>left_join</code>，并且在每次关联结束之后
 没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：</p>
 
-<div class="highlight"><pre><code class="r">require<span class="p">(</span>dplyr<span class="p">)</span>
-<span class="c1"># 使用left_join的得到的结果，没有返回警告</span>
-df1 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y.y <span class="o">=</span> <span class="m">5</span><span class="o">:</span><span class="m">1</span><span class="p">)</span>
-df2 <span class="o">&lt;-</span> data.frame<span class="p">(</span>x <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span>y <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span>
-lfmp <span class="o">&lt;-</span> left_join<span class="p">(</span>df1<span class="p">,</span>df2<span class="p">,</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-left_join<span class="p">(</span>lfmp<span class="p">,</span>df1<span class="p">,</span>by<span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">,</span>copy <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
-<span class="c1"># 1 1   1     5     5 1     5</span>
-<span class="c1"># 2 2   2     4     4 2     4</span>
-<span class="c1"># 3 3   3     3     3 3     3</span>
-<span class="c1"># 4 4   4     2     2 4     2</span>
-<span class="c1"># 5 5   5     1     1 5     1</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">require(dplyr)
+# 使用left_join的得到的结果，没有返回警告
+df1 &lt;- data.frame(x = 1:5,y = 1:5,y.y = 5:1)
+df2 &lt;- data.frame(x = 1:5,y = 1:5)
+lfmp &lt;- left_join(df1,df2,&quot;x&quot;,copy = TRUE)
+left_join(lfmp,df1,by=&quot;x&quot;,copy = TRUE)
+#   x y.x y.y.x y.y.x y y.y.y
+# 1 1   1     5     5 1     5
+# 2 2   2     4     4 2     4
+# 3 3   3     3     3 3     3
+# 4 4   4     2     2 4     2
+# 5 5   5     1     1 5     1
 
-<span class="c1"># 使用merge返回的结果，同时返回警告</span>
-metmp <span class="o">&lt;-</span> merge<span class="p">(</span>x <span class="o">=</span> df1<span class="p">,</span>y <span class="o">=</span> df2<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
-merge<span class="p">(</span>x <span class="o">=</span> metmp<span class="p">,</span>y <span class="o">=</span> df1<span class="p">,</span>by <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">)</span>
-<span class="c1">#   x y.x y.y.x y.y.x y y.y.y</span>
-<span class="c1"># 1 1   1     5     1 1     5</span>
-<span class="c1"># 2 2   2     4     2 2     4</span>
-<span class="c1"># 3 3   3     3     3 3     3</span>
-<span class="c1"># 4 4   4     2     4 4     2</span>
-<span class="c1"># 5 5   5     1     5 5     1</span>
-</code></pre></div>
+# 使用merge返回的结果，同时返回警告
+metmp &lt;- merge(x = df1,y = df2,by = &quot;x&quot;)
+merge(x = metmp,y = df1,by = &quot;x&quot;)
+#   x y.x y.y.x y.y.x y y.y.y
+# 1 1   1     5     1 1     5
+# 2 2   2     4     2 2     4
+# 3 3   3     3     3 3     3
+# 4 4   4     2     4 4     2
+# 5 5   5     1     5 5     1</code></pre></figure>
 
 <p>从上面的例子中可以看到，在使用<code>left_join</code>的时候第四列的值不是期望的值，而且第三列的列名和
 第四列的列名是一样的。啊哈，原来是因为列名是一样的，所以该列的值被篡改了。</p>
@@ -217,7 +216,7 @@ merge<span class="p">(</span>x <span class="o">=</span> metmp<span class="p">,</
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    <span>&copy; 2015 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
+    <span>&copy; 2016 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
 <div class="social-icons">
 	
 	

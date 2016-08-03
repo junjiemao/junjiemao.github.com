@@ -1,0 +1,47 @@
+<p>前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的<code class="highlighter-rouge">merge</code>函数，而是使用了
+<code class="highlighter-rouge">dplyr::left_join</code>。和<code class="highlighter-rouge">merge</code>一样，在对两个数据框进行关联的时候，会对列名相同的列进行重命名，
+一般都是在结尾加上x或者y。在这次使用的过程中，因为多次使用<code class="highlighter-rouge">left_join</code>，并且在每次关联结束之后
+没有对列名进行重命名，于是悲剧就产生了。关于悲剧是怎么产生的，下面构建了一个例子：</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">require</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="c1"># 使用left_join的得到的结果，没有返回警告
+</span><span class="n">df1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="n">y.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">df2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span><span class="w">
+</span><span class="n">lfmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">,</span><span class="s2">"x"</span><span class="p">,</span><span class="n">copy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">left_join</span><span class="p">(</span><span class="n">lfmp</span><span class="p">,</span><span class="n">df1</span><span class="p">,</span><span class="n">by</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span><span class="n">copy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="c1">#   x y.x y.y.x y.y.x y y.y.y
+# 1 1   1     5     5 1     5
+# 2 2   2     4     4 2     4
+# 3 3   3     3     3 3     3
+# 4 4   4     2     2 4     2
+# 5 5   5     1     1 5     1
+</span><span class="w">
+</span><span class="c1"># 使用merge返回的结果，同时返回警告
+</span><span class="n">metmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df1</span><span class="p">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df2</span><span class="p">,</span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"x"</span><span class="p">)</span><span class="w">
+</span><span class="n">merge</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metmp</span><span class="p">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df1</span><span class="p">,</span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"x"</span><span class="p">)</span><span class="w">
+</span><span class="c1">#   x y.x y.y.x y.y.x y y.y.y
+# 1 1   1     5     1 1     5
+# 2 2   2     4     2 2     4
+# 3 3   3     3     3 3     3
+# 4 4   4     2     4 4     2
+</span><span class="err">#</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w">   </span><span class="m">5</span><span class="w">     </span><span class="m">1</span><span class="w">     </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w">     </span><span class="m">1</span></code></pre></figure>
+
+<p>从上面的例子中可以看到，在使用<code class="highlighter-rouge">left_join</code>的时候第四列的值不是期望的值，而且第三列的列名和
+第四列的列名是一样的。啊哈，原来是因为列名是一样的，所以该列的值被篡改了。</p>
+
+<p>然后去看了<code class="highlighter-rouge">dplyr::left_join</code>的源码,在<code class="highlighter-rouge">left_join_impl</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L1143">代码在这里</a>）
+中有一个函数为<code class="highlighter-rouge">subset</code>（<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L919">代码在这里</a>）。
+在里面我们可以看到里面修改列名的方法以及进行赋值的方法,特别需要注意的
+地方为<a href="https://github.com/hadley/dplyr/blob/11dfbcacb68937312a02feb3345e000fcdb3c54e/src/dplyr.cpp#L960">这里</a>。</p>
+
+<p>解决方案有两个：</p>
+
+<ul>
+  <li>修改<code class="highlighter-rouge">subset</code>这个函数的源代码</li>
+  <li>每次join之后修改列名</li>
+</ul>
+
+<p>从实用和实现来说，都是第二种方案比较好。使用<code class="highlighter-rouge">left_join</code>之所以容易犯以上的错误主要是因为在使用的过程
+中没有出警告，而且如果列名正常的话（指没有<code class="highlighter-rouge">.x</code>这种字符）是要等到第七次join才会出错的。所以，为了以后
+的方便，还是把<code class="highlighter-rouge">left_join</code>的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
+下次再也不会出错了。哦耶~</p>
