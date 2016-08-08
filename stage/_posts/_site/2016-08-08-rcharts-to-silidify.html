@@ -1,0 +1,41 @@
+<p>slidify制作slides虽然很方便，但是插入rCharts等交互图片的时候会存在无法显示的问题。网上能找到很多解决方案，但是都比较复杂，本文介绍一个简单的实现方法——使用<code class="highlighter-rouge">iframe</code>元素插入到slides中。以下演示下实现的整个过程
+<code class="highlighter-rouge">
+</code>{r readData,echo=FALSE,warning=FALSE}
+setwd(“E:/Document/R/DA_ComputerAd”)
+require(xlsx)
+require(recharts)
+require(digest)
+dat &lt;- read.xlsx(file = “./data/data.xlsx”,sheetIndex = 1)
+dat$Date &lt;- as.Date(dat$Date)
+dat$Group &lt;- paste(dat$Plat,dat$Product,sep = ‘_’)
+dat$C2BRation &lt;- dat$ClickUV/dat$BrowUV*100
+dat$C2BRation[is.infinite(dat$C2BRation)] &lt;- NA
+renderHtmlPlot &lt;- function(obj,fileName){
+  fileName &lt;- paste0(“E:/Document/R/DA_ComputerAd/assets/html/”,
+                     fileName,”.html”)
+  obj$save(fileName)
+  res &lt;- paste0(“&lt;iframe src='",fileName,"'&gt;&lt;/iframe&gt;”)
+  return(res)
+}
+```</p>
+
+<h2 id="section">绘制交互</h2>
+<p><code class="highlighter-rouge"><span class="p">{</span><span class="err">r</span><span class="w"> </span><span class="err">test1,echo=FALSE,results='asis',warning=FALSE,</span><span class="p">}</span><span class="w">
+</span><span class="err">require(rCharts)</span><span class="w">
+</span><span class="err">n</span><span class="mi">1</span><span class="w"> </span><span class="err">&lt;-</span><span class="w"> </span><span class="err">nPlot(BrowPV</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="err">Date,</span><span class="w"> 
+      </span><span class="err">data</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">dat,</span><span class="w"> 
+       </span><span class="err">group</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">"Group"</span><span class="err">,</span><span class="w">
+      </span><span class="err">type</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">'lineWithFocusChart')</span><span class="w">
+</span><span class="err">n</span><span class="mi">1</span><span class="err">$xAxis(</span><span class="w">
+  </span><span class="err">tickFormat</span><span class="w"> </span><span class="err">=</span><span class="w"> 
+    </span><span class="s2">"#!
+      function(d){
+        f =  d3.time.format.utc('%Y-%m-%d');
+        return f(new Date( d*24*60*60*1000 ));
+      }
+    !#"</span><span class="w">
+</span><span class="err">)</span><span class="w">
+</span><span class="err">cat(renderHtmlPlot(n</span><span class="mi">1</span><span class="err">,fileName</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">"test1"</span><span class="err">))</span><span class="w">
+</span></code></p>
+
+<p>```</p>

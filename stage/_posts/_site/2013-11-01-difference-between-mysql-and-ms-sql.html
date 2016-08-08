@@ -1,0 +1,169 @@
+<p>以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。</p>
+
+<h1 id="section">触发器</h1>
+<p>在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9</pre></td><td class="code"><pre><span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="k">CREATE</span>
+<span class="k">DEFINER</span><span class="o">=</span><span class="nv">`root`</span><span class="o">@</span><span class="nv">`localhost`</span>
+<span class="k">TRIGGER</span> <span class="nv">`test`</span><span class="p">.</span><span class="nv">`t_afterinsert_on_tab1`</span>
+<span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="nv">`test`</span><span class="p">.</span><span class="nv">`test`</span>
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
+<span class="k">BEGIN</span>
+<span class="k">sql</span><span class="err">语句；</span>
+<span class="k">END</span><span class="err">$$</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>和MS SQL不同的是MySQL的触发器类型有六种，分别是<code class="highlighter-rouge">AFTER/BEFORE</code>和<code class="highlighter-rouge">INSERT/UPDATE/DELETE</code>之间的组合。而MS SQL的触发器是<code class="highlighter-rouge">INSERT</code>,<code class="highlighter-rouge">UPDATE</code>,<code class="highlighter-rouge">DELETE</code>以及<code class="highlighter-rouge">INSTEAD OF</code>四种，其中前三种是之后触发，最后一种是之前触发。如果使用习惯了MS SQL的话，在写触发器中的SQL语句就会遇到一个小小的坑。比如有一张表格有x和y两列，需要一个触发器判断x大于0就插入x否则插入-x。如果习惯了M$ SQL会这样写：</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td><td class="code"><pre><span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span>	<span class="s1">'test'</span><span class="p">.</span><span class="s1">'error_trigger'</span>
+<span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="nv">`test`</span><span class="p">.</span><span class="nv">`test`</span>
+<span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="k">BEGIN</span>
+<span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="o">-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="n">inster</span> <span class="k">into</span> <span class="n">test</span> <span class="k">values</span><span class="p">(</span><span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="k">END</span><span class="err">$$</span>
+<span class="k">DELIMITER</span><span class="p">;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>但是这样话是无法运行的，因为这样已经相当于循环插入了，正确的做法是:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td><td class="code"><pre><span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span>	<span class="s1">'test'</span><span class="p">.</span><span class="s1">'error_trigger'</span>
+<span class="k">BEFORE</span> <span class="n">INSTER</span> <span class="k">ON</span> <span class="nv">`test`</span><span class="p">.</span><span class="nv">`test`</span>
+<span class="k">FOR</span> <span class="k">EACH</span><span class="err">　</span><span class="k">ROW</span>
+<span class="k">BEGIN</span>
+<span class="n">if</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">then</span>
+<span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=-</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="k">else</span>
+<span class="k">set</span> <span class="k">new</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span> <span class="o">#</span><span class="err">也可以不要这句</span>
+<span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="k">END</span><span class="err">$$</span>
+<span class="k">DELIMITER</span> <span class="p">;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>在写触发器的时候还要注意的就是<code class="highlighter-rouge">new</code>和<code class="highlighter-rouge">old</code>的使用，这在MS SQL中是没有的。<code class="highlighter-rouge">new</code>加上点(.)加上列名就可以取出相应的列，<code class="highlighter-rouge">old</code>在删除的时候会用得比较多点。而在MS SQL中是需要使用<code class="highlighter-rouge">select</code>来取出的。</p>
+
+<h1 id="section-1">存储过程</h1>
+
+<p>存储过程没有很大的区别，发现有几点。</p>
+
+<ul>
+  <li>
+    <p>在MySQL中定义变量是不需要使用<code class="highlighter-rouge">@</code>符号的。</p>
+  </li>
+  <li>
+    <p>声明参数的格式为<code class="highlighter-rouge">输入（IN）变量还是输出（OUT）变量  变量名 变量类型</code>，比如 <code class="highlighter-rouge">IN par_name INT</code>这种就表示是INT型的名字韦par_name的输入型变量。</p>
+  </li>
+  <li>
+    <p>在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以<code class="highlighter-rouge">selct  @a=a,@b=b from test</code>,其中<code class="highlighter-rouge">@a</code>、<code class="highlighter-rouge">@b</code>为声明的变量,而在MySQL中只能<code class="highlighter-rouge">selet a,b into aa,bb  form test</code>,其中<code class="highlighter-rouge">aa</code>和<code class="highlighter-rouge">bb</code>为声明的变量。</p>
+  </li>
+  <li>
+    <p>ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="k">UPDATE</span> <span class="n">A</span>
+<span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="k">where</span> <span class="n">x</span> <span class="k">in</span> <span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>这样是会报错的，解决方案为</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="k">UPDATE</span> <span class="n">A</span>
+<span class="k">set</span> <span class="n">A</span><span class="p">.</span><span class="n">x</span><span class="o">=</span><span class="k">new</span><span class="p">.</span><span class="n">x</span>
+<span class="k">where</span> <span class="n">x</span> <span class="k">in</span>
+<span class="k">select</span> <span class="n">x</span> <span class="k">from</span><span class="p">(</span><span class="k">select</span> <span class="n">x</span> <span class="k">from</span> <span class="n">A</span> <span class="k">as</span> <span class="n">t_xxxx</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。</p>
+
+<h1 id="section-2">函数</h1>
+<p>差别不是很大，注意的也就是参数的声明。</p>
+
+<h1 id="section-3">事件调度</h1>
+<p>MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre></td><td class="code"><pre><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">'event_scheduler'</span><span class="p">;</span>  <span class="o">#</span><span class="err">查看是否开启定时器</span>  
+<span class="k">set</span> <span class="k">global</span> <span class="n">event_scheduler</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>  <span class="o">#</span><span class="err">开启定时器</span> 
+
+<span class="k">DELIMITER</span> <span class="err">$$</span>
+<span class="k">CREATE</span> <span class="n">EVENT</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">EVENT_CheckOnLine</span>
+<span class="k">ON</span> <span class="n">SCHEDULE</span> <span class="k">EVERY</span> <span class="mi">30</span> <span class="k">SECOND</span>
+<span class="k">ON</span> <span class="k">COMPLETION</span> <span class="k">PRESERVE</span>
+<span class="k">DO</span> <span class="k">BEGIN</span>
+<span class="k">call</span> <span class="n">checkOnline</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">END</span><span class="err">$$</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">EVENTS</span><span class="p">;</span>   <span class="o">#</span><span class="err">查看事件的调用情况</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h1 id="section-4">其他需要注意的</h1>
+<p>在使用的过程还发现了其他一些可能导致的错误：</p>
+
+<ul>
+  <li>
+    <p>ERROR 1175的解决方案是<code class="highlighter-rouge">SET SQL_SAFE_UPDATES=0</code>,原因是当要执行的SQL语句是进行批量更新或者删除的时候就会提示这个错误，这是一个保护机制，去掉就是了。</p>
+  </li>
+  <li>
+    <p>workbench中编辑数据的时候（估计直接编辑数据也就在测试阶段使用），如果该表没有设置主键的时候是不能直接编辑数据的。吐槽下workbench的可视化编辑器真的<code class="highlighter-rouge">print('很'*10000)</code>难用的。</p>
+  </li>
+  <li>
+    <p>自增加(<code class="highlighter-rouge">AUTO_INCREMENT</code>)必须是主键的一部分，并且一张表只能有一个<code class="highlighter-rouge">AUTO_INCREMENT</code>属性,其可以是任何整数类型的数据。</p>
+  </li>
+</ul>
+
+<p>就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下<a href="http://www.postgresql.org/">Postgresql</a>这个号称 <strong>“The world’s most advanced open source database”</strong> 的数据库，这个数据库到目前为止也只是使用过她的查询语句。</p>
+

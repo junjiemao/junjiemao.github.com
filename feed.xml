@@ -4,13 +4,71 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2016-08-03T14:13:48+00:00</updated>
+<updated>2016-08-08T14:19:47+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
   <uri>/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[在slidify中使用rCharts]]></title>
+  <link rel="alternate" type="text/html" href="/cn/r/rcharts-to-silidify/"/>
+  <id>/cn/r/rcharts-to-silidify</id>
+  <published>2016-08-08T00:00:00+00:00</published>
+  <updated>2016-08-08T00:00:00+00:00</updated>
+  <author>
+    <name>HatMatrix</name>
+    <uri></uri>
+    <email>hatmatrix42@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;slidify制作slides虽然很方便，但是插入rCharts等交互图片的时候会存在无法显示的问题。网上能找到很多解决方案，但是都比较复杂，本文介绍一个简单的实现方法——使用&lt;code&gt;iframe&lt;/code&gt;元素插入到slides中。&lt;/p&gt;
+
+&lt;p&gt;实现的步骤为&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;把&lt;code&gt;rCharts&lt;/code&gt;生成的交互结果存成html&lt;/li&gt;
+  &lt;li&gt;使用&lt;code&gt;iframe&lt;/code&gt;插入保存的html&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下演示下实现的整个过程&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;```{r defFun,echo=FALSE,warning=FALSE}
+renderHtmlPlot &amp;lt;- function(obj,fileName){
+  fileName &amp;lt;- paste0(&amp;quot;/path/to/path/html/&amp;quot;,
+                     fileName,&amp;quot;.html&amp;quot;)
+  obj$save(fileName)
+  res &amp;lt;- paste0(&amp;quot;&amp;lt;iframe src=&amp;#39;&amp;quot;,fileName,&amp;quot;&amp;#39;&amp;gt;&amp;lt;/iframe&amp;gt;&amp;quot;)
+  return(res)
+}
+```
+
+## 绘制交互
+```{r test1,echo=FALSE,results=&amp;#39;asis&amp;#39;,warning=FALSE,}
+require(rCharts)
+n1 &amp;lt;- nPlot(BrowPV ~ Date, 
+      data = dat, 
+       group = &amp;quot;Group&amp;quot;,
+      type = &amp;#39;lineWithFocusChart&amp;#39;)
+
+## 修复X轴的显示
+n1$xAxis(
+  tickFormat = 
+    &amp;quot;#!
+      function(d){
+        f =  d3.time.format.utc(&amp;#39;%Y-%m-%d&amp;#39;);
+        return f(new Date( d*24*60*60*1000 ));
+      }
+    !#&amp;quot;
+)
+cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
+```&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/cn/r/rcharts-to-silidify/&quot;&gt;在slidify中使用rCharts&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 08, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

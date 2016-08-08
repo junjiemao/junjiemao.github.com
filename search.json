@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "在slidify中使用rCharts",
+		  "category"   : "R",
+		  "url"        : "/cn/r/rcharts-to-silidify/",
+		  "date"       : "2016-08-08 00:00:00 +0000",
+		  "shortdate"  : "August 08, 2016"
+		} ,
+	
+		{
 		  "title"      : "slidify中的中文乱码解决方案",
 		  "category"   : "R",
 		  "url"        : "/cn/r/slidify-mojibake/",
