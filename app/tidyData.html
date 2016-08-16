@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>使用R进行数据整理</title>
+  <meta charset="utf-8">
+  <meta name="description" content="使用R进行数据整理">
+  <meta name="author" content="MJJ08398">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="./libraries/highlighters/highlight.js/css/solarized_light.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="./libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="./libraries/frameworks/io2012/js/slides" 
+    src="./libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>使用R进行数据整理</h1>
+    <h2>快速正确地整理数据</h2>
+    <p>MJJ08398<br/>数据挖掘</p>
+  </hgroup>
+  <article></article>  
+  <footer class = 'license'>
+    <a href='http://creativecommons.org/licenses/by-sa/3.0/'>
+    <img width = '80px' src = 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-sa.png'>
+    </a>
+  </footer>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="quote dark" id="slide-1" style="background:;">
+  <article data-timings="">
+    <p><q>  In God we trust; all others must bring data  </q></p>
+
+<style>
+.dark q {
+  color: white;
+}
+</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>综述</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>数据读入</li>
+<li>数据类型转化</li>
+<li>数据转换</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>数据读入</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>base</code>:<code>read.csv</code>,<code>read.table</code></li>
+<li><code>readr</code>:</li>
+<li><code>readxl</code></li>
+<li><code>data.table</code></li>
+<li><code>dplyr</code></li>
+<li><code>RODBC</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2><code>base::read.csv</code>和<code>base::read.table</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>包含在base包中常用的读取格式化数据的函数。<code>base::read.csv</code>是<code>base::read.table</code>
+的<code>sep=&#39;,&#39;</code>的特例。</p>
+
+<pre><code class="r">read.table(file,header = FALSE,
+           sep = &quot;&quot;, 
+           quote = &quot;\&quot;&#39;&quot;, #
+           dec = &quot;.&quot;,  #
+           numerals = c(&quot;allow.loss&quot;, &quot;warn.loss&quot;, &quot;no.loss&quot;),
+           row.names,  #
+           col.names,  #
+           as.is = !stringsAsFactors,skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+           na.strings = &quot;NA&quot;, 
+           colClasses = NA, #
+           nrows = -1,
+           strip.white = FALSE, blank.lines.skip = TRUE,
+           comment.char = &quot;#&quot;, #
+           allowEscapes = FALSE, flush = FALSE,
+           stringsAsFactors = default.stringsAsFactors(),
+           fileEncoding = &quot;&quot;, encoding = &quot;unknown&quot;, text, skipNul = FALSE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2><code>readr</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>readr</code>做了统一的接口，并且省略了一些不必要的参数。</li>
+<li>使用<code>datasource</code>函数，统一了数据来源</li>
+</ul>
+
+<pre><code class="r">read_csv(file, 
+         col_names = TRUE,
+         col_types = NULL, #使用col_* 系列函数指定列的类型
+         locale = default_locale(), 
+         na = c(&quot;&quot;, &quot;NA&quot;), 
+         comment = &quot;&quot;,
+         trim_ws = TRUE, #去除空白
+         skip = 0, 
+         n_max = -1, 
+         progress = interactive())
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2><code>readr</code>函数的使用举例1</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">require(readr)
+</code></pre>
+
+<pre><code>## Loading required package: readr
+</code></pre>
+
+<pre><code class="r">dr1 &lt;- datasource(&quot;a,b,c\n1,2,3&quot;)
+dr2 &lt;- datasource(system.file(&quot;extdata/mtcars.csv&quot;, package = &quot;readr&quot;))
+head(read_csv(dr1),n = 2)
+</code></pre>
+
+<pre><code>##   a b c
+## 1 a b c
+## 2 1 2 3
+</code></pre>
+
+<pre><code class="r">head(read_csv(dr2),n=2)
+</code></pre>
+
+<pre><code>##   mpg cyl disp  hp drat   wt  qsec vs am gear carb
+## 1 mpg cyl disp  hp drat   wt  qsec vs am gear carb
+## 2  21   6  160 110  3.9 2.62 16.46  0  1    4    4
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2><code>readr</code>函数的使用举例2</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">require(readr)
+dr1 &lt;- datasource(&quot;2015-01-02,1,a\n2015-02-03,2,b&quot;)
+dat &lt;- read_csv(dr1,col_names = FALSE,
+                col_types = list(col_date(),
+                              col_integer(),
+                              col_character()))
+dat$X1[1]-dat$X1[2]
+</code></pre>
+
+<pre><code>## Time difference of -32 days
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2><code>readxl</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>方便地读取Excel数据</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2><code>data.table::fread</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>能够快速地读取数据，数据为<code>data.table</code>格式的数据，可以快速地筛选处理。需要注意其<code>[</code>操作符。</p>
+
+<pre><code class="r">require(data.table)
+DT = data.table(x=rep(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),each=3), y=c(1,3,6), v=1:9)
+DT[y %between% c(3,6)] # y在3-6之间的行
+DT[2] # 第二行
+DT[,v] # v列
+DT[,list(v)] # v列，注意和DT[,v]的区别
+DT[2:3,sum(v)] # 第2-3行的v列求和
+DT[2:5,cat(v,&quot;\n&quot;)]  #
+DT[c(FALSE,TRUE)] # 偶数行
+DT[,2,with=FALSE] # 比较 DT[,2,with=TRUE]
+setkey(DT,x) #  设置x列位key
+DT[&#39;a&#39;] #取出DT中x为a的行
+DT[,sum(v),by=x]  # 按照x中值进行group
+X = data.table(c(&quot;b&quot;,&quot;c&quot;),foo=c(4,2))
+X
+DT[X] # 使用DT中的x进行join
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2><code>dplyr</code>中连接数据库的函数</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2><code>时间序列函数的转换</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>as.Date</code></li>
+<li><code>as.POSIXct</code></li>
+<li><code>xts</code>以及相关的包</li>
+</ul>
+
+<pre><code class="r"># cctCalls的列为count dateBin
+cctCalls$dateBin &lt;- as.POSIXct(x = cctCalls$dateBin)
+full &lt;- seq(from = as.POSIXct(&#39;2015-01-01&#39;),
+            by=&#39;1 hour&#39;,
+            to = as.POSIXct(&#39;2016-05-30&#39;))
+cctCalls2 &lt;- data.frame(Date=full, 
+                         value=with(cctCalls, count[match(full, dateBin)]))
+
+
+rownames(cctCalls2) &lt;- cctCalls2$dateBin
+cctCalls2 &lt;- cctCalls2[,1:2]
+cctCalls2TS &lt;- as.xts(as.matrix(cctCalls2))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='综述'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='数据读入'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='<code>base::read.csv</code>和<code>base::read.table</code>'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='<code>readr</code>'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='<code>readr</code>函数的使用举例1'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='<code>readr</code>函数的使用举例2'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='<code>readxl</code>'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='<code>data.table::fread</code>'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='<code>dplyr</code>中连接数据库的函数'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='<code>时间序列函数的转换</code>'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="./libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="./libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
