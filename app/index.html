@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>算法之美</title>
+  <meta charset="utf-8">
+  <meta name="description" content="算法之美">
+  <meta name="author" content="MJJ08398">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="./libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="./libraries/highlighters/highlight.js/css/solarized_light.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="./libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="./libraries/frameworks/io2012/js/slides" 
+    src="./libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>算法之美</h1>
+    <h2>决策树</h2>
+    <p>MJJ08398<br/>数据挖掘</p>
+  </hgroup>
+  <article></article>  
+  <footer class = 'license'>
+    <a href='http://creativecommons.org/licenses/by-sa/3.0/'>
+    <img width = '80px' src = 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-sa.png'>
+    </a>
+  </footer>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="quote dark" id="slide-1" style="background:;">
+  <article data-timings="">
+    <p><q>In God we trust; all others must bring data</q> </p>
+
+<style>
+.dark q{
+  color: white;
+}
+</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>概述</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>分类树</li>
+<li>回归树</li>
+<li>随机森林</li>
+<li>提升树</li>
+<li>装袋算法</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>数据特点</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>响应值可以是离散值，也可以是连续值
+
+<ul>
+<li>为离散值的时候，称之为分类树</li>
+<li>为连续值的时候，称之为回归树</li>
+</ul></li>
+<li>因变量也可以是离散值或者连续值</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>什么决定了这棵树</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>在哪一个点上切割（只对连续的变量有这个问题）</li>
+<li>哪一个变量更加重要</li>
+<li>如何衡量最终的结果</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>哪一个变量更重要</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>需要一个指标来衡量，常用的指标有</p>
+
+<ul>
+<li>基尼不存度</li>
+<li>信息增益</li>
+<li>最小二乘偏差（LSD）</li>
+<li>最小绝对偏差（LAD）</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>衡量指标</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>基尼系数：</p>
+
+<p>\[I_G(f) = \sum_{i=1}^{m}f_i(1-f_i)=1-\sum_{i=1}^{m}f_i^2\]</p>
+
+<p>基尼指数是用来衡量类的混乱程度的，值越小说明这个类越纯，极端的就是
+如果都是一样的话那么这个类就是完全一样的。</p>
+
+<p>基尼增益：</p>
+
+<p>\[Grain_{GINI}=\sum_{i=1}^kP_k*I_G(f)_k\]</p>
+
+<p>其中
+\[ \sum_{i=1}kP_k = 1\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>举例</h2>
+  </hgroup>
+  <article data-timings="">
+    <!-- html table generated in R 3.3.0 by xtable 1.8-2 package -->
+
+<!-- Tue Aug  2 01:21:28 2016 -->
+
+<table border=1>
+<tr> <th>  </th> <th> Kyphosis </th> <th> Number </th> <th> Start </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td> absent </td> <td align="right">   3 </td> <td align="right">   5 </td> </tr>
+  <tr> <td align="right"> 2 </td> <td> absent </td> <td align="right">   3 </td> <td align="right">  14 </td> </tr>
+  <tr> <td align="right"> 3 </td> <td> present </td> <td align="right">   4 </td> <td align="right">   5 </td> </tr>
+  <tr> <td align="right"> 4 </td> <td> absent </td> <td align="right">   5 </td> <td align="right">   1 </td> </tr>
+  <tr> <td align="right"> 5 </td> <td> absent </td> <td align="right">   4 </td> <td align="right">  15 </td> </tr>
+  <tr> <td align="right"> 6 </td> <td> absent </td> <td align="right">   2 </td> <td align="right">  16 </td> </tr>
+   </table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>举例</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>计算<code>Number</code>基尼系数
+\[I_G(Number=2)=1\]
+\[I_G(Number=3)=1\]
+\[I_G(Number=4)=1-((\frac{1}{2})^2+(\frac{1}{2})^2)=\frac{2}{4}\]
+\[I_G(Number=5)=1\]</p>
+
+<p>基尼增益为：
+\[\frac{1}{6}*1+\frac{2}{6}*1+\frac{2}{6}*\frac{2}{4}+\frac{1}{6}*1 = \frac{5}{6}\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>信息增益</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>熵值的计算
+\[I_E(f)=-\sum_{i=1}^mf_i\log_2f_i\]</p>
+
+<p>信息的增益
+\[Gain(f) = I_E(S) - \sum_{i=1}^{k}P_kI_E(f_k)\]</p>
+
+<p>信息的增益比:
+\[I_{E_f}(S)=-\sum_{i=1}^mf_i\log_2f_i\]</p>
+
+<p>\[GainRation(f) = Gain(f)/I_{E_f}(D)\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>举例</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>计算<code>Number</code>的信息增益
+\[I_E(Number=2) = -\log_2{1}*1 = 0\]
+\[I_E(Number=3) = -\log_2{1}*1 = 0\]
+\[I_E(Number=4) = -\log_2{\frac{1}{2}}*\frac{1}{2}-\log_2{\frac{1}{2}}*\frac{1}{2}\]
+\[I_E(Number=5) = -\log_2{1}*1 = 0\]
+\[I_E(S) = -\log_2\frac{5}{6}*\frac{5}{6}--\log_2\frac{1}{6}*\frac{1}{6}\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>最小二乘偏差</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>最小二乘偏差
+\[LSD(f)=\sum_{i=1}^{m}{W_i}{f_i}(y_i-\bar{y})^2\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>最小绝对偏差</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[LSD(f)=\sum_{i=1}^{m}{W_i}{f_i}|y_i-\bar{y}|\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>连续的变量如何寻找分裂点</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>大体的来说，对每一个连续的变量进行分裂。寻找合适的分裂点的方法是
+尝试寻找分割点来使得以上所说的四个指标到达最优。</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>常用的决策树算法</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>CART：使用 <em>基尼系数</em> 来衡量</li>
+<li>ID3：使用 <em>信息增益</em> 来衡量</li>
+<li>C4.5：使用 <em>信息增益比</em> 来衡量，以信息增益准则划分训练数据集的特征时，偏向于选择属性取值较多的作为分裂属性信息增益比准则调整了这种偏倚，但它倾向于产生不平衡的划分，其中一个分区比其他分区小得多</li>
+<li>C5.0：C4.5的商业版本，也有开源的实现</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>各种方法的比较</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>CART的响应值可以是分类或者连续值，其他的都只能处理分类型的响应值</li>
+<li>CART只能进行二部分叉</li>
+<li>CART算法进行划分时不仅要选择最优分裂属性，还要在该属性的各个属性值中选择最优切分点</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>随机森林</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>从数据中抽取一部分数据来训练一棵树，重复多次，保留多棵树就成了森林。使用的时候让每棵树给出一个结果，最后的结果来自这个森林的投票结果。</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>提升树和装袋</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>TO-DO</li>
+<li>和最后的提升算法一起</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>MOD（Model-Based Recursive Partitioning）</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>对所有数据构建线性模型</li>
+<li>根据不同的分割变量，评价模型参数的不稳定性。选择某个分割变量使模型参数不稳定性最大。</li>
+<li>计算分割变量的分割点</li>
+<li>将数据根据上述结果分成两个子集</li>
+<li>重复上面的步骤</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>MOD参考文献</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src = 'https://cran.r-project.org/web/packages/party/vignettes/MOB.pdf' height='600px'></iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='概述'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='数据特点'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='什么决定了这棵树'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='哪一个变量更重要'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='衡量指标'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='举例'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='举例'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='信息增益'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='举例'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='最小二乘偏差'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='最小绝对偏差'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='连续的变量如何寻找分裂点'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='常用的决策树算法'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='各种方法的比较'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='随机森林'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='提升树和装袋'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='MOD（Model-Based Recursive Partitioning）'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='MOD参考文献'>
+         19
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="./libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="./libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
