@@ -18,8 +18,5 @@ share: true
 
 ![独墅湖](http://oe078ltqc.bkt.clouddn.com/IMG_2232.JPG-hm42)
 
-
-
-
-
+#EOF
 

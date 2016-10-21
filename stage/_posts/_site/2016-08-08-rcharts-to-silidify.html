@@ -1,0 +1,72 @@
+<p>slidify制作slides虽然很方便，但是插入rCharts等交互图片的时候会存在无法显示的问题。网上能找到很多解决方案，但是都比较复杂，本文介绍一个简单的实现方法——使用<code class="highlighter-rouge">iframe</code>元素插入到slides中。</p>
+
+<p>实现的步骤为</p>
+
+<ul>
+  <li>把<code class="highlighter-rouge">rCharts</code>生成的交互结果存成html</li>
+  <li>使用<code class="highlighter-rouge">iframe</code>插入保存的html</li>
+</ul>
+
+<p>以下演示下实现的整个过程</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></td><td class="code"><pre><span class="err">``</span><span class="n">`{r defFun,echo=FALSE,warning=FALSE}
+renderHtmlPlot &lt;- function(obj,fileName){
+  fileName &lt;- paste0("/path/to/path/html/",
+                     fileName,".html")
+  obj$save(fileName)
+  res &lt;- paste0("&lt;iframe src='",fileName,"'&gt;&lt;/iframe&gt;")
+  return(res)
+}
+`</span><span class="err">`</span><span class="n">`
+
+## 绘制交互
+`</span><span class="err">`</span><span class="n">`{r test1,echo=FALSE,results='asis',warning=FALSE,}
+require(rCharts)
+n1 &lt;- nPlot(BrowPV ~ Date, 
+      data = dat, 
+       group = "Group",
+      type = 'lineWithFocusChart')
+
+## 修复X轴的显示
+n1$xAxis(
+  tickFormat = 
+    "#!
+      function(d){
+        f =  d3.time.format.utc('%Y-%m-%d');
+        return f(new Date( d*24*60*60*1000 ));
+      }
+    !#"
+)
+cat(renderHtmlPlot(n1,fileName = "test1"))
+`</span><span class="err">``</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+

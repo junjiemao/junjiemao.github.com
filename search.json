@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Einstein",
+		  "category"   : "生活",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/",
+		  "date"       : "2016-10-21 00:00:00 +0000",
+		  "shortdate"  : "October 21, 2016"
+		} ,
+	
+		{
 		  "title"      : "独墅湖教堂",
 		  "category"   : "生活",
 		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/dushu-church/",
