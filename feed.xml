@@ -4,13 +4,90 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2016-10-21T14:20:24+00:00</updated>
+<updated>2017-08-22T16:32:51+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
   <uri>/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[R的nickname的含义(一)]]></title>
+  <link rel="alternate" type="text/html" href="/cn/r/R-nickname-01/"/>
+  <id>/cn/r/R-nickname-01</id>
+  <published>2017-08-22T00:00:00+00:00</published>
+  <updated>2017-08-22T00:00:00+00:00</updated>
+  <author>
+    <name>HatMatrix</name>
+    <uri></uri>
+    <email>hatmatrix42@gmail.com</email>
+  </author>
+  <content type="html">&lt;h2 id=&quot;single-candler341&quot;&gt;Single Candle（R3.4.1）&lt;/h2&gt;
+
+&lt;p&gt;奇怪的名字！为什么叫「一根蜡烛」，那还得看下R3.4.0的名字。&lt;/p&gt;
+
+&lt;h2 id=&quot;you-stupid-darkness340&quot;&gt;You Stupid Darkness（3.4.0）&lt;/h2&gt;
+
+&lt;p&gt;「You Stupid Darkness」的直译就是「你这傻叉黑暗」，第一次看到，会说，嘿，怎么在骂人呢？我第一次看到的时候也觉得很奇怪，为什么会起这么个名字，后来查了下这句话来自&lt;a href=&quot;https://www.wikiwand.com/zh-hans/%E6%9F%A5%E7%88%BE%E6%96%AF%C2%B7%E8%88%92%E8%8C%B2&quot;&gt;Schulz&lt;/a&gt;的一副漫画。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://oe078ltqc.bkt.clouddn.com/original.gif&quot; alt=&quot;original&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图片引用自http://www.avclub.com/article/you-stupid-darkness-and-29-other-peanuts-quotes-ev-236165，其中的解释为：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Schulz’s characters were so well defined that longtime readers could easily guess how each would react in any given situation. Here, the eternal fussbudget Lucy Van Pelt yells into the inky night as an indirect reply to her pious brother Linus, who’s illustrating an old Christian proverb about it being better to light a candle than to curse the darkness. Cue Lucy, cursing. Her angry exclamation could work for any of us as a way to overreact to a problem that’s frustrating but manageable.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;不是很懂西式笑话，大致解释一下就是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;奈勒斯：点亮一支烛火（&lt;strong&gt;Singel Candle&lt;/strong&gt;）总好过咒骂黑暗。（古基督教格言，姑且这么翻译吧）&lt;/p&gt;
+
+  &lt;p&gt;布朗：必须的，尽管有人不同意。&lt;/p&gt;
+
+  &lt;p&gt;露西（怒吼）：你这傻叉黑暗。&lt;/p&gt;
+
+  &lt;p&gt;此处，大惊小怪的露西·潘贝鲁特（Lucy Van Pelt）大喊「你这个傻叉黑暗」，以此来作为对他虚伪的弟弟奈勒斯（Linus）的回应。当面对可以处理的但是却有点的难缠的问题的时候，她的愤怒的过激的反应会发生在每一个人身上。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;终于和Single Candle联系上了，简直草蛇灰线，伏延千里，这帮Nerds真拼命。&lt;/p&gt;
+
+&lt;h2 id=&quot;another-canoer333&quot;&gt;Another Canoe（R3.3.3）&lt;/h2&gt;
+
+&lt;p&gt;「又是一只独木舟」，what？什么鬼？貌似又来自Schulz的漫画&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(Linus is away at camp.)&lt;/p&gt;
+
+  &lt;p&gt;CB: What’s that?&lt;/p&gt;
+
+  &lt;p&gt;Lucy: It looks like something from Linus. It is! He sent me a little birch cark canoe from camp! HE said he made it himself. Sometimes I think I don’t deserve a nice brother like Linus.&lt;/p&gt;
+
+  &lt;p&gt;CB: I have often thought the same thing.&lt;/p&gt;
+
+  &lt;p&gt;Lucy: (writing) Dear Linus, Please send me another canoe. The first one broke when I threw it at Charlie Brown.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;但是这个版本没有找到梗在哪里，谁懂这个梗的提醒下&lt;/p&gt;
+
+&lt;h2 id=&quot;sincere-pumpkin-patch-r332&quot;&gt;sincere pumpkin patch （R3.3.2）&lt;/h2&gt;
+
+&lt;p&gt;「真诚的南瓜」，语出&lt;a href=&quot;https://www.wikiwand.com/zh-hans/%E6%9F%A5%E7%88%BE%E6%96%AF%C2%B7%E8%88%92%E8%8C%B2&quot;&gt;Schulz&lt;/a&gt;的漫画&lt;a href=&quot;https://movie.douban.com/subject/2255554/&quot;&gt;It’s the Great Pumpkin&lt;/a&gt;中Linus的台词：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Linus&lt;/em&gt;: “He’ll come here because I have the most sincere pumpkin patch and he respects sincerity.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;作者真是Schulz的铁粉，为什么起这个名字呢？看了下发布日期，&lt;strong&gt;10月31！！ 万圣节！！&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;下次继续扒R的nickname的梗。&lt;/p&gt;
+
+&lt;p&gt;#EOF&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/cn/r/R-nickname-01/&quot;&gt;R的nickname的含义(一)&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 22, 2017.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
