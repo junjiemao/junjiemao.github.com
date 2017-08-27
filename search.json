@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "水塘抽样的思考",
+		  "category"   : "算法",
+		  "url"        : "/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/",
+		  "date"       : "2017-08-28 00:00:00 +0000",
+		  "shortdate"  : "August 28, 2017"
+		} ,
+	
+		{
 		  "title"      : "R的nickname的含义(一)",
 		  "category"   : "R",
 		  "url"        : "/cn/r/R-nickname-01/",

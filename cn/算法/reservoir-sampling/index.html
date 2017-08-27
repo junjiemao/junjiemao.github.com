@@ -5,25 +5,25 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>R的nickname的含义(一) &#8211; HatMatrix</title>
+<title>水塘抽样的思考 &#8211; HatMatrix</title>
 <meta name="description" content="">
-<meta name="keywords" content="R">
+<meta name="keywords" content="算法, 概率">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R的nickname的含义(一)">
+<meta property="og:title" content="水塘抽样的思考">
 <meta property="og:description" content="">
-<meta property="og:url" content="/cn/r/R-nickname-01/">
+<meta property="og:url" content="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/">
 <meta property="og:site_name" content="HatMatrix">
 
 
 
 
 
-<link rel="canonical" href="/cn/r/R-nickname-01/">
+<link rel="canonical" href="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/">
 <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
 <link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
 
@@ -136,87 +136,120 @@ MathJax.Hub.Config({
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <span class="entry-tags"><a href="/tags.html#R" title="Pages tagged R">R</a></span>
+        <span class="entry-tags"><a href="/tags.html#算法" title="Pages tagged 算法">算法</a>&nbsp;&bull;&nbsp;<a href="/tags.html#概率" title="Pages tagged 概率">概率</a></span>
         
-          <h1 class="entry-title">R的nickname的含义(一)</h1>
+          <h1 class="entry-title">水塘抽样的思考</h1>
         
       </header>
       <footer class="entry-meta">
         <img src="/images/bio-photo.jpg" alt="HatMatrix photo" class="author-photo">
         <span class="author vcard">By <span class="fn"><a href="/about/" title="About HatMatrix">HatMatrix</a></span></span>
-        <span class="entry-date date published"><time datetime="2017-08-22T00:00:00+00:00"><i class="icon-calendar-empty"></i> August 22, 2017</time></span>
+        <span class="entry-date date published"><time datetime="2017-08-28T00:00:00+00:00"><i class="icon-calendar-empty"></i> August 28, 2017</time></span>
         
         
-        <span><a href="/cn/r/R-nickname-01/" rel="bookmark" title="R的nickname的含义(一)"><i class="icon-link"></i> Permalink</a></span>
+        <span><a href="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/" rel="bookmark" title="水塘抽样的思考"><i class="icon-link"></i> Permalink</a></span>
         
         <span class="social-share-facebook">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/r/R-nickname-01/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
         <span class="social-share-twitter">
-            <a href="https://twitter.com/intent/tweet?text=/cn/r/R-nickname-01/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+            <a href="https://twitter.com/intent/tweet?text=/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
         <span class="social-share-googleplus">
-            <a href="https://plus.google.com/share?url=/cn/r/R-nickname-01/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <a href="https://plus.google.com/share?url=/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
             <!-- /.social-share -->
       </footer>
       <div class="entry-content">
-        <h2 id="single-candler341">Single Candle（R3.4.1）</h2>
-
-<p>奇怪的名字！为什么叫「一根蜡烛」，那还得看下R3.4.0的名字。</p>
-
-<h2 id="you-stupid-darkness340">You Stupid Darkness（3.4.0）</h2>
-
-<p>「You Stupid Darkness」的直译就是「你这傻叉黑暗」，第一次看到，会说，嘿，怎么在骂人呢？我第一次看到的时候也觉得很奇怪，为什么会起这么个名字，后来查了下这句话来自<a href="https://www.wikiwand.com/zh-hans/%E6%9F%A5%E7%88%BE%E6%96%AF%C2%B7%E8%88%92%E8%8C%B2">Schulz</a>的一副漫画。</p>
-
-<p><img src="http://oe078ltqc.bkt.clouddn.com/original.gif" alt="original" /></p>
-
-<p>图片引用自http://www.avclub.com/article/you-stupid-darkness-and-29-other-peanuts-quotes-ev-236165，其中的解释为：</p>
+        <p>今天在知乎上看到一道阿里的面试题，问题是：</p>
 
 <blockquote>
-  <p>Schulz’s characters were so well defined that longtime readers could easily guess how each would react in any given situation. Here, the eternal fussbudget Lucy Van Pelt yells into the inky night as an indirect reply to her pious brother Linus, who’s illustrating an old Christian proverb about it being better to light a candle than to curse the darkness. Cue Lucy, cursing. Her angry exclamation could work for any of us as a way to overreact to a problem that’s frustrating but manageable.</p>
+  <p>请设计一个抽奖算法，得奖名额设定为100人，在不知道有多少人参与抽奖活动前提下，且保证不同时间的人中奖概率相同，同时不能让太多的人等待结果，防止网络拥塞。</p>
+
+  <p>原题链接：https://www.zhihu.com/question/35099557</p>
 </blockquote>
 
-<p>不是很懂西式笑话，大致解释一下就是：</p>
+<p>看到题目立马想到的就是<a href="https://www.wikiwand.com/zh-hans/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A8%A3">水塘抽样</a>，但是水塘问题水塘问题不能解决<strong>同时不能让太多的人等待结果</strong>，不知道是不是提问者转述有问题，姑且不考虑这个要求，以下就只是介绍下水塘抽样。</p>
+
+<h2 id="section">水塘抽样的典型场景</h2>
+
+<p>设计一个抽奖系统，参与的人数$N$在抽奖结束之前是不知道的，要从中选$k$个幸运儿，这样就有两种情况：</p>
+
+<ul>
+  <li>如果人很少的话，就无所谓了，我们可以很快地设计一个随机函数<code>your_rand</code>来很快从$[0,N)$中产生$k$个不重复的数就可以了。</li>
+  <li>如果人很多，那么设计一个高效的<code>your_rand</code>就会成为一个不小的挑战，需要考虑空间和时间复杂度。</li>
+</ul>
+
+<p>水塘抽样就专门为这个而生，水塘抽样是线上算法，可以进行流式计算，复杂度是$O(n)$。</p>
+
+<h2 id="section-1">水塘抽样的由来的思考</h2>
+
+<p>水塘抽样问题很久之前就由Knuth在<em>The Art of Computer Programming（TAOCP）</em>中提出来的。因为<em>TAOCP</em>这本巨著太过庞大，一直不敢读，所以Knuth的具体的思考过程也就不是很了解，下面是我自己的一些思考。以下分简化情况和一般情况来看：</p>
+
+<h3 id="section-2">简化：只抽取一位幸运儿</h3>
+
+<p>在这种情况，我们可以得到一个简化的问题，即：</p>
 
 <blockquote>
-  <p>奈勒斯：点亮一支烛火（<strong>Singel Candle</strong>）总好过咒骂黑暗。（古基督教格言，姑且这么翻译吧）</p>
-
-  <p>布朗：必须的，尽管有人不同意。</p>
-
-  <p>露西（怒吼）：你这傻叉黑暗。</p>
-
-  <p>此处，大惊小怪的露西·潘贝鲁特（Lucy Van Pelt）大喊「你这个傻叉黑暗」，以此来作为对他虚伪的弟弟奈勒斯（Linus）的回应。当面对可以处理的但是却有点的难缠的问题的时候，她的愤怒的过激的反应会发生在每一个人身上。</p>
+  <p>一个装有N个小球的桶中，有一个黑球，安排N个人去抽，那么每个人抽到黑球的概率是多少？</p>
 </blockquote>
 
-<p>终于和Single Candle联系上了，简直草蛇灰线，伏延千里，这帮Nerds真拼命。</p>
+<p>这个模型，只要学过基础的概率论的伙伴们应该都很熟悉，当时老师肯定用这个模型的来论证过<strong>无论先抽还是后抽，每次抽到黑球的概率是一致的，比如你去抽福利彩票，不会因为你去晚了就比人家机会小</strong>。让我们来看下证明过程：</p>
 
-<h2 id="another-canoer333">Another Canoe（R3.3.3）</h2>
+<ul>
+  <li>step1:考虑第一个球被抽取到的概率是$\frac{1}{N}$</li>
+  <li>step2:考虑第二个球被抽到的概率，第二个球能被抽取到，只有在第一个球没有抽到的情况下才能抽到，那么概率就是:$\frac{N-1}{N}*\frac{1}{N-1}=\frac{1}{N}$</li>
+  <li>step3:类似，也是$\frac{1}{N}$</li>
+  <li>…</li>
+  <li>stepN-1:概率是 $\frac{N-1}{N}*\frac{1}{N-1} …\frac{2}{3}{*}\frac{1}{2}=\frac{1}{N}$</li>
+  <li>stepN: $\frac{N-1}{N}{*}\frac{1}{N-1} … \frac{2}{3}{*}\frac{1}{2}{*}{1}=\frac{1}{N}$</li>
+</ul>
 
-<p>「又是一只独木舟」，what？什么鬼？貌似又来自Schulz的漫画</p>
+<p>我们就得到了通项：</p>
+
+<script type="math/tex; mode=display">P_n=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{N-(n-1)}{N-(n-2)}*\frac{1}{N-(n-1)}=\frac{1}{N}      {                    }（1）</script>
+
+<p>每一项的概率都是一样的，很棒！但是我们在线上抽样的时候，无法知道$N$是多少，但是这难不倒我们，尝试做一个简单的变换，令$n^{\prime}=N-(n-1)$，因为对于每一次抽取，概率都是一样的，所以做完这个变换后的概率仍然是$\frac{1}{N}$。代入原来的式子，可以得到：</p>
+
+<script type="math/tex; mode=display">P_{n^{\prime}}=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{n^{\prime}}{n^{\prime}+1}*\frac{1}{n^{\prime}}（2）</script>
+
+<p>这样,$P_{n^{\prime}}$ 的值只和第$n^{\prime}$以后的值有关了，也就可以进行流式计算了。</p>
+
+<p>我们来再看下水塘抽样的<a href="https://www.wikiwand.com/zh-hans/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A8%A3">算法描述</a>：</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">从S中抽取首1项放入「水塘」中
+对于每一个S[j]项：
+   随机产生一個范围从0到j的整数r
+   若 r==0 则把水塘中的值换成S[j]项</code></pre></figure>
+
+<p>表达的和式子（2）是同一个意思。</p>
+
+<h3 id="k">普遍情况：抽取k位幸运儿</h3>
+
+<p>这个按照以上去分步计算会很复杂，我们采用投机取巧的方法简化成两步：</p>
+
+<ul>
+  <li>证明在抽取k的情况下，每个人的概率仍然是相同的。</li>
+  <li>对<strong>只抽取一位幸运儿</strong>这种情况下把概率乘以$k$</li>
+</ul>
+
+<p>首先证明：</p>
 
 <blockquote>
-  <p>(Linus is away at camp.)</p>
-
-  <p>CB: What’s that?</p>
-
-  <p>Lucy: It looks like something from Linus. It is! He sent me a little birch cark canoe from camp! HE said he made it himself. Sometimes I think I don’t deserve a nice brother like Linus.</p>
-
-  <p>CB: I have often thought the same thing.</p>
-
-  <p>Lucy: (writing) Dear Linus, Please send me another canoe. The first one broke when I threw it at Charlie Brown.</p>
+  <p>从一个装有N个小球的桶中，有k个黑球，安排N个人去抽，那么每个人抽到黑球的概率是相同的。</p>
 </blockquote>
 
-<p>但是这个版本没有找到梗在哪里，谁懂这个梗的提醒下</p>
+<p>把$N$个球排成一列有$N!$种方法.为了在第$n$个位置上放黑球,可先从$k$个黑球中取1个放在该位置上,有$k$种方法,再把剩下的$n-1$ 个球排成一排,有$(N-1)!$种排法,于是得到：</p>
 
-<h2 id="sincere-pumpkin-patch-r332">sincere pumpkin patch （R3.3.2）</h2>
+<script type="math/tex; mode=display">P_n=\frac{k(N-1)!}{N!}=\frac{k}{N}</script>
 
-<p>「真诚的南瓜」，语出<a href="https://www.wikiwand.com/zh-hans/%E6%9F%A5%E7%88%BE%E6%96%AF%C2%B7%E8%88%92%E8%8C%B2">Schulz</a>的漫画<a href="https://movie.douban.com/subject/2255554/">It’s the Great Pumpkin</a>中Linus的台词：</p>
+<p>至此，可以沿用式（2）进行抽样，<a href="https://www.wikiwand.com/zh-hans/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A8%A3">算法描述</a>：</p>
 
-<blockquote>
-  <p><em>Linus</em>: “He’ll come here because I have the most sincere pumpkin patch and he respects sincerity.”</p>
-</blockquote>
+<figure class="highlight"><pre><code class="language-r" data-lang="r">从S中抽取首k项放入「水塘」中
+对于每一个S[j]项（j ≥ k）：
+   随机产生一個范围从0到j的整数r
+   若 r &lt; k 则把水塘中的第r项换成S[j]项    #说明：此处的概率为简单情况中的k倍</code></pre></figure>
 
-<p>作者真是Schulz的铁粉，为什么起这个名字呢？看了下发布日期，<strong>10月31！！ 万圣节！！</strong>。</p>
+<h2 id="section-3">总结</h2>
 
-<p>下次继续扒R的nickname的梗。</p>
+<p>自此，主要总结了我自己对水塘抽样如何形成的一些思考。有了这些理论，代码就很好写了。</p>
 
 <p>#EOF</p>
 
@@ -225,10 +258,8 @@ MathJax.Hub.Config({
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
       
-        <a href="/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/" class="btn" title="Einstein">Previous article</a>
+        <a href="/cn/r/R-nickname-01/" class="btn" title="R的nickname的含义(一)">Previous article</a>
       
-      
-        <a href="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/" class="btn" title="水塘抽样的思考">Next article</a>
       
     </nav><!-- /.pagination -->
   </article>
