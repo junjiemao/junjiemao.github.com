@@ -4,13 +4,65 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2017-08-30T00:04:17+00:00</updated>
+<updated>2017-12-31T15:06:44+00:00</updated>
 <id>/</id>
 <author>
   <name>HatMatrix</name>
   <uri>/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[再见2017]]></title>
+  <link rel="alternate" type="text/html" href="/cn/say-goodbye-2017/"/>
+  <id>/cn/say-goodbye-2017</id>
+  <published>2017-12-31T00:00:00+00:00</published>
+  <updated>2017-12-31T00:00:00+00:00</updated>
+  <author>
+    <name>HatMatrix</name>
+    <uri></uri>
+    <email>hatmatrix42@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;又到了年底，照例对一整年做个总结。「吾生也有涯，而知也无涯。以有涯随无涯，殆已」这句话是2017年的年度总结的最后一句话。当时是想告诉自己需要更加专注一点，不要过多花费精力去浅尝一些看起来很新鲜的事情，而是要努力做好一件事情。在这一年中一直提醒自己注意这一点，到年底看来，在这方面的基本做到了。&lt;/p&gt;
+
+&lt;p&gt;在今年，基本达到了坚持学习的要求，阅读了10本左右的非专业书籍，包括了一些科普类、一些计算机科学方法论类的、以及一本小说。在算法专业方面，真正完整阅读的只有1.5本，其余的都是零散博客。相对于年初定的计划，完成的不是特别好。总结下原因，一方面，如果只是为了解决问题，真正需要去系统学习一个东西的场景不多；另外，由于做的事情很多情况下无需进行大的改变，缺乏学习的动力。于是陷入了 &lt;strong&gt;不系统学习-&amp;gt;无创造力-&amp;gt;无系统学习动力&lt;/strong&gt; 这样一个恶性循坏中，在这样一个死锁的状态中需要想办法打破其中的一环，这是2018年的主要任务。&lt;/p&gt;
+
+&lt;p&gt;在分享和开源项目维护方面，完全没有能够达到年初定的目标。计划每个月至少一篇博客的写作计划因为自己没有坚持的缘故而不了了之了，一年也就了了的几篇，其中真正的干货则少之又少。年中准备维护的开源项目也没有能够坚持下去。开源和分享知识这件事，做起来比想起来可能更难一点，需要坚持和热情。&lt;/p&gt;
+
+&lt;p&gt;坚持总是难的，低头看看桌上没有用过几次的健身卡，今年的健身计划算是彻底失败了，健身卡沦落为了洗澡卡。工作的这么几年，运动量越来越少，体质也变差了。&lt;/p&gt;
+
+&lt;p&gt;在工作上，总体来说做的还不错，和团队一起努力，获得还算不错的成绩，克服了很多困难，得到些许认可。在团队中也学会了很多，从慧修和勇哥哪里偷学了很多Scala相关的知识、动手捣鼓了Storm、在晓峰组织的Java学习小组中深入了解Java基础模块设计（感觉我可以去面试下Java程序员试试了）、从佳姐身上学到了很多团队和项目管理的知识。&lt;/p&gt;
+
+&lt;p&gt;10月份，做了一个比较重大的决定，离开了原来熟悉的行业，进入了一个新的行业，自己和行业一起从0到1，想来还是比较激动人心的。在新的团队中，从师兄那里学到了很多，很感谢师兄在生活和工作上的照顾和帮助。&lt;/p&gt;
+
+&lt;p&gt;在2018年，希望自己能做到：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;继续阅读和学习以及写作&lt;/p&gt;
+
+    &lt;p&gt;系统地学习很有必要，博客等声音媒介也是一个很好地知识积累方式。同时，持续写作，分享自己的想法。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;运动、自律&lt;/p&gt;
+
+    &lt;p&gt;多运动，简单地办公司瑜伽和跑步都可以尝试。更加自律，避免晚睡和晚起。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;多思考，多观察&lt;/p&gt;
+
+    &lt;p&gt;多思考技术能做什么、行业需要什么。使自己不仅仅只是执行，而是能看到冰冷的数据背后故事。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在即将过去的2017年，最需要感谢的是我的妻子，感谢她对这个家的照顾，感谢她陪我一起讨论各种奇怪的想法，//感谢她在我写代码的时候能够安安静静地（这行注掉&lt;/p&gt;
+
+&lt;p&gt;–EOF&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/cn/say-goodbye-2017/&quot;&gt;再见2017&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on December 31, 2017.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

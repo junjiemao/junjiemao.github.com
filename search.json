@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "再见2017",
+		  "category"   : "",
+		  "url"        : "/cn/say-goodbye-2017/",
+		  "date"       : "2017-12-31 00:00:00 +0000",
+		  "shortdate"  : "December 31, 2017"
+		} ,
+	
+		{
 		  "title"      : "水塘抽样的思考",
 		  "category"   : "算法",
 		  "url"        : "/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/",
