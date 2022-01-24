@@ -54,4 +54,6 @@ merge(x = metmp,y = df1,by = "x")
 的方便，还是把`left_join`的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
 下次再也不会出错了。哦耶~
 
-作者已经已经修复 https://github.com/tidyverse/dplyr/issues/896
+作者已经修复 https://github.com/tidyverse/dplyr/issues/896
+
+-EOF
