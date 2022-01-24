@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "装逼，用力过猛出悲剧"
+title: "装X，用力过猛出悲剧"
 description: ""
 category: 生活
 tags: [生活, 程序猿]
