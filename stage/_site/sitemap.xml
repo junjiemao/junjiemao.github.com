@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://localhost:4000</loc>
+        <loc></loc>
     </url>
     
     
     <url>
-        <loc>http://localhost:4000/cn/hack/mac-panic/</loc>
+        <loc>/cn/hack/mac-panic/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/say-goodbye-2017-copy/</loc>
+        <loc>/cn/say-goodbye-2017-copy/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/</loc>
+        <loc>/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/R-nickname-01/</loc>
+        <loc>/cn/r/R-nickname-01/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/</loc>
+        <loc>/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/</loc>
+        <loc>/cn/%E7%94%9F%E6%B4%BB/dushu-church/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/rcharts-to-silidify/</loc>
+        <loc>/cn/r/rcharts-to-silidify/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/slidify-mojibake/</loc>
+        <loc>/cn/r/slidify-mojibake/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/google/google-search-tips/</loc>
+        <loc>/cn/google/google-search-tips/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/the-dplyr-left-join/</loc>
+        <loc>/cn/r/the-dplyr-left-join/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/</loc>
+        <loc>/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/</loc>
+        <loc>/cn/%E7%94%9F%E6%B4%BB/lu_mountain/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/the-music-king/</loc>
+        <loc>/cn/r/the-music-king/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/</loc>
+        <loc>/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/</loc>
+        <loc>/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/regular-expression-in-r-1/</loc>
+        <loc>/cn/r/regular-expression-in-r-1/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/</loc>
+        <loc>/cn/r/keyboard-shortcuts-of-rstudio/</loc>
     </url>
     
 </urlset>

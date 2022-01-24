@@ -3,7 +3,7 @@
 		{
 		  "title"      : "Mac的奔溃",
 		  "category"   : "Hack",
-		  "url"        : "http://localhost:4000/cn/hack/mac-panic/",
+		  "url"        : "/cn/hack/mac-panic/",
 		  "date"       : "2022-01-25 00:00:00 +0000",
 		  "shortdate"  : "January 25, 2022"
 		} ,
@@ -11,7 +11,7 @@
 		{
 		  "title"      : "再见2017",
 		  "category"   : "",
-		  "url"        : "http://localhost:4000/cn/say-goodbye-2017-copy/",
+		  "url"        : "/cn/say-goodbye-2017-copy/",
 		  "date"       : "2017-12-31 00:00:00 +0000",
 		  "shortdate"  : "December 31, 2017"
 		} ,
@@ -19,7 +19,7 @@
 		{
 		  "title"      : "水塘抽样的思考",
 		  "category"   : "算法",
-		  "url"        : "http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/",
+		  "url"        : "/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/",
 		  "date"       : "2017-08-28 00:00:00 +0000",
 		  "shortdate"  : "August 28, 2017"
 		} ,
@@ -27,7 +27,7 @@
 		{
 		  "title"      : "R的nickname的含义(一)",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/R-nickname-01/",
+		  "url"        : "/cn/r/R-nickname-01/",
 		  "date"       : "2017-08-22 00:00:00 +0000",
 		  "shortdate"  : "August 22, 2017"
 		} ,
@@ -35,7 +35,7 @@
 		{
 		  "title"      : "Einstein",
 		  "category"   : "生活",
-		  "url"        : "http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/",
 		  "date"       : "2016-10-21 00:00:00 +0000",
 		  "shortdate"  : "October 21, 2016"
 		} ,
@@ -43,7 +43,7 @@
 		{
 		  "title"      : "独墅湖教堂",
 		  "category"   : "生活",
-		  "url"        : "http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/dushu-church/",
 		  "date"       : "2016-09-24 00:00:00 +0000",
 		  "shortdate"  : "September 24, 2016"
 		} ,
@@ -51,7 +51,7 @@
 		{
 		  "title"      : "在slidify中使用rCharts",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/rcharts-to-silidify/",
+		  "url"        : "/cn/r/rcharts-to-silidify/",
 		  "date"       : "2016-08-08 00:00:00 +0000",
 		  "shortdate"  : "August 08, 2016"
 		} ,
@@ -59,7 +59,7 @@
 		{
 		  "title"      : "slidify中的中文乱码解决方案",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/slidify-mojibake/",
+		  "url"        : "/cn/r/slidify-mojibake/",
 		  "date"       : "2016-08-02 00:00:00 +0000",
 		  "shortdate"  : "August 02, 2016"
 		} ,
@@ -67,7 +67,7 @@
 		{
 		  "title"      : "使用Google的小技巧",
 		  "category"   : "Google",
-		  "url"        : "http://localhost:4000/cn/google/google-search-tips/",
+		  "url"        : "/cn/google/google-search-tips/",
 		  "date"       : "2015-03-05 00:00:00 +0000",
 		  "shortdate"  : "March 05, 2015"
 		} ,
@@ -75,7 +75,7 @@
 		{
 		  "title"      : "dplyr中的join类函数的使用注意点",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/the-dplyr-left-join/",
+		  "url"        : "/cn/r/the-dplyr-left-join/",
 		  "date"       : "2015-01-25 00:00:00 +0000",
 		  "shortdate"  : "January 25, 2015"
 		} ,
@@ -83,7 +83,7 @@
 		{
 		  "title"      : "装逼，用力过猛出悲剧",
 		  "category"   : "生活",
-		  "url"        : "http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/",
 		  "date"       : "2014-12-26 00:00:00 +0000",
 		  "shortdate"  : "December 26, 2014"
 		} ,
@@ -91,7 +91,7 @@
 		{
 		  "title"      : "老残游记",
 		  "category"   : "生活",
-		  "url"        : "http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/lu_mountain/",
 		  "date"       : "2014-04-14 00:00:00 +0000",
 		  "shortdate"  : "April 14, 2014"
 		} ,
@@ -99,7 +99,7 @@
 		{
 		  "title"      : "The Music King",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/the-music-king/",
+		  "url"        : "/cn/r/the-music-king/",
 		  "date"       : "2013-11-16 00:00:00 +0000",
 		  "shortdate"  : "November 16, 2013"
 		} ,
@@ -107,7 +107,7 @@
 		{
 		  "title"      : "MySQL和MS SQL Server的一些区别",
 		  "category"   : "数据库",
-		  "url"        : "http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/",
+		  "url"        : "/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/",
 		  "date"       : "2013-11-01 00:00:00 +0000",
 		  "shortdate"  : "November 01, 2013"
 		} ,
@@ -115,7 +115,7 @@
 		{
 		  "title"      : "每周记录 20131028",
 		  "category"   : "生活",
-		  "url"        : "http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/",
+		  "url"        : "/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/",
 		  "date"       : "2013-10-29 00:00:00 +0000",
 		  "shortdate"  : "October 29, 2013"
 		} ,
@@ -123,7 +123,7 @@
 		{
 		  "title"      : "R中使用正则表达式（1）",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/regular-expression-in-r-1/",
+		  "url"        : "/cn/r/regular-expression-in-r-1/",
 		  "date"       : "2013-08-12 00:00:00 +0000",
 		  "shortdate"  : "August 12, 2013"
 		} ,
@@ -131,7 +131,7 @@
 		{
 		  "title"      : "Rstudio快捷键速查",
 		  "category"   : "R",
-		  "url"        : "http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/",
+		  "url"        : "/cn/r/keyboard-shortcuts-of-rstudio/",
 		  "date"       : "2013-05-20 00:00:00 +0000",
 		  "shortdate"  : "May 20, 2013"
 		} 

@@ -2,26 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">HatMatrix</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://localhost:4000" />
-<updated>2022-01-24T17:05:37+00:00</updated>
-<id>http://localhost:4000/</id>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2022-01-24T17:08:20+00:00</updated>
+<id>/</id>
 <author>
   <name>HatMatrix</name>
-  <uri>http://localhost:4000/</uri>
+  <uri>/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[Mac的奔溃]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/hack/mac-panic/"/>
-  <id>http://localhost:4000/cn/hack/mac-panic</id>
+  <link rel="alternate" type="text/html" href="/cn/hack/mac-panic/"/>
+  <id>/cn/hack/mac-panic</id>
   <published>2022-01-25T00:00:00+00:00</published>
   <updated>2022-01-25T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;最近一台MBP15在盒盖后出现无法唤醒的情况，并且是必现。&lt;/p&gt;
@@ -60,19 +60,19 @@ Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/co
 &lt;p&gt;–EOF&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/hack/mac-panic/&quot;&gt;Mac的奔溃&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2022.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/hack/mac-panic/&quot;&gt;Mac的奔溃&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2022.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[再见2017]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/say-goodbye-2017-copy/"/>
-  <id>http://localhost:4000/cn/say-goodbye-2017 copy</id>
+  <link rel="alternate" type="text/html" href="/cn/say-goodbye-2017-copy/"/>
+  <id>/cn/say-goodbye-2017 copy</id>
   <published>2017-12-31T00:00:00+00:00</published>
   <updated>2017-12-31T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;又到了年底，照例对一整年做个总结。「吾生也有涯，而知也无涯。以有涯随无涯，殆已」这句话是2017年的年度总结的最后一句话。当时是想告诉自己需要更加专注一点，不要过多花费精力去浅尝一些看起来很新鲜的事情，而是要努力做好一件事情。在这一年中一直提醒自己注意这一点，到年底看来，在这方面的基本做到了。&lt;/p&gt;
@@ -114,19 +114,19 @@ Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/co
 &lt;p&gt;–EOF&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/say-goodbye-2017-copy/&quot;&gt;再见2017&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on December 31, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/say-goodbye-2017-copy/&quot;&gt;再见2017&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on December 31, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[水塘抽样的思考]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/"/>
-  <id>http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/"/>
+  <id>/cn/%E7%AE%97%E6%B3%95/reservoir-sampling</id>
   <published>2017-08-28T00:00:00+00:00</published>
   <updated>2017-08-28T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;今天在知乎上看到一道阿里的面试题，问题是：&lt;/p&gt;
@@ -224,19 +224,19 @@ Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/co
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/&quot;&gt;水塘抽样的思考&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 28, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/&quot;&gt;水塘抽样的思考&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 28, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[R的nickname的含义(一)]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/R-nickname-01/"/>
-  <id>http://localhost:4000/cn/r/R-nickname-01</id>
+  <link rel="alternate" type="text/html" href="/cn/r/R-nickname-01/"/>
+  <id>/cn/r/R-nickname-01</id>
   <published>2017-08-22T00:00:00+00:00</published>
   <updated>2017-08-22T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;h2 id=&quot;single-candler341&quot;&gt;Single Candle（R3.4.1）&lt;/h2&gt;
@@ -301,38 +301,38 @@ Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/co
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/R-nickname-01/&quot;&gt;R的nickname的含义(一)&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 22, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/R-nickname-01/&quot;&gt;R的nickname的含义(一)&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 22, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Einstein]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/"/>
-  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/"/>
+  <id>/cn/%E7%94%9F%E6%B4%BB/Einstein-pic</id>
   <published>2016-10-21T00:00:00+00:00</published>
   <updated>2016-10-21T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;http://oe078ltqc.bkt.clouddn.com/FullSizeRender.jpg&quot; alt=&quot;Einstein&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/&quot;&gt;Einstein&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on October 21, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/&quot;&gt;Einstein&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on October 21, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[独墅湖教堂]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/"/>
-  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/dushu-church/"/>
+  <id>/cn/%E7%94%9F%E6%B4%BB/dushu-church</id>
   <published>2016-09-24T00:00:00+00:00</published>
   <updated>2016-09-24T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;http://oe078ltqc.bkt.clouddn.com/IMG_2230.JPG-hm42&quot; alt=&quot;独墅湖耶稣像1&quot; /&gt;&lt;/p&gt;
@@ -346,19 +346,19 @@ Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/co
 &lt;p&gt;#EOF&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/&quot;&gt;独墅湖教堂&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on September 24, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/dushu-church/&quot;&gt;独墅湖教堂&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on September 24, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[在slidify中使用rCharts]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/rcharts-to-silidify/"/>
-  <id>http://localhost:4000/cn/r/rcharts-to-silidify</id>
+  <link rel="alternate" type="text/html" href="/cn/r/rcharts-to-silidify/"/>
+  <id>/cn/r/rcharts-to-silidify</id>
   <published>2016-08-08T00:00:00+00:00</published>
   <updated>2016-08-08T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;slidify制作slides虽然很方便，但是插入rCharts等交互图片的时候会存在无法显示的问题。网上能找到很多解决方案，但是都比较复杂，本文介绍一个简单的实现方法——使用&lt;code&gt;iframe&lt;/code&gt;元素插入到slides中。&lt;/p&gt;
@@ -404,19 +404,19 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 ```&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/rcharts-to-silidify/&quot;&gt;在slidify中使用rCharts&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 08, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/rcharts-to-silidify/&quot;&gt;在slidify中使用rCharts&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 08, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[slidify中的中文乱码解决方案]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/slidify-mojibake/"/>
-  <id>http://localhost:4000/cn/r/slidify-mojibake</id>
+  <link rel="alternate" type="text/html" href="/cn/r/slidify-mojibake/"/>
+  <id>/cn/r/slidify-mojibake</id>
   <published>2016-08-02T00:00:00+00:00</published>
   <updated>2016-08-02T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;slidify一直是做slides的一个很好的选择，但是在Windows平台下的一直存在乱码的问题。引起的原因
@@ -447,19 +447,19 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 &lt;a href=&quot;https://github.com/junjiemao/slidify&quot;&gt;github&lt;/a&gt;。使用&lt;code&gt;devtools::install_github('junjiemao/slidify')&lt;/code&gt;
 即可安装使用。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/slidify-mojibake/&quot;&gt;slidify中的中文乱码解决方案&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 02, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/slidify-mojibake/&quot;&gt;slidify中的中文乱码解决方案&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 02, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[使用Google的小技巧]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/google/google-search-tips/"/>
-  <id>http://localhost:4000/cn/google/google-search-tips</id>
+  <link rel="alternate" type="text/html" href="/cn/google/google-search-tips/"/>
+  <id>/cn/google/google-search-tips</id>
   <published>2015-03-05T00:00:00+00:00</published>
   <updated>2015-03-05T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;首先反驳下，百度更懂中文是不成立的，搜索下『黃』（不是『黄』，而是『黃』），会发现百度给出的结果全部都是关于『黄』的，洋鬼子Google在第二条和第三条给出了正确的结果。&lt;/p&gt;
@@ -504,19 +504,19 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 &lt;/ul&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/google/google-search-tips/&quot;&gt;使用Google的小技巧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on March 05, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/google/google-search-tips/&quot;&gt;使用Google的小技巧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on March 05, 2015.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[dplyr中的join类函数的使用注意点]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/the-dplyr-left-join/"/>
-  <id>http://localhost:4000/cn/r/the-dplyr-left-join</id>
+  <link rel="alternate" type="text/html" href="/cn/r/the-dplyr-left-join/"/>
+  <id>/cn/r/the-dplyr-left-join</id>
   <published>2015-01-25T00:00:00+00:00</published>
   <updated>2015-01-25T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的&lt;code&gt;merge&lt;/code&gt;函数，而是使用了
@@ -567,19 +567,19 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 的方便，还是把&lt;code&gt;left_join&lt;/code&gt;的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
 下次再也不会出错了。哦耶~&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/the-dplyr-left-join/&quot;&gt;dplyr中的join类函数的使用注意点&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/the-dplyr-left-join/&quot;&gt;dplyr中的join类函数的使用注意点&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2015.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[装逼，用力过猛出悲剧]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/"/>
-  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/"/>
+  <id>/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking</id>
   <published>2014-12-26T00:00:00+00:00</published>
   <updated>2014-12-26T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;最近在知乎上看到&lt;a href=&quot;http://www.zhihu.com/people/chang-jing-gu&quot;&gt;长颈菇&lt;/a&gt;讲的一个故事：&lt;/p&gt;
@@ -648,19 +648,19 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 
 &lt;p&gt;脑洞大的话，一边看一边出奇迹。啊哈~，我要去看《失控》了，因为我真的看不懂SICP啊，要死了要死了（逃~~&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/&quot;&gt;装逼，用力过猛出悲剧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on December 26, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/&quot;&gt;装逼，用力过猛出悲剧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on December 26, 2014.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[老残游记]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/"/>
-  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/lu_mountain/"/>
+  <id>/cn/%E7%94%9F%E6%B4%BB/lu_mountain</id>
   <published>2014-04-14T00:00:00+00:00</published>
   <updated>2014-04-14T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;在去庐山之前，我以为我只是一个有病的年轻人，比如那几乎不可治愈的拖延症和莫名其妙的自责。在去之前就打算回来后写一篇什么东西的，本来想好的名字是『一个有病的年轻人去山里面转了一圈后终于幡然醒悟打算重新做人的感人故事』，可是后来我发现现在的我只有两个字可以形容『老残』。&lt;/p&gt;
@@ -755,19 +755,19 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 &lt;p&gt;和小伙伴们在一起还是很开心的，虽然感到自己又『老』又『残』的，还是期待下一站，更多图片可以移步&lt;a href=&quot;https://www.flickr.com/photos/hatmatrix&quot;&gt;flickr&lt;/a&gt;。&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/&quot;&gt;老残游记&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on April 14, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/lu_mountain/&quot;&gt;老残游记&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on April 14, 2014.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[The Music King]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/the-music-king/"/>
-  <id>http://localhost:4000/cn/r/the-music-king</id>
+  <link rel="alternate" type="text/html" href="/cn/r/the-music-king/"/>
+  <id>/cn/r/the-music-king</id>
   <published>2013-11-16T00:00:00+00:00</published>
   <updated>2013-11-16T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;快收工的时候刷了下微博看到了有人很无聊地去统计了汪峰老师（没有黑他的意思，其实人家音乐还是很有力量的好吧）歌词的词频率。于是我想这得多有(wu)趣(liao)啊，于是就决定自己也统计下。于是的于是，我放弃了看TBBT的时间来给统计下汪峰老师的歌词。&lt;/p&gt;
@@ -1015,19 +1015,19 @@ nounWords Freq
 
 &lt;p&gt;嗯，差不多就这样。PS：这代码的显示太差劲了，等这个周末以后得把版面改改了。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[MySQL和MS SQL Server的一些区别]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
-  <id>http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
+  <link rel="alternate" type="text/html" href="/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
+  <id>/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
   <published>2013-11-01T00:00:00+00:00</published>
   <updated>2013-11-01T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。&lt;/p&gt;
@@ -1147,19 +1147,19 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code
 &lt;p&gt;就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下&lt;a href=&quot;http://www.postgresql.org/&quot;&gt;Postgresql&lt;/a&gt;这个号称 &lt;strong&gt;“The world’s most advanced open source database”&lt;/strong&gt; 的数据库，这个数据库到目前为止也只是使用过她的查询语句。&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[每周记录 20131028]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
-  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
+  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
+  <id>/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
   <published>2013-10-29T00:00:00+00:00</published>
   <updated>2013-10-29T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;2013年很快就要进入第300天了，略伤感。在浪费了小半年以后，开始重新做人，立志成为一个就算恶趣味也要有趣的人。不过话说回来，自己认为的有趣别人会觉得无趣也不一定，有人还觉得王小波没意思呢。&lt;/p&gt;
@@ -1197,19 +1197,19 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code
 
 &lt;p&gt;完毕，本该礼拜天写的，拜拖延症所赐，又拖了下。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[R中使用正则表达式（1）]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/regular-expression-in-r-1/"/>
-  <id>http://localhost:4000/cn/r/regular-expression-in-r-1</id>
+  <link rel="alternate" type="text/html" href="/cn/r/regular-expression-in-r-1/"/>
+  <id>/cn/r/regular-expression-in-r-1</id>
   <published>2013-08-12T00:00:00+00:00</published>
   <updated>2013-08-12T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
@@ -1567,19 +1567,19 @@ cat(text)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 ## (324) 255-6156&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Rstudio快捷键速查]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/"/>
-  <id>http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio</id>
+  <link rel="alternate" type="text/html" href="/cn/r/keyboard-shortcuts-of-rstudio/"/>
+  <id>/cn/r/keyboard-shortcuts-of-rstudio</id>
   <published>2013-05-20T00:00:00+00:00</published>
   <updated>2013-05-20T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri>http://localhost:4000</uri>
+    <uri></uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;手不离键盘是我们的追求，这也是我学习使用Emacs的主要原因之一，虽然很享受Emacs那种学会一招大小通吃的感觉，即使学习曲线陡了一点也还是值得的。但是Rstudio的吸引力实在太大了，使得我不得不放弃Emacs的ESS而投奔她。为了达到手不离键盘的程度，决定学习下快捷键，当我打开帮助文档的那一刹那惊呆了——怎么能有这么多快捷键，怎么能这么没规律！现在想想Emcas还是很人性的。以下是在尝试使用的时候记录下来的对键位的描述，其实就是对英文文档的简单翻译，自己记录下来留用。需要注意的是，无论在Windows下还是在Linux下，都会有少数几个快捷键会和系统快捷键冲突。我是没找到在Rstudio中设置快捷键的地方，如果需要只能把系统快捷键换了。&lt;/p&gt;
@@ -2132,7 +2132,7 @@ cat(text)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;完，多练习（2013/5/21）。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;/cn/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
 </entry>
 
 </feed>
