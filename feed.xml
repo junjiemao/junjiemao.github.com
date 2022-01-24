@@ -2,26 +2,77 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">HatMatrix</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="/feed.xml" />
-<link rel="alternate" type="text/html" href="" />
-<updated>2017-12-31T15:12:01+00:00</updated>
-<id>/</id>
+<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://localhost:4000" />
+<updated>2022-01-24T17:02:58+00:00</updated>
+<id>http://localhost:4000/</id>
 <author>
   <name>HatMatrix</name>
-  <uri>/</uri>
+  <uri>http://localhost:4000/</uri>
   <email>hatmatrix42@gmail.com</email>
 </author>
 
 
 <entry>
+  <title type="html"><![CDATA[Mac的奔溃]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/hack/mac-panic/"/>
+  <id>http://localhost:4000/cn/hack/mac-panic</id>
+  <published>2022-01-25T00:00:00+00:00</published>
+  <updated>2022-01-25T00:00:00+00:00</updated>
+  <author>
+    <name>HatMatrix</name>
+    <uri>http://localhost:4000</uri>
+    <email>hatmatrix42@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;最近一台MBP15在盒盖后出现无法唤醒的情况，并且是必现。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-plaintext&quot; data-lang=&quot;plaintext&quot;&gt;{&amp;quot;timestamp&amp;quot;:&amp;quot;2021-11-08 23:41:04.00 +0800&amp;quot;,&amp;quot;bug_type&amp;quot;:&amp;quot;210&amp;quot;,&amp;quot;os_version&amp;quot;:&amp;quot;macOS 12.0.1 (21A559)&amp;quot;,&amp;quot;incident_id&amp;quot;:&amp;quot;4AE1F716-38C1-4316-BD49-F1D471C18843&amp;quot;}
+{&amp;quot;macOSProcessedStackshotData&amp;quot;:&amp;quot;bm8gb24gZGlzayBwYW5pYyBzdGFja3Nob3QgZm91bmQgaW4gY29yZWZpbGU=&amp;quot;,&amp;quot;macOSPanicString&amp;quot;:&amp;quot;panic(cpu 0 caller 0xffffff8000a411e1): AppleAHCIDiskQueueManager::setPowerState(0xffffff852c0e4480 : 0xffffff8002967d08, 0 -&amp;gt; 3) timed out after 101008 ms @IOServicePM.cpp:5524\nPanicked task 0xffffff852b7986a0: 143 threads: pid 0: kernel_task\nBacktrace (CPU 0), panicked thread: 0xffffff852e7efb70, Frame : Return Address\n0xffffffd05babbab0 : 0xffffff800029c00d \n0xffffffd05babbb00 : 0xffffff80003f5d85 \n0xffffffd05babbb40 : 0xffffff80003e5763 \n0xffffffd05babbb90 : 0xffffff800023ba60 \n0xffffffd05babbbb0 : 0xffffff800029c3dd \n0xffffffd05babbcd0 : 0xffffff800029bb96 \n0xffffffd05babbd30 : 0xffffff8000b18649 \n0xffffffd05babbda0 : 0xffffff8000a411e1 \n0xffffffd05babbe00 : 0xffffff8000a409a9 \n0xffffffd05babbe10 : 0xffffff8000a59f8e \n0xffffffd05babbe50 : 0xffffff8000a3f738 \n0xffffffd05babbe70 : 0xffffff80002ecc85 \n0xffffffd05babbee0 : 0xffffff80002edcd2 \n0xffffffd05babbfa0 : 0xffffff800023b18e \n\nProcess name corresponding to current thread (0xffffff852e7efb70): kernel_task\nBoot args: -x\n\nMac OS version:\n21A559\n\nKernel version:\nDarwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1\/RELEASE_X86_64\nKernel UUID: 19BD4E1B-0268-3EE0-BC66-91F035BC9429\nKernelCache slide: 0x0000000000000000\nKernelCache base:  0xffffff8000200000\nKernel slide:      0x0000000000010000\nKernel text base:  0xffffff8000210000\n__HIB  text base: 0xffffff8000100000\nSystem model name: MacBookPro11,4 (Mac-06F11FD93F0323C5)\nSystem shutdown begun: NO\nPanic diags file available: YES (0x0)\nHibernation exit count: 0\n\nSystem uptime in nanoseconds: 151322306693\nLast Sleep:           absolute           base_tsc          base_nano\n  Uptime  : 0x000000233b833879\n  Sleep   : 0x0000000b274b6469 0x00000002b32b98f2 0x0000000000000000\n  Wake    : 0x0000000b39fc449c 0x00000000957143c8 0x0000000b30a1c483\nZone info:\nForeign   : 0xffffff80058f2000 - 0xffffff80058ff000\nNative    : 0xffffff801de35000 - 0xffffffa01de35000\nReadonly  : 0 - 0\nMetadata  : 0xffffffd2f0113000 - 0xffffffd310299000\nBitmaps   : 0xffffffd310299000 - 0xffffffd316299000\nlast started kext at 6912107645: &amp;gt;AGPM\t125 (addr 0xffffff7f96fa0000, size 122880)\nloaded kexts:\n&amp;gt;AGPM\t125\n&amp;gt;X86PlatformShim\t1.0.0\n@filesystems.autofs\t3.0\n&amp;gt;!ALPC\t3.1\n&amp;gt;!AMuxControl\t6.4.9\n&amp;gt;!AGraphicsDevicePolicy\t6.4.9\n&amp;gt;AGDCBacklightControl\t6.4.9\n&amp;gt;!ADiskImages2\t126.40.1\n&amp;gt;!ABacklight\t180.3\n&amp;gt;!AMCCSControl\t1.14\n&amp;gt;!A!IFramebufferAzul\t18.0.2\n&amp;gt;ACPI_SMC_PlatformPlugin\t1.0.0\n|SCSITaskUserClient\t452.30.4\n&amp;gt;!ATopCaseHIDEventDriver\t5010.1\n&amp;gt;!UTopCaseDriver\t5010.1\n&amp;gt;!UCardReader\t532.40.7\n@filesystems.apfs\t1933.41.2\n&amp;gt;AirPort.BrcmNIC\t1400.1.1\n&amp;gt;!AAHCIPort\t351\n&amp;gt;!AFileSystemDriver\t3.0.1\n@filesystems.tmpfs\t1\n@filesystems.lifs\t1\n@filesystems.hfs.kext\t582.40.4\n@BootCache\t40\n@!AFSCompression.!AFSCompressionTypeZlib\t1.0.0\n@!AFSCompression.!AFSCompressionTypeDataless\t1.0.0d1\n@private.KextAudit\t1.0\n&amp;gt;!AACPIButtons\t6.1\n&amp;gt;!ARTC\t2.0.1\n&amp;gt;!ASmartBatteryManager\t161.0.0\n&amp;gt;!AHPET\t1.8\n&amp;gt;!ASMBIOS\t2.1\n&amp;gt;!AACPIEC\t6.1\n&amp;gt;!AAPIC\t1.7\n@!ASystemPolicy\t2.0.0\n@nke.applicationfirewall\t402\n|IOKitRegistryCompatibility\t1\n|EndpointSecurity\t1\n@Dont_Steal_Mac_OS_X\t7.0.0\n@kec.!AEncryptedArchive\t1\n@kext.triggers\t1.0\n&amp;gt;!ASMBusPCI\t1.0.14d1\n&amp;gt;!AGraphicsControl\t6.4.9\n&amp;gt;!ABacklightExpert\t1.1.0\n|IONDRVSupport\t593\n&amp;gt;!ASMBus!C\t1.0.18d1\n@!AGPUWrangler\t6.4.9\n|IOAccelerator!F2\t462.4\n@!AGraphicsDeviceControl\t6.4.9\n|IOGraphics!F\t593\n&amp;gt;IOPlatformPluginLegacy\t1.0.0\n&amp;gt;X86PlatformPlugin\t1.0.0\n&amp;gt;IOPlatformPlugin!F\t6.0.0d8\n&amp;gt;!AActuatorDriver\t5400.25\n&amp;gt;!AHS!BDriver\t5010.1\n&amp;gt;IO!BHIDDriver\t9.0.0\n&amp;gt;!AMultitouchDriver\t5400.25\n&amp;gt;!AInputDeviceSupport\t5400.30\n&amp;gt;!AHIDKeyboard\t228\n&amp;gt;usb.IOUSBHostHIDDevice\t1.2\n&amp;gt;usb.cdc\t5.0.0\n&amp;gt;usb.networking\t5.0.0\n&amp;gt;usb.!UHostCompositeDevice\t1.2\n&amp;gt;!AThunderboltDPInAdapter\t8.5.0\n&amp;gt;!AThunderboltDPAdapter!F\t8.5.0\n&amp;gt;!AThunderboltPCIDownAdapter\t4.1.1\n&amp;gt;!AXsanScheme\t3\n&amp;gt;!AThunderboltNHI\t7.2.8\n|IOThunderbolt!F\t9.3.2\n|IOAHCIBlock!S\t333\n|IO80211!FLegacy\t1200.12.2b1\n|IOSkywalk!F\t1.0\n&amp;gt;mDNSOffloadUserClient\t1.0.1b8\n&amp;gt;corecapture\t1.0.4\n&amp;gt;!A!ILpssGspi\t3.0.60\n|IOAHCI!F\t295\n&amp;gt;usb.!UXHCIPCI\t1.2\n&amp;gt;usb.!UXHCI\t1.2\n&amp;gt;!ABSDKextStarter\t3\n|IOSurface\t302.9\n@filesystems.hfs.encodings.kext\t1\n&amp;gt;usb.!UHostPacketFilter\t1.0\n|IOUSB!F\t900.4.2\n&amp;gt;!AEFINVRAM\t2.1\n&amp;gt;!AEFIRuntime\t2.1\n|IOSMBus!F\t1.1\n|IOHID!F\t2.0.0\n|IOTimeSync!F\t1000.11\n|IONetworking!F\t3.4\n&amp;gt;DiskImages\t493.0.0\n|IO!B!F\t9.0.0\n|IOReport!F\t47\n$quarantine\t4\n$sandbox\t300.0\n@kext.!AMatch\t1.0.0d1\n|CoreAnalytics!F\t1\n&amp;gt;!ASSE\t1.0\n&amp;gt;!AKeyStore\t2\n&amp;gt;!UTDM\t532.40.7\n|IOUSBMass!SDriver\t209.40.6\n|IOSCSIBlockCommandsDevice\t452.30.4\n|IO!S!F\t2.1\n|IOSCSIArchitectureModel!F\t452.30.4\n&amp;gt;!AMobileFileIntegrity\t1.0.5\n$!AImage4\t4.1.0\n@kext.CoreTrust\t1\n&amp;gt;!AFDEKeyStore\t28.30\n&amp;gt;!AEffaceable!S\t1.0\n&amp;gt;!ACredentialManager\t1.0\n&amp;gt;KernelRelayHost\t1\n|IOUSBHost!F\t1.2\n&amp;gt;!UHostMergeProperties\t1.2\n&amp;gt;usb.!UCommon\t1.0\n&amp;gt;!ABusPower!C\t1.0\n&amp;gt;!ASEPManager\t1.0.1\n&amp;gt;IOSlaveProcessor\t1\n&amp;gt;!AACPIPlatform\t6.1\n&amp;gt;!ASMC\t3.1.9\n|IOPCI!F\t2.9\n|IOACPI!F\t1.4\n&amp;gt;watchdog\t1\n@kec.pthread\t1\n@kec.Libm\t1\n@kec.corecrypto\t12.0\n\n\n&amp;quot;}
+System Profile:
+Network Service: Wi-Fi, AirPort, en0
+Serial ATA Device: APPLE SSD SM0256G, 251 GB
+Thunderbolt Bus: MacBook Pro, Apple Inc., 27.1
+Boot Volume File System Type: apfs
+Memory Module: BANK 0/DIMM0, 8 GB, DDR3, 1600 MHz, 0x80AD, 0x484D54343147533642465238412D50422020
+Memory Module: BANK 1/DIMM0, 8 GB, DDR3, 1600 MHz, 0x80AD, 0x484D54343147533642465238412D50422020
+USB Device: USB30Bus
+USB Device: Apple Internal Keyboard / Trackpad
+USB Device: Bluetooth USB Host Controller
+Display: Color LCD, 2880 x 1800 Retina, Main, MirrorOff, Online
+Model: MacBookPro11,4, BootROM 428.40.10.0.0, 4 processors, Quad-Core Intel Core i7, 2.2 GHz, 16 GB, SMC 2.29f24
+Graphics: Intel Iris Pro, Intel Iris Pro, Built-In
+AirPort: spairport_wireless_card_type_wifi (0x14E4, 0x152), Broadcom BCM43xx 1.0 (7.77.111.1 AirPortDriverBrcmNIC-1710.2)
+AirPort: 
+Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;看报错是AHCIDiskQueueManager出现了问题，考虑到最近做了几个变动：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;因为需要读取NTFS硬盘数据，安装了Paragon NTFS&lt;/li&gt;
+  &lt;li&gt;升级了Big Sur&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;怀疑是以上的原因导致的。在咨询了Apple的客服，把重置SMC、NVRAM、PRAM三连了一遍，并且还回滚了系统，问题仍然没有得到解决，Apple客服无奈地表示只能去店里拆机看看有没有故障。&lt;/p&gt;
+
+&lt;p&gt;但是作为一个不想花时间去店里检修一台快要报废的电脑的懒人，决定自己拆机器搞定，Google了一堆资料，问题都指向了一个点–SSD可能坏了。于是拆机断电，拔下SSD清理了灰尘装回。能不能恢复不抱希望，做好了换SSD的打算。结果出乎意料地恢复了。&lt;/p&gt;
+
+&lt;p&gt;于是，在本老古董MBP15上水了一篇Blog。&lt;/p&gt;
+
+&lt;p&gt;–EOF&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/hack/mac-panic/&quot;&gt;Mac的奔溃&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2022.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[再见2017]]></title>
-  <link rel="alternate" type="text/html" href="/cn/say-goodbye-2017/"/>
-  <id>/cn/say-goodbye-2017</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/say-goodbye-2017-copy/"/>
+  <id>http://localhost:4000/cn/say-goodbye-2017 copy</id>
   <published>2017-12-31T00:00:00+00:00</published>
   <updated>2017-12-31T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;又到了年底，照例对一整年做个总结。「吾生也有涯，而知也无涯。以有涯随无涯，殆已」这句话是2017年的年度总结的最后一句话。当时是想告诉自己需要更加专注一点，不要过多花费精力去浅尝一些看起来很新鲜的事情，而是要努力做好一件事情。在这一年中一直提醒自己注意这一点，到年底看来，在这方面的基本做到了。&lt;/p&gt;
@@ -63,19 +114,19 @@
 &lt;p&gt;–EOF&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/say-goodbye-2017/&quot;&gt;再见2017&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on December 31, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/say-goodbye-2017-copy/&quot;&gt;再见2017&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on December 31, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[水塘抽样的思考]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/"/>
-  <id>/cn/%E7%AE%97%E6%B3%95/reservoir-sampling</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/"/>
+  <id>http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling</id>
   <published>2017-08-28T00:00:00+00:00</published>
   <updated>2017-08-28T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;今天在知乎上看到一道阿里的面试题，问题是：&lt;/p&gt;
@@ -88,7 +139,7 @@
 
 &lt;p&gt;看到题目立马想到的就是&lt;a href=&quot;https://www.wikiwand.com/zh-hans/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A8%A3&quot;&gt;水塘抽样&lt;/a&gt;，&lt;del&gt;但是水塘问题不能解决&lt;strong&gt;同时不能让太多的人等待结果&lt;/strong&gt;，不知道是不是提问者转述有问题，姑且不考虑这个要求，&lt;/del&gt;过程中可以直接通知没有抽中的人，以下就只是介绍下水塘抽样。&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;水塘抽样的典型场景&lt;/h2&gt;
+&lt;h2 id=&quot;水塘抽样的典型场景&quot;&gt;水塘抽样的典型场景&lt;/h2&gt;
 
 &lt;p&gt;设计一个抽奖系统，参与的人数$N$在抽奖结束之前是不知道的，要从中选$k$个幸运儿，这样就有两种情况：&lt;/p&gt;
 
@@ -99,11 +150,11 @@
 
 &lt;p&gt;水塘抽样就专门为这个而生，水塘抽样是线上算法，可以进行流式计算，复杂度是$O(n)$。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;水塘抽样的由来的思考&lt;/h2&gt;
+&lt;h2 id=&quot;水塘抽样的由来的思考&quot;&gt;水塘抽样的由来的思考&lt;/h2&gt;
 
 &lt;p&gt;水塘抽样问题很久之前就由Knuth在&lt;em&gt;The Art of Computer Programming（TAOCP）&lt;/em&gt;中提出来的。因为&lt;em&gt;TAOCP&lt;/em&gt;这本巨著太过庞大，一直不敢读，所以Knuth的具体的思考过程也就不是很了解，下面是我自己的一些思考。以下分简化情况和一般情况来看：&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;简化：只抽取一位幸运儿&lt;/h3&gt;
+&lt;h3 id=&quot;简化只抽取一位幸运儿&quot;&gt;简化：只抽取一位幸运儿&lt;/h3&gt;
 
 &lt;p&gt;在这种情况，我们可以得到一个简化的问题，即：&lt;/p&gt;
 
@@ -124,11 +175,11 @@
 
 &lt;p&gt;我们就得到了通项：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P_n=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{N-(n-1)}{N-(n-2)}*\frac{1}{N-(n-1)}=\frac{1}{N}      {                    }（1）&lt;/script&gt;
+\[P_n=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{N-(n-1)}{N-(n-2)}*\frac{1}{N-(n-1)}=\frac{1}{N}      {                    }（1）\]
 
 &lt;p&gt;每一项的概率都是一样的，很棒！但是我们在线上抽样的时候，无法知道$N$是多少，但是这难不倒我们，尝试做一个简单的变换，令$n^{\prime}=N-(n-1)$，因为对于每一次抽取，概率都是一样的，所以做完这个变换后的概率仍然是$\frac{1}{N}$。代入原来的式子，可以得到：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P_{n^{\prime}}=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{n^{\prime}}{n^{\prime}+1}*\frac{1}{n^{\prime}}（2）&lt;/script&gt;
+\[P_{n^{\prime}}=\frac{N-1}{N}*\frac{N-2}{N-1}...\frac{n^{\prime}}{n^{\prime}+1}*\frac{1}{n^{\prime}}（2）\]
 
 &lt;p&gt;这样,$P_{n^{\prime}}$ 的值只和第$n^{\prime}$以后的值有关了，也就可以进行流式计算了。&lt;/p&gt;
 
@@ -141,7 +192,7 @@
 
 &lt;p&gt;表达的和式子（2）是同一个意思。&lt;/p&gt;
 
-&lt;h3 id=&quot;k&quot;&gt;普遍情况：抽取k位幸运儿&lt;/h3&gt;
+&lt;h3 id=&quot;普遍情况抽取k位幸运儿&quot;&gt;普遍情况：抽取k位幸运儿&lt;/h3&gt;
 
 &lt;p&gt;这个按照以上去分步计算会很复杂，我们采用投机取巧的方法简化成两步：&lt;/p&gt;
 
@@ -158,7 +209,7 @@
 
 &lt;p&gt;把$N$个球排成一列有$N!$种方法.为了在第$n$个位置上放黑球,可先从$k$个黑球中取1个放在该位置上,有$k$种方法,再把剩下的$n-1$ 个球排成一排,有$(N-1)!$种排法,于是得到：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P_n=\frac{k(N-1)!}{N!}=\frac{k}{N}&lt;/script&gt;
+\[P_n=\frac{k(N-1)!}{N!}=\frac{k}{N}\]
 
 &lt;p&gt;至此，可以沿用式（2）进行抽样，&lt;a href=&quot;https://www.wikiwand.com/zh-hans/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A8%A3&quot;&gt;算法描述&lt;/a&gt;：&lt;/p&gt;
 
@@ -167,25 +218,25 @@
    随机产生一個范围从0到j的整数r
    若 r &amp;lt; k 则把水塘中的第r项换成S[j]项    #说明：此处的概率为简单情况中的k倍&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;总结&lt;/h2&gt;
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
 
 &lt;p&gt;自此，主要总结了我自己对水塘抽样如何形成的一些思考。有了这些理论，代码就很好写了。&lt;/p&gt;
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/&quot;&gt;水塘抽样的思考&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 28, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%AE%97%E6%B3%95/reservoir-sampling/&quot;&gt;水塘抽样的思考&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 28, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[R的nickname的含义(一)]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/R-nickname-01/"/>
-  <id>/cn/r/R-nickname-01</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/R-nickname-01/"/>
+  <id>http://localhost:4000/cn/r/R-nickname-01</id>
   <published>2017-08-22T00:00:00+00:00</published>
   <updated>2017-08-22T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;h2 id=&quot;single-candler341&quot;&gt;Single Candle（R3.4.1）&lt;/h2&gt;
@@ -250,38 +301,38 @@
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/R-nickname-01/&quot;&gt;R的nickname的含义(一)&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 22, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/R-nickname-01/&quot;&gt;R的nickname的含义(一)&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 22, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Einstein]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/"/>
-  <id>/cn/%E7%94%9F%E6%B4%BB/Einstein-pic</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/"/>
+  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic</id>
   <published>2016-10-21T00:00:00+00:00</published>
   <updated>2016-10-21T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;http://oe078ltqc.bkt.clouddn.com/FullSizeRender.jpg&quot; alt=&quot;Einstein&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;#EOF&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/&quot;&gt;Einstein&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on October 21, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/Einstein-pic/&quot;&gt;Einstein&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on October 21, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[独墅湖教堂]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/dushu-church/"/>
-  <id>/cn/%E7%94%9F%E6%B4%BB/dushu-church</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/"/>
+  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church</id>
   <published>2016-09-24T00:00:00+00:00</published>
   <updated>2016-09-24T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;http://oe078ltqc.bkt.clouddn.com/IMG_2230.JPG-hm42&quot; alt=&quot;独墅湖耶稣像1&quot; /&gt;&lt;/p&gt;
@@ -295,19 +346,19 @@
 &lt;p&gt;#EOF&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/dushu-church/&quot;&gt;独墅湖教堂&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on September 24, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/dushu-church/&quot;&gt;独墅湖教堂&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on September 24, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[在slidify中使用rCharts]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/rcharts-to-silidify/"/>
-  <id>/cn/r/rcharts-to-silidify</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/rcharts-to-silidify/"/>
+  <id>http://localhost:4000/cn/r/rcharts-to-silidify</id>
   <published>2016-08-08T00:00:00+00:00</published>
   <updated>2016-08-08T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;slidify制作slides虽然很方便，但是插入rCharts等交互图片的时候会存在无法显示的问题。网上能找到很多解决方案，但是都比较复杂，本文介绍一个简单的实现方法——使用&lt;code&gt;iframe&lt;/code&gt;元素插入到slides中。&lt;/p&gt;
@@ -353,19 +404,19 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 ```&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/rcharts-to-silidify/&quot;&gt;在slidify中使用rCharts&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 08, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/rcharts-to-silidify/&quot;&gt;在slidify中使用rCharts&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 08, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[slidify中的中文乱码解决方案]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/slidify-mojibake/"/>
-  <id>/cn/r/slidify-mojibake</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/slidify-mojibake/"/>
+  <id>http://localhost:4000/cn/r/slidify-mojibake</id>
   <published>2016-08-02T00:00:00+00:00</published>
   <updated>2016-08-02T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;slidify一直是做slides的一个很好的选择，但是在Windows平台下的一直存在乱码的问题。引起的原因
@@ -396,26 +447,26 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 &lt;a href=&quot;https://github.com/junjiemao/slidify&quot;&gt;github&lt;/a&gt;。使用&lt;code&gt;devtools::install_github('junjiemao/slidify')&lt;/code&gt;
 即可安装使用。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/slidify-mojibake/&quot;&gt;slidify中的中文乱码解决方案&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 02, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/slidify-mojibake/&quot;&gt;slidify中的中文乱码解决方案&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 02, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[使用Google的小技巧]]></title>
-  <link rel="alternate" type="text/html" href="/cn/google/google-search-tips/"/>
-  <id>/cn/google/google-search-tips</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/google/google-search-tips/"/>
+  <id>http://localhost:4000/cn/google/google-search-tips</id>
   <published>2015-03-05T00:00:00+00:00</published>
   <updated>2015-03-05T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;首先反驳下，百度更懂中文是不成立的，搜索下『黃』（不是『黄』，而是『黃』），会发现百度给出的结果全部都是关于『黄』的，洋鬼子Google在第二条和第三条给出了正确的结果。&lt;/p&gt;
 
 &lt;p&gt;一般的搜索就会觉得其质量之高，而Google的高级指令则更加令人感到其强大，下面介绍一些小技巧和常见操作符的使用，本文大部分内容都摘自&lt;a href=&quot;http://book.douban.com/subject/3676292/&quot;&gt;Google Hacking技术手册&lt;/a&gt;，且只是整本书的冰山一角，想要自定义个人搜索引擎的看官可以看看这本书。&lt;/p&gt;
 
-&lt;h1 id=&quot;section&quot;&gt;小技巧&lt;/h1&gt;
+&lt;h1 id=&quot;小技巧&quot;&gt;小技巧&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;首先得科学上网&lt;/li&gt;
   &lt;li&gt;可以直接对图片进行搜索&lt;/li&gt;
@@ -431,7 +482,7 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
   &lt;li&gt;Google的URL语法，这个比较复杂，使用这个可以拼接出想要的查询请求&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;google&quot;&gt;Google的常见操作符&lt;/h1&gt;
+&lt;h1 id=&quot;google的常见操作符&quot;&gt;Google的常见操作符&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;加号(+)会强制Google搜索后面的单词，比如搜索&lt;code&gt;tom+jerry&lt;/code&gt;的结果中会同时含有两个单词。注意：加号必须是英文的加号！如果同时搜索两个词组需要加上引号，比如&lt;code&gt;“美丽的小鹿“ +“可爱的小猪“&lt;/code&gt;，可以比较&lt;code&gt;美丽的小鹿+可爱的小猪&lt;/code&gt;之间的差别。&lt;/li&gt;
   &lt;li&gt;减号(-)会要求Google去掉包含前面一个单词但是不包含后面一个单词的结果，比如查询词语&lt;code&gt;&quot;熊猫&quot; -&quot;动物&quot;&lt;/code&gt;会搜索出包含『熊猫』但是不包含『动物』的结果。&lt;/li&gt;
@@ -453,19 +504,19 @@ cat(renderHtmlPlot(n1,fileName = &amp;quot;test1&amp;quot;))
 &lt;/ul&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/google/google-search-tips/&quot;&gt;使用Google的小技巧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on March 05, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/google/google-search-tips/&quot;&gt;使用Google的小技巧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on March 05, 2015.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[dplyr中的join类函数的使用注意点]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/the-dplyr-left-join/"/>
-  <id>/cn/r/the-dplyr-left-join</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/the-dplyr-left-join/"/>
+  <id>http://localhost:4000/cn/r/the-dplyr-left-join</id>
   <published>2015-01-25T00:00:00+00:00</published>
   <updated>2015-01-25T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;前一段时间在进行数据分析的时候，因为追究效率，就没有使用base包中的&lt;code&gt;merge&lt;/code&gt;函数，而是使用了
@@ -516,19 +567,19 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 的方便，还是把&lt;code&gt;left_join&lt;/code&gt;的R代码处理下，加上列名的判断的异常处理就可以了，修改源代码之后重新编译下，
 下次再也不会出错了。哦耶~&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/the-dplyr-left-join/&quot;&gt;dplyr中的join类函数的使用注意点&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/the-dplyr-left-join/&quot;&gt;dplyr中的join类函数的使用注意点&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on January 25, 2015.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[装逼，用力过猛出悲剧]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/"/>
-  <id>/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/"/>
+  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking</id>
   <published>2014-12-26T00:00:00+00:00</published>
   <updated>2014-12-26T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;最近在知乎上看到&lt;a href=&quot;http://www.zhihu.com/people/chang-jing-gu&quot;&gt;长颈菇&lt;/a&gt;讲的一个故事：&lt;/p&gt;
@@ -597,19 +648,19 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 
 &lt;p&gt;脑洞大的话，一边看一边出奇迹。啊哈~，我要去看《失控》了，因为我真的看不懂SICP啊，要死了要死了（逃~~&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/&quot;&gt;装逼，用力过猛出悲剧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on December 26, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/the-art-of-faking/&quot;&gt;装逼，用力过猛出悲剧&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on December 26, 2014.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[老残游记]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/lu_mountain/"/>
-  <id>/cn/%E7%94%9F%E6%B4%BB/lu_mountain</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/"/>
+  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain</id>
   <published>2014-04-14T00:00:00+00:00</published>
   <updated>2014-04-14T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;在去庐山之前，我以为我只是一个有病的年轻人，比如那几乎不可治愈的拖延症和莫名其妙的自责。在去之前就打算回来后写一篇什么东西的，本来想好的名字是『一个有病的年轻人去山里面转了一圈后终于幡然醒悟打算重新做人的感人故事』，可是后来我发现现在的我只有两个字可以形容『老残』。&lt;/p&gt;
@@ -704,26 +755,26 @@ merge(x = metmp,y = df1,by = &amp;quot;x&amp;quot;)
 &lt;p&gt;和小伙伴们在一起还是很开心的，虽然感到自己又『老』又『残』的，还是期待下一站，更多图片可以移步&lt;a href=&quot;https://www.flickr.com/photos/hatmatrix&quot;&gt;flickr&lt;/a&gt;。&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/lu_mountain/&quot;&gt;老残游记&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on April 14, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/lu_mountain/&quot;&gt;老残游记&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on April 14, 2014.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[The Music King]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/the-music-king/"/>
-  <id>/cn/r/the-music-king</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/the-music-king/"/>
+  <id>http://localhost:4000/cn/r/the-music-king</id>
   <published>2013-11-16T00:00:00+00:00</published>
   <updated>2013-11-16T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;快收工的时候刷了下微博看到了有人很无聊地去统计了汪峰老师（没有黑他的意思，其实人家音乐还是很有力量的好吧）歌词的词频率。于是我想这得多有(wu)趣(liao)啊，于是就决定自己也统计下。于是的于是，我放弃了看TBBT的时间来给统计下汪峰老师的歌词。&lt;/p&gt;
 
 &lt;p&gt;要想统计就得有歌词啊，一个个找也不是懒人的风格，于是想到了&lt;a href=&quot;http://www.xiami.com/&quot;&gt;虾米&lt;/a&gt;上是有歌词的，去抓下来就好了嘛，其实也很简单，把网页抓下来解析一下。以前这活都是给Pyhon干的，今天想想用R尝试下吧。R解析HTML应该可以用XML包，但是因为以前都是使用Python来解析HTML,所有XML包压根就没有用过，于是决定自己写正则表达式来完成吧。&lt;/p&gt;
 
-&lt;h1 id=&quot;section&quot;&gt;抓取歌词&lt;/h1&gt;
+&lt;h1 id=&quot;抓取歌词&quot;&gt;抓取歌词&lt;/h1&gt;
 &lt;p&gt;汪峰在虾米上的ID是887，使用&lt;code&gt;http://www.xiami.com/artist/album/id/887/d//p//page/1&lt;/code&gt;的网址可以直接查看其专辑。&lt;/p&gt;
 
 &lt;p&gt;我们首先获得其专辑的信息，这里主要是名字和专辑的链接。&lt;/p&gt;
@@ -814,7 +865,7 @@ songDetail$Lrc &amp;lt;- Lrc
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Lrc
 																																																																																																																																																																																																 1 每天走在疯狂逐梦的大街上\n我们精神褴褛却又毫无倦意\n徘徊着寻找着那虚空的欢愉\n奔波着抗争着那无常的命运\n\n朋友啊这生活会把你的心伤烂\n可它从来就不会有一丝怜悯\n再也别象个傻瓜一样的哭了\n因为象我们这样的人生来彷徨\n\n传真机到炼钢厂有一万光年\n那只是我们失梦之路的起点\n妈妈你善良的孩子还没放弃\n他想在今夜的街上爱到死去\n\n朋友啊这世界会将你的梦破败\n而它从来就不会有一丝同情\n再也别象个疯子一样的拼了\n因为象我们这样的人生来彷徨\n\n路上散落着花朵般受伤的英雄\n如同我们一起挣扎着的那些片段\n明天我们是否活着却依然不在\n明天我们是否存在却迷惘依然\n\n朋友啊这生活会把你的骨折断\n而它从来就只是在袖手旁观\n不如象一块石头一样的滚吧\n因为象我们这样的人生来彷徨\n\n朋友啊这世界会将你的爱破灭\n而它从来就不会给一次拯救\n不如让我们一起放任自流吧\n反正象我们这样的人生来彷徨&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h1 id=&quot;section-1&quot;&gt;分词&lt;/h1&gt;
+&lt;h1 id=&quot;分词&quot;&gt;分词&lt;/h1&gt;
 
 &lt;p&gt;接下来就是统计词频率了,分词使用分词包&lt;a href=&quot;http://jliblog.com/app/rwordseg&quot;&gt;Rwordseg&lt;/a&gt;。&lt;/p&gt;
 
@@ -851,7 +902,7 @@ mWords &amp;lt;- segWords[names(segWords)==&amp;quot;m&amp;quot;]
 x &amp;lt;- as.data.frame(table(mWords))
 x[order(x$Freq,decreasing=TRUE),][1:30,]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h1 id=&quot;section-2&quot;&gt;结果&lt;/h1&gt;
+&lt;h1 id=&quot;结果&quot;&gt;结果&lt;/h1&gt;
 &lt;p&gt;结果是基本上就是下面这样的&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;#动词的统计
@@ -964,24 +1015,24 @@ nounWords Freq
 
 &lt;p&gt;嗯，差不多就这样。PS：这代码的显示太差劲了，等这个周末以后得把版面改改了。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/the-music-king/&quot;&gt;The Music King&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 16, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[MySQL和MS SQL Server的一些区别]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
-  <id>/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/"/>
+  <id>http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql</id>
   <published>2013-11-01T00:00:00+00:00</published>
   <updated>2013-11-01T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。&lt;/p&gt;
 
-&lt;h1 id=&quot;section&quot;&gt;触发器&lt;/h1&gt;
+&lt;h1 id=&quot;触发器&quot;&gt;触发器&lt;/h1&gt;
 &lt;p&gt;在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;DELIMITER $$
@@ -1026,7 +1077,7 @@ DELIMITER ;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;在写触发器的时候还要注意的就是&lt;code&gt;new&lt;/code&gt;和&lt;code&gt;old&lt;/code&gt;的使用，这在MS SQL中是没有的。&lt;code&gt;new&lt;/code&gt;加上点(.)加上列名就可以取出相应的列，&lt;code&gt;old&lt;/code&gt;在删除的时候会用得比较多点。而在MS SQL中是需要使用&lt;code&gt;select&lt;/code&gt;来取出的。&lt;/p&gt;
 
-&lt;h1 id=&quot;section-1&quot;&gt;存储过程&lt;/h1&gt;
+&lt;h1 id=&quot;存储过程&quot;&gt;存储过程&lt;/h1&gt;
 
 &lt;p&gt;存储过程没有很大的区别，发现有几点。&lt;/p&gt;
 
@@ -1058,10 +1109,10 @@ select x from(select x from A as t_xxxx)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。&lt;/p&gt;
 
-&lt;h1 id=&quot;section-2&quot;&gt;函数&lt;/h1&gt;
+&lt;h1 id=&quot;函数&quot;&gt;函数&lt;/h1&gt;
 &lt;p&gt;差别不是很大，注意的也就是参数的声明。&lt;/p&gt;
 
-&lt;h1 id=&quot;section-3&quot;&gt;事件调度&lt;/h1&gt;
+&lt;h1 id=&quot;事件调度&quot;&gt;事件调度&lt;/h1&gt;
 &lt;p&gt;MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;show variables like &amp;#39;event_scheduler&amp;#39;;  #查看是否开启定时器  
@@ -1078,7 +1129,7 @@ DELIMITER ;
 
 SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h1 id=&quot;section-4&quot;&gt;其他需要注意的&lt;/h1&gt;
+&lt;h1 id=&quot;其他需要注意的&quot;&gt;其他需要注意的&lt;/h1&gt;
 &lt;p&gt;在使用的过程还发现了其他一些可能导致的错误：&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1096,19 +1147,19 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code
 &lt;p&gt;就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下&lt;a href=&quot;http://www.postgresql.org/&quot;&gt;Postgresql&lt;/a&gt;这个号称 &lt;strong&gt;“The world’s most advanced open source database”&lt;/strong&gt; 的数据库，这个数据库到目前为止也只是使用过她的查询语句。&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/&quot;&gt;MySQL和MS SQL Server的一些区别&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on November 01, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[每周记录 20131028]]></title>
-  <link rel="alternate" type="text/html" href="/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
-  <id>/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/"/>
+  <id>http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028</id>
   <published>2013-10-29T00:00:00+00:00</published>
   <updated>2013-10-29T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;2013年很快就要进入第300天了，略伤感。在浪费了小半年以后，开始重新做人，立志成为一个就算恶趣味也要有趣的人。不过话说回来，自己认为的有趣别人会觉得无趣也不一定，有人还觉得王小波没意思呢。&lt;/p&gt;
@@ -1146,26 +1197,26 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code
 
 &lt;p&gt;完毕，本该礼拜天写的，拜拖延症所赐，又拖了下。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/&quot;&gt;每周记录 20131028&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on October 29, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[R中使用正则表达式（1）]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/regular-expression-in-r-1/"/>
-  <id>/cn/r/regular-expression-in-r-1</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/regular-expression-in-r-1/"/>
+  <id>http://localhost:4000/cn/r/regular-expression-in-r-1</id>
   <published>2013-08-12T00:00:00+00:00</published>
   <updated>2013-08-12T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;正则表达式对我来说一直是一个不明觉厉的东西，但是由于在处理文本的时候是必须使用的，所以稍微明一下总是好的。由于平时使用R比较多，所以就以在R中使用正则表达式做一个笔记，这样以后忘记了的时候还可以查看。&lt;/p&gt;
 
 &lt;p&gt;以下主要参考的是Ben Forta的《正则表达式必知必会》的中文版，其他的正则表达式的教材大多很厚，到现在为止我就发现这本比较靠谱，希望大家有更加好的可以给我推荐，谢谢。&lt;/p&gt;
 
-&lt;h1 id=&quot;r&quot;&gt;R中怎么使用正则表达式&lt;/h1&gt;
+&lt;h1 id=&quot;r中怎么使用正则表达式&quot;&gt;R中怎么使用正则表达式&lt;/h1&gt;
 &lt;p&gt;在R中很多涉及到字符处理的函数都是可以使用正则表达式的，我们就以最正常字符处理函数为例：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;regexec(pattern, text, ignore.case = FALSE, fixed = FALSE, useBytes = FALSE)
@@ -1176,8 +1227,8 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况&lt;/code
 
 &lt;p&gt;接下来都是在grep上使用正则表达式，其他的都是差不多的。&lt;/p&gt;
 
-&lt;h1 id=&quot;r-1&quot;&gt;R中使用正则表达式实战&lt;/h1&gt;
-&lt;p&gt;## 匹配纯文本&lt;/p&gt;
+&lt;h1 id=&quot;r中使用正则表达式实战&quot;&gt;R中使用正则表达式实战&lt;/h1&gt;
+&lt;h2 id=&quot;匹配纯文本&quot;&gt;匹配纯文本&lt;/h2&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- &amp;quot;Hello ,my name is Ben.Please visit my website&amp;quot;
 m &amp;lt;- regexec(pattern = &amp;quot;Ben&amp;quot;, text = x)
@@ -1206,7 +1257,7 @@ regmatches(x, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;my&amp;quot; &amp;quot;my&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;匹配任意字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配任意字符&quot;&gt;匹配任意字符&lt;/h2&gt;
 &lt;p&gt;正则表达式中使用点(.)来匹配一个 &lt;strong&gt;一个或者多个&lt;/strong&gt; 字符，可以匹配任意单个字符串，包括点(.)本身。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
@@ -1226,7 +1277,7 @@ grep(pattern = &amp;quot;.a.&amp;quot;, x = x, value = TRUE)&lt;/code&gt;&lt;/pr
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot;   &amp;quot;sales2.xls&amp;quot;  &amp;quot;sales3.xls&amp;quot;  &amp;quot;sales.4.xls&amp;quot; &amp;quot;apac1.xls&amp;quot;  
 ## [6] &amp;quot;na1.xls&amp;quot;     &amp;quot;na2.xls&amp;quot;     &amp;quot;sa1.xls&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;匹配特殊字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配特殊字符&quot;&gt;匹配特殊字符&lt;/h2&gt;
 &lt;p&gt;匹配特殊字符需要进行转义，转义一般使用\，但是在R中我们使用\来表示，这个是需要注意的。还有一个需要注意的就是如果比需要表示\也是需要转义的。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
@@ -1240,7 +1291,7 @@ grep(pattern = &amp;quot;a\\\\&amp;quot;, x = x, value = TRUE)  #需要注意在
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;a\\d&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;匹配一组字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配一组字符&quot;&gt;匹配一组字符&lt;/h2&gt;
 &lt;p&gt;我们需要的几个字符中的任意一个&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
@@ -1257,7 +1308,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;RegEx&amp;quot; &amp;quot;regex&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;利用字符区间&lt;/h2&gt;
+&lt;h2 id=&quot;利用字符区间&quot;&gt;利用字符区间&lt;/h2&gt;
 &lt;p&gt;使用集合的时候对于有规律的我们可以使用区间来表示&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
@@ -1278,7 +1329,7 @@ grep(pattern = &amp;quot;..[0123456789]\\.xls&amp;quot;, x = x, value = TRUE)&lt
 
 &lt;p&gt;这里只要是开始和结尾是合法的ASCII字符都是可以的，不过常用的还是字符区间和数字区间。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-4&quot;&gt;取非匹配&lt;/h2&gt;
+&lt;h2 id=&quot;取非匹配&quot;&gt;取非匹配&lt;/h2&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
     &amp;quot;apac1.xls&amp;quot;, &amp;quot;na1.xls&amp;quot;, &amp;quot;na2.xls&amp;quot;, &amp;quot;sa1.xls&amp;quot;, &amp;quot;sam.xls&amp;quot;)
@@ -1290,7 +1341,7 @@ grep(pattern = &amp;quot;..[^0123456789]\\.xls&amp;quot;, x = x, value = TRUE)&l
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;sam.xls&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;匹配空白字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配空白字符&quot;&gt;匹配空白字符&lt;/h2&gt;
 &lt;p&gt;空白字符有换页符\f，换行符\n，回车符\r，制表符\t，垂直制表符\v。
 在匹配的时候记得转义就好了&lt;/p&gt;
 
@@ -1301,9 +1352,9 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;\nHello   world\n&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-6&quot;&gt;匹配特定的字符类型&lt;/h2&gt;
-&lt;p&gt;### 匹配数字
-可以使用[0-9]来匹配数字，也可以使用\d来匹配数字使用\D来匹配非数字,但是在R中我们要使用\d和\D来替代&lt;/p&gt;
+&lt;h2 id=&quot;匹配特定的字符类型&quot;&gt;匹配特定的字符类型&lt;/h2&gt;
+&lt;h3 id=&quot;匹配数字&quot;&gt;匹配数字&lt;/h3&gt;
+&lt;p&gt;可以使用[0-9]来匹配数字，也可以使用\d来匹配数字使用\D来匹配非数字,但是在R中我们要使用\d和\D来替代&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &amp;lt;- c(&amp;quot;sales.xls&amp;quot;, &amp;quot;orders3.xls&amp;quot;, &amp;quot;sales2.xls&amp;quot;, &amp;quot;sales3.xls&amp;quot;, &amp;quot;sales.4.xls&amp;quot;, 
     &amp;quot;apac1.xls&amp;quot;, &amp;quot;na1.xls&amp;quot;, &amp;quot;na2.xls&amp;quot;, &amp;quot;sa1.xls&amp;quot;, &amp;quot;sam.xls&amp;quot;)
@@ -1316,7 +1367,7 @@ grep(pattern = &amp;quot;..\\d\\.xls&amp;quot;, x = x, value = TRUE)&lt;/code&gt
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;sales.xls&amp;quot; &amp;quot;sam.xls&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;section-7&quot;&gt;匹配字母和数字&lt;/h3&gt;
+&lt;h3 id=&quot;匹配字母和数字&quot;&gt;匹配字母和数字&lt;/h3&gt;
 &lt;p&gt;匹配所有的字母和数字，用\w表示，等价于[0-9a-zA-Z]我们用\W表示非字母和数字。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;\n11213\nA1C2E3\n48075\nM184F2\n90046\nH1H2H2\n&amp;quot;
@@ -1326,15 +1377,15 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;A1C2E3&amp;quot; &amp;quot;M184F2&amp;quot; &amp;quot;H1H2H2&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;section-8&quot;&gt;匹配空白字符&lt;/h3&gt;
-&lt;p&gt;\s，包含我们上面提到的所有的空白字符
-### 匹配十六进制和八进制数值
-使用\x0后跟十六进制数，\0后面跟八进制数&lt;/p&gt;
+&lt;h3 id=&quot;匹配空白字符-1&quot;&gt;匹配空白字符&lt;/h3&gt;
+&lt;p&gt;\s，包含我们上面提到的所有的空白字符&lt;/p&gt;
+&lt;h3 id=&quot;匹配十六进制和八进制数值&quot;&gt;匹配十六进制和八进制数值&lt;/h3&gt;
+&lt;p&gt;使用\x0后跟十六进制数，\0后面跟八进制数&lt;/p&gt;
 
-&lt;h2 id=&quot;posix&quot;&gt;使用POSIX字符类&lt;/h2&gt;
+&lt;h2 id=&quot;使用posix字符类&quot;&gt;使用POSIX字符类&lt;/h2&gt;
 &lt;p&gt;可以在R的帮助文档查看那些可以使用的&lt;/p&gt;
 
-&lt;h2 id=&quot;section-9&quot;&gt;匹配一个或者多个字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配一个或者多个字符&quot;&gt;匹配一个或者多个字符&lt;/h2&gt;
 &lt;p&gt;使用加号(“+”)来匹配一个或者多个字符&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;Send personal emain to ben@forta.com or spam@gmail.com&amp;quot;
@@ -1344,7 +1395,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;ben@forta.com&amp;quot;  &amp;quot;spam@gmail.com&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-10&quot;&gt;匹配零个或者多个字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配零个或者多个字符&quot;&gt;匹配零个或者多个字符&lt;/h2&gt;
 &lt;p&gt;使用星号(*)来匹配零个或者多个字符&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;Hello ben@forta.com is my email address&amp;quot;
@@ -1354,7 +1405,7 @@ regmatches(x = text, m = m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;ben@forta.com&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-11&quot;&gt;匹配零个或者一个字符&lt;/h2&gt;
+&lt;h2 id=&quot;匹配零个或者一个字符&quot;&gt;匹配零个或者一个字符&lt;/h2&gt;
 &lt;p&gt;使用问号(?)来匹配零个或者一个字符&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;The URL is http://www.forta.com/,to connec securely use https://www.forta.com/ instead&amp;quot;
@@ -1364,7 +1415,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;http://www.forta.com/&amp;quot;  &amp;quot;https://www.forta.com/&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-12&quot;&gt;重复精确的次数&lt;/h2&gt;
+&lt;h2 id=&quot;重复精确的次数&quot;&gt;重复精确的次数&lt;/h2&gt;
 &lt;p&gt;用大括号({})中写上数字来表示重复的次数&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;&amp;lt;BOdy BGCOLOR=\&amp;quot;#336633\&amp;quot;,TEXT=\&amp;quot;#FFFFFF\&amp;quot;,MARGINWIDTH=\&amp;quot;0\&amp;quot;&amp;gt;&amp;quot;
@@ -1374,7 +1425,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;336633&amp;quot; &amp;quot;FFFFFF&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-13&quot;&gt;为重复设置一个区间&lt;/h2&gt;
+&lt;h2 id=&quot;为重复设置一个区间&quot;&gt;为重复设置一个区间&lt;/h2&gt;
 &lt;p&gt;用大括号中写上范围({2,5})表示写重复的次数的范围&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;4/8/03\n10-6-2004\n2/2/2\n01-01-01\n&amp;quot;
@@ -1385,10 +1436,10 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;4/8/03&amp;quot;    &amp;quot;10-6-2004&amp;quot; &amp;quot;01-01-01&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-14&quot;&gt;至少重复的次数&lt;/h2&gt;
+&lt;h2 id=&quot;至少重复的次数&quot;&gt;至少重复的次数&lt;/h2&gt;
 &lt;p&gt;使用{3,}表示至少重复3次&lt;/p&gt;
 
-&lt;h2 id=&quot;section-15&quot;&gt;单词边界&lt;/h2&gt;
+&lt;h2 id=&quot;单词边界&quot;&gt;单词边界&lt;/h2&gt;
 &lt;p&gt;使用\b表示单词的边界,\B表示不匹配边界&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;The cat scattered his foof all over the room&amp;quot;
@@ -1404,7 +1455,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;cat&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-16&quot;&gt;字符串边界&lt;/h2&gt;
+&lt;h2 id=&quot;字符串边界&quot;&gt;字符串边界&lt;/h2&gt;
 &lt;p&gt;使用乘方符号(^)和美元符号($)来表示首尾。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;This is bad,real bad.  &amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt; &amp;quot;
@@ -1420,7 +1471,7 @@ regmatches(text, m)  #这样可以检验出不合法的xml文档&lt;/code&gt;&lt
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## character(0)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-17&quot;&gt;分行匹配模式&lt;/h2&gt;
+&lt;h2 id=&quot;分行匹配模式&quot;&gt;分行匹配模式&lt;/h2&gt;
 &lt;p&gt;在分行模式下，还将匹配换行符后面的内容，使用分行模式需要使用(?m)来完成。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot; %InLiNe_IdEnTiFiEr% \&amp;quot;#include&amp;lt;stdio.h&amp;gt;\&amp;quot;\n//ptrint Hello world\nint main()\n{\n//begin\nprintf(%,\&amp;quot;Hello world\&amp;quot;);\nreturn 0;\n//end\n}\n&amp;quot;
@@ -1436,7 +1487,7 @@ regmatches(text, m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;//ptrint Hello world&amp;quot; &amp;quot;//begin&amp;quot;              &amp;quot;//end&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-18&quot;&gt;子表达式&lt;/h2&gt;
+&lt;h2 id=&quot;子表达式&quot;&gt;子表达式&lt;/h2&gt;
 &lt;p&gt;据一个例子来说明子表达式什么，比如我们处理”hellohellohello world hello world”这句话的时候我们想把其中的hello连在一起达到两次或者两次以上的字符串找出来，于是我们使用&lt;code&gt;hello{2,}&lt;/code&gt;，但是发现出来的结果和我们想要的有很大的差距，因为表示次数的式子只对离着最近的一个字母起作用。我们想要达到预想的效果需要把hello当作是一个整体，这个时候我们就需要用到子表达式。&lt;/p&gt;
 
 &lt;p&gt;在正则表达式中，子表达式使用（）括起来就可以了，看下面的例子：&lt;/p&gt;
@@ -1455,7 +1506,7 @@ regmatches(x = text, m = m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;hellohellohello&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;section-19&quot;&gt;子表达式的嵌套&lt;/h3&gt;
+&lt;h3 id=&quot;子表达式的嵌套&quot;&gt;子表达式的嵌套&lt;/h3&gt;
 &lt;p&gt;通过一个找出有效IP地址的例子中了解子表达式的嵌套，合法的IP必须满足数字小于255，我们看下面的例子:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;ping 167.42.223.4 and 56.256.2.3&amp;quot;
@@ -1466,7 +1517,7 @@ regmatches(x = text, m = m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;167.42.223.4&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-20&quot;&gt;回溯引用&lt;/h2&gt;
+&lt;h2 id=&quot;回溯引用&quot;&gt;回溯引用&lt;/h2&gt;
 &lt;p&gt;回溯应用是对于子表达式来说的，简单的就是我们用一个符号来表示前面出现过的子表达式。通过下面的应用场合来了解，我们需要找出所有的标题：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;&amp;lt;BODY&amp;gt;\n&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;\nBababallll~~~\n&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;\nmiaomimaomi~~~~~\n&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;\nwangwangwang~~~\n&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;\n&amp;lt;BODY&amp;gt;&amp;quot;
@@ -1489,7 +1540,7 @@ regmatches(x = text, m = m)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
 ## [1] &amp;quot;&amp;lt;H1&amp;gt; H1&amp;lt;/H1&amp;gt;&amp;quot; &amp;quot;&amp;lt;H2&amp;gt; H2&amp;lt;/H2&amp;gt;&amp;quot; &amp;quot;&amp;lt;H3&amp;gt; H3&amp;lt;/H3&amp;gt;&amp;quot; &amp;quot;&amp;lt;H4&amp;gt; H4&amp;lt;/H4&amp;gt;&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h2 id=&quot;section-21&quot;&gt;回溯引用在替代中的使用&lt;/h2&gt;
+&lt;h2 id=&quot;回溯引用在替代中的使用&quot;&gt;回溯引用在替代中的使用&lt;/h2&gt;
 &lt;p&gt;直接看下面的例子:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text &amp;lt;- &amp;quot;balabala~~~  gmail@gmail.com miaomiaomaio~~&amp;quot;
@@ -1516,19 +1567,19 @@ cat(text)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 ## (324) 255-6156&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/regular-expression-in-r-1/&quot;&gt;R中使用正则表达式（1）&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on August 12, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Rstudio快捷键速查]]></title>
-  <link rel="alternate" type="text/html" href="/cn/r/keyboard-shortcuts-of-rstudio/"/>
-  <id>/cn/r/keyboard-shortcuts-of-rstudio</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/"/>
+  <id>http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio</id>
   <published>2013-05-20T00:00:00+00:00</published>
   <updated>2013-05-20T00:00:00+00:00</updated>
   <author>
     <name>HatMatrix</name>
-    <uri></uri>
+    <uri>http://localhost:4000</uri>
     <email>hatmatrix42@gmail.com</email>
   </author>
   <content type="html">&lt;p&gt;手不离键盘是我们的追求，这也是我学习使用Emacs的主要原因之一，虽然很享受Emacs那种学会一招大小通吃的感觉，即使学习曲线陡了一点也还是值得的。但是Rstudio的吸引力实在太大了，使得我不得不放弃Emacs的ESS而投奔她。为了达到手不离键盘的程度，决定学习下快捷键，当我打开帮助文档的那一刹那惊呆了——怎么能有这么多快捷键，怎么能这么没规律！现在想想Emcas还是很人性的。以下是在尝试使用的时候记录下来的对键位的描述，其实就是对英文文档的简单翻译，自己记录下来留用。需要注意的是，无论在Windows下还是在Linux下，都会有少数几个快捷键会和系统快捷键冲突。我是没找到在Rstudio中设置快捷键的地方，如果需要只能把系统快捷键换了。&lt;/p&gt;
@@ -1990,7 +2041,7 @@ cat(text)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 
-&lt;h1 id=&quot;section&quot;&gt;浏览&lt;/h1&gt;
+&lt;h1 id=&quot;浏览&quot;&gt;浏览&lt;/h1&gt;
 &lt;table&gt;
 &lt;tr&gt;
 &lt;td&gt;把光标焦点移动到源代码编辑框&lt;/td&gt;
@@ -2081,7 +2132,7 @@ cat(text)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;完，多练习（2013/5/21）。&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/cn/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/cn/r/keyboard-shortcuts-of-rstudio/&quot;&gt;Rstudio快捷键速查&lt;/a&gt; was originally published by HatMatrix at &lt;a href=&quot;http://localhost:4000&quot;&gt;HatMatrix&lt;/a&gt; on May 20, 2013.&lt;/p&gt;</content>
 </entry>
 
 </feed>

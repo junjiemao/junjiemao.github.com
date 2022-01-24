@@ -1,9 +1,17 @@
 [
 	
 		{
+		  "title"      : "Mac的奔溃",
+		  "category"   : "Hack",
+		  "url"        : "http://localhost:4000/cn/hack/mac-panic/",
+		  "date"       : "2022-01-25 00:00:00 +0000",
+		  "shortdate"  : "January 25, 2022"
+		} ,
+	
+		{
 		  "title"      : "再见2017",
 		  "category"   : "",
-		  "url"        : "http://localhost:4000/cn/say-goodbye-2017/",
+		  "url"        : "http://localhost:4000/cn/say-goodbye-2017-copy/",
 		  "date"       : "2017-12-31 00:00:00 +0000",
 		  "shortdate"  : "December 31, 2017"
 		} ,

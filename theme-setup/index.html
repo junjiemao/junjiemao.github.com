@@ -16,15 +16,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Theme Setup">
 <meta property="og:description" content="Instructions on how to install and customize the Jekyll theme So Simple.">
-<meta property="og:url" content="/theme-setup/">
+<meta property="og:url" content="http://localhost:4000/theme-setup/">
 <meta property="og:site_name" content="HatMatrix">
 
 
 
 
 
-<link rel="canonical" href="/theme-setup/">
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
+<link rel="canonical" href="http://localhost:4000/theme-setup/">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
 <link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
 
 <!-- http://t.co/dKP3o1e -->
@@ -33,28 +33,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.min.css">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.min.css">
 <!-- Webfonts -->
 <script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
-<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+<script src="http://localhost:4000/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
 
 <!-- Icons -->
 <!-- 16x16 -->
-<link rel="shortcut icon" href="/favicon.ico">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
 <!-- 32x32 -->
-<link rel="shortcut icon" href="/favicon.png">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.png">
 <!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
-<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="http://localhost:4000/images/apple-touch-icon-precomposed.png">
 <!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72-precomposed.png">
 <!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114-precomposed.png">
 <!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144-precomposed.png">
 
 
 
@@ -64,7 +64,7 @@ MathJax.Hub.Config({
   jax: ["input/TeX", "output/HTML-CSS"],
   tex2jax: {
     inlineMath: [ ['$', '$'] ],
-    displayMath: [ ['$$', '$$']],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
     processEscapes: true,
     skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
   },
@@ -84,29 +84,29 @@ MathJax.Hub.Config({
 	        
 			<li>
 				
-					<a href="/about/">About</a>
+					<a href="http://localhost:4000/about/">About</a>
 				 
 			</li>
 	        
 			<li>
 				
-					<a href="/articles/">Articles</a>
+					<a href="http://localhost:4000/articles/">Articles</a>
 				 
 			</li>
 	        
 			<li>
 				
-					<a href="/project/">Project</a>
+					<a href="http://localhost:4000/project/">Project</a>
 				 
 			</li>
 	        
 			<li>
 				
-					<a href="/slides/">Slides</a>
+					<a href="http://localhost:4000/slides/">Slides</a>
 				 
 			</li>
 	        
-	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li><a href="http://localhost:4000/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
 	        <li class="dosearch"><i class="icon-search"></i> Search</li>
 	    </ul>
 	</nav>
@@ -124,8 +124,8 @@ MathJax.Hub.Config({
 
 <header class="masthead">
 	<div class="wrap">
-		<a href="" class="site-logo" rel="home" title="HatMatrix"><img src="/images/site-logo.png" width="200" height="200" alt="HatMatrix logo" class="animated fadeInUp"></a>
-		<h1 class="site-title animated fadeIn"><a href="">HatMatrix</a></h1>
+		<a href="http://localhost:4000" class="site-logo" rel="home" title="HatMatrix"><img src="http://localhost:4000/images/site-logo.png" width="200" height="200" alt="HatMatrix logo" class="animated fadeInUp"></a>
+		<h1 class="site-title animated fadeIn"><a href="http://localhost:4000">HatMatrix</a></h1>
 		<h2 class="site-description animated fadeIn" itemprop="description">Statistics,Program & Life</h2>
 	</div>
 </header><!-- /.masthead -->
@@ -146,7 +146,8 @@ MathJax.Hub.Config({
   <li><a href="#setup-for-an-existing-jekyll-site" id="markdown-toc-setup-for-an-existing-jekyll-site">Setup for an Existing Jekyll site</a></li>
   <li><a href="#folder-structure" id="markdown-toc-folder-structure">Folder Structure</a></li>
   <li><a href="#customization" id="markdown-toc-customization">Customization</a>    <ul>
-      <li><a href="#configyml" id="markdown-toc-configyml">_config.yml</a>        <ul>
+      <li><a href="#_configyml" id="markdown-toc-_configyml">_config.yml</a>        <ul>
+          <li><a href="#disqus-comments" id="markdown-toc-disqus-comments">Disqus Comments</a></li>
           <li><a href="#ownerauthor-information" id="markdown-toc-ownerauthor-information">Owner/Author Information</a></li>
           <li><a href="#google-analytics-and-webmaster-tools" id="markdown-toc-google-analytics-and-webmaster-tools">Google Analytics and Webmaster Tools</a></li>
           <li><a href="#top-navigation-links" id="markdown-toc-top-navigation-links">Top Navigation Links</a></li>
@@ -154,7 +155,7 @@ MathJax.Hub.Config({
           <li><a href="#other-stuff" id="markdown-toc-other-stuff">Other Stuff</a></li>
         </ul>
       </li>
-      <li><a href="#includes" id="markdown-toc-includes">_includes</a></li>
+      <li><a href="#_includes" id="markdown-toc-_includes">_includes</a></li>
       <li><a href="#adding-posts-and-pages" id="markdown-toc-adding-posts-and-pages">Adding Posts and Pages</a>        <ul>
           <li><a href="#feature-images" id="markdown-toc-feature-images">Feature Images</a></li>
           <li><a href="#categories" id="markdown-toc-categories">Categories</a></li>
@@ -282,10 +283,10 @@ permalink:   /:categories/:title/</code></pre></figure>
 
 <h2 id="customization">Customization</h2>
 
-<h3 id="configyml">_config.yml</h3>
+<h3 id="_configyml">_config.yml</h3>
 
-<p>Most of the variables found here are used in the .html files found in <code>_includes</code> if you need to add or remove anything. A good place to start would be to change the title, tagline, description, and url of your site. Links are absolute and prefixed with <code>{{ site.url }}</code> in the various <code>_includes</code> and <code>_layouts</code>, so remember to properly set <code>url</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> and use <code>http://localhost:4000</code> when developing locally or else the theme’s stylesheet and scripts won’t load.
-#### Disqus Comments</p>
+<p>Most of the variables found here are used in the .html files found in <code>_includes</code> if you need to add or remove anything. A good place to start would be to change the title, tagline, description, and url of your site. Links are absolute and prefixed with <code>{{ site.url }}</code> in the various <code>_includes</code> and <code>_layouts</code>, so remember to properly set <code>url</code><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup> and use <code>http://localhost:4000</code> when developing locally or else the theme’s stylesheet and scripts won’t load.</p>
+<h4 id="disqus-comments">Disqus Comments</h4>
 
 <p>Create a <a href="http://disqus.com">Disqus</a> account and change <code>disqus_shortname</code> in <code>_config.yml</code> to the Disqus <em>shortname</em> you just setup. To enable commenting on a post, add the following to its front matter:</p>
 
@@ -324,7 +325,7 @@ links:
 <figure class="highlight"><pre><code class="language-yaml" data-lang="yaml">search: true</code></pre></figure>
 
 <figure>
-  <img src="/images/simple-search-screenshot.jpg" alt="search screenshot" />
+  <img src="http://localhost:4000/images/simple-search-screenshot.jpg" alt="search screenshot" />
   <figcaption>Clicking search triggers an overlay that allows you to search by post title.</figcaption>
 </figure>
 
@@ -332,7 +333,7 @@ links:
 
 <p>The rest is just your average Jekyll config settings. Nothing too crazy here…</p>
 
-<h3 id="includes">_includes</h3>
+<h3 id="_includes">_includes</h3>
 
 <p>For the most part you can leave these as is since the author/owner details are pulled from <code>_config.yml</code>. That said you’ll probably want to customize the copyright stuff in <code>footer.html</code> to your liking.</p>
 
@@ -373,7 +374,7 @@ links:
 
 <p>Here’s an example of what a tweet to your site could look like if you activate Twitter Cards and include all the metas in your post’s YAML.</p>
 
-<p><img src="/images/twitter-card-summary-large-image.jpg" alt="Twitter Card summary large image screenshot" /></p>
+<p><img src="http://localhost:4000/images/twitter-card-summary-large-image.jpg" alt="Twitter Card summary large image screenshot" /></p>
 
 <h4 id="videos">Videos</h4>
 
@@ -395,7 +396,7 @@ links:
 
 <h4 id="link-post-type">Link Post Type</h4>
 
-<p>So Simple Theme now supports <strong>link posts</strong>, made famous by John Gruber. To activate just add <code>link: http://url-you-want-linked</code> to the post’s YAML front matter and you’re done. Here’s an <a href="/articles/sample-link-post">example of a link post</a> if you need a visual.</p>
+<p>So Simple Theme now supports <strong>link posts</strong>, made famous by John Gruber. To activate just add <code>link: http://url-you-want-linked</code> to the post’s YAML front matter and you’re done. Here’s an <a href="http://localhost:4000/articles/sample-link-post">example of a link post</a> if you need a visual.</p>
 
 <hr />
 
@@ -417,14 +418,14 @@ links:
 
 <h2 id="license">License</h2>
 
-<p>This theme is free and open source software, distributed under the <a href="/LICENSE">GNU General Public License</a> version 2 or later. So feel free to to modify this theme to suit your needs.</p>
+<p>This theme is free and open source software, distributed under the <a href="http://localhost:4000/LICENSE">GNU General Public License</a> version 2 or later. So feel free to to modify this theme to suit your needs.</p>
 
 <p>If you’d like to give me credit somewhere on your blog or tweet a shout out to <a href="https://twitter.com/mmistakes">@mmistakes</a>, that would be pretty sweet.</p>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:1">
-      <p>Used to generate absolute urls in <code>sitemap.xml</code>, <code>feed.xml</code>, and for canonical urls in <code>head.html</code>. Don’t include a trailing <code>/</code> in your base url ie: http://mademistakes.com. When developing locally I suggest using <code>http://localhost:4000</code> or whatever server you’re using to properly load the theme’s stylesheet, scripts, and image assets. If you leave this variable blank all links will resolve correctly except those pointing home. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:1" role="doc-endnote">
+      <p>Used to generate absolute urls in <code>sitemap.xml</code>, <code>feed.xml</code>, and for canonical urls in <code>head.html</code>. Don’t include a trailing <code>/</code> in your base url ie: http://mademistakes.com. When developing locally I suggest using <code>http://localhost:4000</code> or whatever server you’re using to properly load the theme’s stylesheet, scripts, and image assets. If you leave this variable blank all links will resolve correctly except those pointing home. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -436,7 +437,7 @@ links:
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    <span>&copy; 2017 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
+    <span>&copy; 2022 HatMatrix. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">So Simple Theme</a>.</span>
 <div class="social-icons">
 	
 	
@@ -452,14 +453,14 @@ links:
 </div><!-- /.footer-wrapper -->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-<script src="/assets/js/scripts.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
 
 <!-- Jekyll Simple Search option -->
 <script>
   $(document).ready(function() {
       $('.search-field').simpleJekyllSearch({
-          jsonFile : '/search.json',
+          jsonFile : 'http://localhost:4000/search.json',
           searchResults : '.search-results',
           template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
           noResults: '<p>Nothing found.</p>'

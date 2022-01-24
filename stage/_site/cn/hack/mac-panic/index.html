@@ -5,25 +5,25 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>MySQL和MS SQL Server的一些区别 &#8211; HatMatrix</title>
+<title>Mac的奔溃 &#8211; HatMatrix</title>
 <meta name="description" content="">
-<meta name="keywords" content="MySQL, MS SQL">
+<meta name="keywords" content="Mac, 硬件">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL和MS SQL Server的一些区别">
+<meta property="og:title" content="Mac的奔溃">
 <meta property="og:description" content="">
-<meta property="og:url" content="http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/">
+<meta property="og:url" content="http://localhost:4000/cn/hack/mac-panic/">
 <meta property="og:site_name" content="HatMatrix">
 
 
 
 
 
-<link rel="canonical" href="http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/">
+<link rel="canonical" href="http://localhost:4000/cn/hack/mac-panic/">
 <link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="HatMatrix Feed">
 <link rel="author" href="https://plus.google.com/114197058213583759973/?rel=author">
 
@@ -136,143 +136,62 @@ MathJax.Hub.Config({
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <span class="entry-tags"><a href="http://localhost:4000/tags.html#MySQL" title="Pages tagged MySQL">MySQL</a>&nbsp;&bull;&nbsp;<a href="http://localhost:4000/tags.html#MS SQL" title="Pages tagged MS SQL">MS SQL</a></span>
+        <span class="entry-tags"><a href="http://localhost:4000/tags.html#Mac" title="Pages tagged Mac">Mac</a>&nbsp;&bull;&nbsp;<a href="http://localhost:4000/tags.html#硬件" title="Pages tagged 硬件">硬件</a></span>
         
-          <h1 class="entry-title">MySQL和MS SQL Server的一些区别</h1>
+          <h1 class="entry-title">Mac的奔溃</h1>
         
       </header>
       <footer class="entry-meta">
         <img src="http://localhost:4000/images/bio-photo.jpg" alt="HatMatrix photo" class="author-photo">
         <span class="author vcard">By <span class="fn"><a href="http://localhost:4000/about/" title="About HatMatrix">HatMatrix</a></span></span>
-        <span class="entry-date date published"><time datetime="2013-11-01T00:00:00+00:00"><i class="icon-calendar-empty"></i> November 01, 2013</time></span>
+        <span class="entry-date date published"><time datetime="2022-01-25T00:00:00+00:00"><i class="icon-calendar-empty"></i> January 25, 2022</time></span>
         
         
-        <span><a href="http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" rel="bookmark" title="MySQL和MS SQL Server的一些区别"><i class="icon-link"></i> Permalink</a></span>
+        <span><a href="http://localhost:4000/cn/hack/mac-panic/" rel="bookmark" title="Mac的奔溃"><i class="icon-link"></i> Permalink</a></span>
         
         <span class="social-share-facebook">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/cn/hack/mac-panic/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
         <span class="social-share-twitter">
-            <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+            <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/cn/hack/mac-panic/" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
         <span class="social-share-googleplus">
-            <a href="https://plus.google.com/share?url=http://localhost:4000/cn/%E6%95%B0%E6%8D%AE%E5%BA%93/difference-between-mysql-and-ms-sql/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <a href="https://plus.google.com/share?url=http://localhost:4000/cn/hack/mac-panic/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
             <!-- /.social-share -->
       </footer>
       <div class="entry-content">
-        <p>以前也用过MySQL的数据库，但是主要使用的都是查询，几乎没有使用到触发器、存储过程和函数等功能，最近需要从MS SQL Server迁移到MySQL，在使用过程中发现了一些区别，记录下来。关于查询语句的区别就不说了，主要说说触发器和存储过程等等的区别。</p>
+        <p>最近一台MBP15在盒盖后出现无法唤醒的情况，并且是必现。</p>
 
-<h1 id="触发器">触发器</h1>
-<p>在MySQL中触发器的语法和MS SQL有点区别，下面是一个实例</p>
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">{&quot;timestamp&quot;:&quot;2021-11-08 23:41:04.00 +0800&quot;,&quot;bug_type&quot;:&quot;210&quot;,&quot;os_version&quot;:&quot;macOS 12.0.1 (21A559)&quot;,&quot;incident_id&quot;:&quot;4AE1F716-38C1-4316-BD49-F1D471C18843&quot;}
+{&quot;macOSProcessedStackshotData&quot;:&quot;bm8gb24gZGlzayBwYW5pYyBzdGFja3Nob3QgZm91bmQgaW4gY29yZWZpbGU=&quot;,&quot;macOSPanicString&quot;:&quot;panic(cpu 0 caller 0xffffff8000a411e1): AppleAHCIDiskQueueManager::setPowerState(0xffffff852c0e4480 : 0xffffff8002967d08, 0 -&gt; 3) timed out after 101008 ms @IOServicePM.cpp:5524\nPanicked task 0xffffff852b7986a0: 143 threads: pid 0: kernel_task\nBacktrace (CPU 0), panicked thread: 0xffffff852e7efb70, Frame : Return Address\n0xffffffd05babbab0 : 0xffffff800029c00d \n0xffffffd05babbb00 : 0xffffff80003f5d85 \n0xffffffd05babbb40 : 0xffffff80003e5763 \n0xffffffd05babbb90 : 0xffffff800023ba60 \n0xffffffd05babbbb0 : 0xffffff800029c3dd \n0xffffffd05babbcd0 : 0xffffff800029bb96 \n0xffffffd05babbd30 : 0xffffff8000b18649 \n0xffffffd05babbda0 : 0xffffff8000a411e1 \n0xffffffd05babbe00 : 0xffffff8000a409a9 \n0xffffffd05babbe10 : 0xffffff8000a59f8e \n0xffffffd05babbe50 : 0xffffff8000a3f738 \n0xffffffd05babbe70 : 0xffffff80002ecc85 \n0xffffffd05babbee0 : 0xffffff80002edcd2 \n0xffffffd05babbfa0 : 0xffffff800023b18e \n\nProcess name corresponding to current thread (0xffffff852e7efb70): kernel_task\nBoot args: -x\n\nMac OS version:\n21A559\n\nKernel version:\nDarwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1\/RELEASE_X86_64\nKernel UUID: 19BD4E1B-0268-3EE0-BC66-91F035BC9429\nKernelCache slide: 0x0000000000000000\nKernelCache base:  0xffffff8000200000\nKernel slide:      0x0000000000010000\nKernel text base:  0xffffff8000210000\n__HIB  text base: 0xffffff8000100000\nSystem model name: MacBookPro11,4 (Mac-06F11FD93F0323C5)\nSystem shutdown begun: NO\nPanic diags file available: YES (0x0)\nHibernation exit count: 0\n\nSystem uptime in nanoseconds: 151322306693\nLast Sleep:           absolute           base_tsc          base_nano\n  Uptime  : 0x000000233b833879\n  Sleep   : 0x0000000b274b6469 0x00000002b32b98f2 0x0000000000000000\n  Wake    : 0x0000000b39fc449c 0x00000000957143c8 0x0000000b30a1c483\nZone info:\nForeign   : 0xffffff80058f2000 - 0xffffff80058ff000\nNative    : 0xffffff801de35000 - 0xffffffa01de35000\nReadonly  : 0 - 0\nMetadata  : 0xffffffd2f0113000 - 0xffffffd310299000\nBitmaps   : 0xffffffd310299000 - 0xffffffd316299000\nlast started kext at 6912107645: &gt;AGPM\t125 (addr 0xffffff7f96fa0000, size 122880)\nloaded kexts:\n&gt;AGPM\t125\n&gt;X86PlatformShim\t1.0.0\n@filesystems.autofs\t3.0\n&gt;!ALPC\t3.1\n&gt;!AMuxControl\t6.4.9\n&gt;!AGraphicsDevicePolicy\t6.4.9\n&gt;AGDCBacklightControl\t6.4.9\n&gt;!ADiskImages2\t126.40.1\n&gt;!ABacklight\t180.3\n&gt;!AMCCSControl\t1.14\n&gt;!A!IFramebufferAzul\t18.0.2\n&gt;ACPI_SMC_PlatformPlugin\t1.0.0\n|SCSITaskUserClient\t452.30.4\n&gt;!ATopCaseHIDEventDriver\t5010.1\n&gt;!UTopCaseDriver\t5010.1\n&gt;!UCardReader\t532.40.7\n@filesystems.apfs\t1933.41.2\n&gt;AirPort.BrcmNIC\t1400.1.1\n&gt;!AAHCIPort\t351\n&gt;!AFileSystemDriver\t3.0.1\n@filesystems.tmpfs\t1\n@filesystems.lifs\t1\n@filesystems.hfs.kext\t582.40.4\n@BootCache\t40\n@!AFSCompression.!AFSCompressionTypeZlib\t1.0.0\n@!AFSCompression.!AFSCompressionTypeDataless\t1.0.0d1\n@private.KextAudit\t1.0\n&gt;!AACPIButtons\t6.1\n&gt;!ARTC\t2.0.1\n&gt;!ASmartBatteryManager\t161.0.0\n&gt;!AHPET\t1.8\n&gt;!ASMBIOS\t2.1\n&gt;!AACPIEC\t6.1\n&gt;!AAPIC\t1.7\n@!ASystemPolicy\t2.0.0\n@nke.applicationfirewall\t402\n|IOKitRegistryCompatibility\t1\n|EndpointSecurity\t1\n@Dont_Steal_Mac_OS_X\t7.0.0\n@kec.!AEncryptedArchive\t1\n@kext.triggers\t1.0\n&gt;!ASMBusPCI\t1.0.14d1\n&gt;!AGraphicsControl\t6.4.9\n&gt;!ABacklightExpert\t1.1.0\n|IONDRVSupport\t593\n&gt;!ASMBus!C\t1.0.18d1\n@!AGPUWrangler\t6.4.9\n|IOAccelerator!F2\t462.4\n@!AGraphicsDeviceControl\t6.4.9\n|IOGraphics!F\t593\n&gt;IOPlatformPluginLegacy\t1.0.0\n&gt;X86PlatformPlugin\t1.0.0\n&gt;IOPlatformPlugin!F\t6.0.0d8\n&gt;!AActuatorDriver\t5400.25\n&gt;!AHS!BDriver\t5010.1\n&gt;IO!BHIDDriver\t9.0.0\n&gt;!AMultitouchDriver\t5400.25\n&gt;!AInputDeviceSupport\t5400.30\n&gt;!AHIDKeyboard\t228\n&gt;usb.IOUSBHostHIDDevice\t1.2\n&gt;usb.cdc\t5.0.0\n&gt;usb.networking\t5.0.0\n&gt;usb.!UHostCompositeDevice\t1.2\n&gt;!AThunderboltDPInAdapter\t8.5.0\n&gt;!AThunderboltDPAdapter!F\t8.5.0\n&gt;!AThunderboltPCIDownAdapter\t4.1.1\n&gt;!AXsanScheme\t3\n&gt;!AThunderboltNHI\t7.2.8\n|IOThunderbolt!F\t9.3.2\n|IOAHCIBlock!S\t333\n|IO80211!FLegacy\t1200.12.2b1\n|IOSkywalk!F\t1.0\n&gt;mDNSOffloadUserClient\t1.0.1b8\n&gt;corecapture\t1.0.4\n&gt;!A!ILpssGspi\t3.0.60\n|IOAHCI!F\t295\n&gt;usb.!UXHCIPCI\t1.2\n&gt;usb.!UXHCI\t1.2\n&gt;!ABSDKextStarter\t3\n|IOSurface\t302.9\n@filesystems.hfs.encodings.kext\t1\n&gt;usb.!UHostPacketFilter\t1.0\n|IOUSB!F\t900.4.2\n&gt;!AEFINVRAM\t2.1\n&gt;!AEFIRuntime\t2.1\n|IOSMBus!F\t1.1\n|IOHID!F\t2.0.0\n|IOTimeSync!F\t1000.11\n|IONetworking!F\t3.4\n&gt;DiskImages\t493.0.0\n|IO!B!F\t9.0.0\n|IOReport!F\t47\n$quarantine\t4\n$sandbox\t300.0\n@kext.!AMatch\t1.0.0d1\n|CoreAnalytics!F\t1\n&gt;!ASSE\t1.0\n&gt;!AKeyStore\t2\n&gt;!UTDM\t532.40.7\n|IOUSBMass!SDriver\t209.40.6\n|IOSCSIBlockCommandsDevice\t452.30.4\n|IO!S!F\t2.1\n|IOSCSIArchitectureModel!F\t452.30.4\n&gt;!AMobileFileIntegrity\t1.0.5\n$!AImage4\t4.1.0\n@kext.CoreTrust\t1\n&gt;!AFDEKeyStore\t28.30\n&gt;!AEffaceable!S\t1.0\n&gt;!ACredentialManager\t1.0\n&gt;KernelRelayHost\t1\n|IOUSBHost!F\t1.2\n&gt;!UHostMergeProperties\t1.2\n&gt;usb.!UCommon\t1.0\n&gt;!ABusPower!C\t1.0\n&gt;!ASEPManager\t1.0.1\n&gt;IOSlaveProcessor\t1\n&gt;!AACPIPlatform\t6.1\n&gt;!ASMC\t3.1.9\n|IOPCI!F\t2.9\n|IOACPI!F\t1.4\n&gt;watchdog\t1\n@kec.pthread\t1\n@kec.Libm\t1\n@kec.corecrypto\t12.0\n\n\n&quot;}
+System Profile:
+Network Service: Wi-Fi, AirPort, en0
+Serial ATA Device: APPLE SSD SM0256G, 251 GB
+Thunderbolt Bus: MacBook Pro, Apple Inc., 27.1
+Boot Volume File System Type: apfs
+Memory Module: BANK 0/DIMM0, 8 GB, DDR3, 1600 MHz, 0x80AD, 0x484D54343147533642465238412D50422020
+Memory Module: BANK 1/DIMM0, 8 GB, DDR3, 1600 MHz, 0x80AD, 0x484D54343147533642465238412D50422020
+USB Device: USB30Bus
+USB Device: Apple Internal Keyboard / Trackpad
+USB Device: Bluetooth USB Host Controller
+Display: Color LCD, 2880 x 1800 Retina, Main, MirrorOff, Online
+Model: MacBookPro11,4, BootROM 428.40.10.0.0, 4 processors, Quad-Core Intel Core i7, 2.2 GHz, 16 GB, SMC 2.29f24
+Graphics: Intel Iris Pro, Intel Iris Pro, Built-In
+AirPort: spairport_wireless_card_type_wifi (0x14E4, 0x152), Broadcom BCM43xx 1.0 (7.77.111.1 AirPortDriverBrcmNIC-1710.2)
+AirPort: 
+Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports</code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">DELIMITER $$
-CREATE
-DEFINER=`root`@`localhost`
-TRIGGER `test`.`t_afterinsert_on_tab1`
-AFTER INSERT ON `test`.`test`
-FOR EACH ROW
-BEGIN
-sql语句；
-END$$</code></pre></figure>
-
-<p>和MS SQL不同的是MySQL的触发器类型有六种，分别是<code>AFTER/BEFORE</code>和<code>INSERT/UPDATE/DELETE</code>之间的组合。而MS SQL的触发器是<code>INSERT</code>,<code>UPDATE</code>,<code>DELETE</code>以及<code>INSTEAD OF</code>四种，其中前三种是之后触发，最后一种是之前触发。如果使用习惯了MS SQL的话，在写触发器中的SQL语句就会遇到一个小小的坑。比如有一张表格有x和y两列，需要一个触发器判断x大于0就插入x否则插入-x。如果习惯了M$ SQL会这样写：</p>
-
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">DELIMITER $$
-CREATE TRIGGER	&#39;test&#39;.&#39;error_trigger&#39;
-BEFORE INSTER ON `test`.`test`
-FOR EACH　ROW
-BEGIN
-if new.x&lt;0 then
-inster into test values(-new.x,new.y);
-else
-inster into test values(new.x,new.y);
-end if;
-END$$
-DELIMITER;</code></pre></figure>
-
-<p>但是这样话是无法运行的，因为这样已经相当于循环插入了，正确的做法是:</p>
-
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">DELIMITER $$
-CREATE TRIGGER	&#39;test&#39;.&#39;error_trigger&#39;
-BEFORE INSTER ON `test`.`test`
-FOR EACH　ROW
-BEGIN
-if new.x&lt;0 then
-set new.x=-new.x
-else
-set new.x=new.x #也可以不要这句
-end if;
-END$$
-DELIMITER ;</code></pre></figure>
-
-<p>在写触发器的时候还要注意的就是<code>new</code>和<code>old</code>的使用，这在MS SQL中是没有的。<code>new</code>加上点(.)加上列名就可以取出相应的列，<code>old</code>在删除的时候会用得比较多点。而在MS SQL中是需要使用<code>select</code>来取出的。</p>
-
-<h1 id="存储过程">存储过程</h1>
-
-<p>存储过程没有很大的区别，发现有几点。</p>
-
+<p>看报错是AHCIDiskQueueManager出现了问题，考虑到最近做了几个变动：</p>
 <ul>
-  <li>
-    <p>在MySQL中定义变量是不需要使用<code>@</code>符号的。</p>
-  </li>
-  <li>
-    <p>声明参数的格式为<code>输入（IN）变量还是输出（OUT）变量  变量名 变量类型</code>，比如 <code>IN par_name INT</code>这种就表示是INT型的名字韦par_name的输入型变量。</p>
-  </li>
-  <li>
-    <p>在给变量赋值的时候和MS SQL也是有点区别的，在SQL中可以<code>selct  @a=a,@b=b from test</code>,其中<code>@a</code>、<code>@b</code>为声明的变量,而在MySQL中只能<code>selet a,b into aa,bb  form test</code>,其中<code>aa</code>和<code>bb</code>为声明的变量。</p>
-  </li>
-  <li>
-    <p>ERROR 1093错误经常发生在修改A表的时候使用了A表, 比如 A表中x，y列那么：</p>
-  </li>
+  <li>因为需要读取NTFS硬盘数据，安装了Paragon NTFS</li>
+  <li>升级了Big Sur</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">UPDATE A
-set A.x=new.x
-where x in select x from A as t_xxxx;</code></pre></figure>
+<p>怀疑是以上的原因导致的。在咨询了Apple的客服，把重置SMC、NVRAM、PRAM三连了一遍，并且还回滚了系统，问题仍然没有得到解决，Apple客服无奈地表示只能去店里拆机看看有没有故障。</p>
 
-<p>这样是会报错的，解决方案为</p>
+<p>但是作为一个不想花时间去店里检修一台快要报废的电脑的懒人，决定自己拆机器搞定，Google了一堆资料，问题都指向了一个点–SSD可能坏了。于是拆机断电，拔下SSD清理了灰尘装回。能不能恢复不抱希望，做好了换SSD的打算。结果出乎意料地恢复了。</p>
 
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">UPDATE A
-set A.x=new.x
-where x in
-select x from(select x from A as t_xxxx)</code></pre></figure>
+<p>于是，在本老古董MBP15上水了一篇Blog。</p>
 
-<p>因为对其原理不明白，个人猜想，这可能和SQL语句的内部执行顺序是有关系的，必须在更新之前查找出数据存入临时表中以备用。</p>
-
-<h1 id="函数">函数</h1>
-<p>差别不是很大，注意的也就是参数的声明。</p>
-
-<h1 id="事件调度">事件调度</h1>
-<p>MySQL中的EVENT功能是在5.1版本以后才有的，MS SQL也是有的，但是在08版的Express版本（用不起正版的完整版）是不支持调度的,所以只能苦逼的在外部写一个程序调用。创建在MySQL中创建EVENT的过程如下，具体的语法可以查看手册。</p>
-
-<figure class="highlight"><pre><code class="language-sql" data-lang="sql">show variables like &#39;event_scheduler&#39;;  #查看是否开启定时器  
-set global event_scheduler=1;  #开启定时器 
-
-DELIMITER $$
-CREATE EVENT IF NOT EXISTS EVENT_CheckOnLine
-ON SCHEDULE EVERY 30 SECOND
-ON COMPLETION PRESERVE
-DO BEGIN
-call checkOnline(30);
-END$$
-DELIMITER ;
-
-SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况</code></pre></figure>
-
-<h1 id="其他需要注意的">其他需要注意的</h1>
-<p>在使用的过程还发现了其他一些可能导致的错误：</p>
-
-<ul>
-  <li>
-    <p>ERROR 1175的解决方案是<code>SET SQL_SAFE_UPDATES=0</code>,原因是当要执行的SQL语句是进行批量更新或者删除的时候就会提示这个错误，这是一个保护机制，去掉就是了。</p>
-  </li>
-  <li>
-    <p>workbench中编辑数据的时候（估计直接编辑数据也就在测试阶段使用），如果该表没有设置主键的时候是不能直接编辑数据的。吐槽下workbench的可视化编辑器真的<code>print('很'*10000)</code>难用的。</p>
-  </li>
-  <li>
-    <p>自增加(<code>AUTO_INCREMENT</code>)必须是主键的一部分，并且一张表只能有一个<code>AUTO_INCREMENT</code>属性,其可以是任何整数类型的数据。</p>
-  </li>
-</ul>
-
-<p>就目前的使用来说，暂时就发现这些差异，随着使用肯定会有更加多的问题，到时候再补充。下次去了解下<a href="http://www.postgresql.org/">Postgresql</a>这个号称 <strong>“The world’s most advanced open source database”</strong> 的数据库，这个数据库到目前为止也只是使用过她的查询语句。</p>
+<p>–EOF</p>
 
 
         
@@ -280,10 +199,8 @@ SELECT * FROM information_schema.EVENTS;   #查看事件的调用情况</code></
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
       
-        <a href="http://localhost:4000/cn/%E7%94%9F%E6%B4%BB/mei-zhou-ji-lu-20131028/" class="btn" title="每周记录 20131028">Previous article</a>
+        <a href="http://localhost:4000/cn/say-goodbye-2017-copy/" class="btn" title="再见2017">Previous article</a>
       
-      
-        <a href="http://localhost:4000/cn/r/the-music-king/" class="btn" title="The Music King">Next article</a>
       
     </nav><!-- /.pagination -->
   </article>
